@@ -29,7 +29,7 @@ public class GameLogic {
         p2 = new Player("Blue", 20, territoriesArray[0]);
 
     }
-
+    //Note
     /*
                 private Player player1;
                 private Player player2;

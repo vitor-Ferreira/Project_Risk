@@ -9,7 +9,7 @@ public class Territory {
     private int row;
     private int column;
     private int soldiers;
-    private boolean selected = false;
+    private boolean selected;
     private Player player;
 
 
@@ -64,13 +64,18 @@ public class Territory {
         return conquered = true;
     }
 
-    public boolean select() {
-        return this.selected;
+    public void select() {
+        //square.draw(); // this draws a square when the territory is selected
+        this.selected = true;
     }
 
+    public void unselect() {
+       //square.delete(); // this deletes a square when the territory is unselected
+        this.selected = false;
+    }
 
     public boolean isSelected() {
-        return selected;
+        return this.selected;
     }
 
 

@@ -81,6 +81,11 @@ public class Territory {
     }
 
 
+    public int guardianSoldier(){
+            soldiers = 1;
+    }
+
+
     // --------------territory knows its neighbours?----------
 
 

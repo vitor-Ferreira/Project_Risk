@@ -72,10 +72,15 @@ public class Territory {
         return conquered = true;
     }
 
-    public boolean select() {
-        return this.selected;
+    public void select() {
+        square.draw();
+        selected=true;
     }
-    
+
+    public void unselect() {
+        square.delete();
+        selected =
+    }
 
     public boolean isSelected() {
         return selected;

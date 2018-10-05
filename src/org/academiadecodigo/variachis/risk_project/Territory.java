@@ -9,7 +9,7 @@ public class Territory {
     private int row;
     private int column;
     private int soldiers;
-    private boolean selected = true;
+    private boolean selected = false;
     private String name;
     private Player player;
 
@@ -57,7 +57,7 @@ public class Territory {
     }
 
 
-    
+
 
 
     public int getPosition() {
@@ -73,12 +73,9 @@ public class Territory {
     }
 
     public boolean select() {
-        return true;
+        return this.selected;
     }
-
-    public boolean unselected() {
-        return false;
-    }
+    
 
     public boolean isSelected() {
         return selected;

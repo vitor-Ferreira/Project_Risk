@@ -2,21 +2,31 @@ package org.academiadecodigo.variachis.risk_project;
 
 public interface Interface_Board {
 
-    public int putTroops(int amount, Territory territory);//put troops on the territory
+    //put troops on the territory
+    public int putTroops(int amount, Territory territory);
 
-    public void increment(Player player); //increase amount of troops at the beginning of the round
+    //increase amount of troops at the beginning of the round
+    public void increment(Player player);
 
-    public int limitBoardCol();// return the amount of cols on the grid
+    // return the amount of cols on the grid
+    public int limitBoardCol();
 
-    public int limitBoardRow();//return the amount of rows on the grid
+    //return the amount of rows on the grid
+    public int limitBoardRow();
 
-    public void battle(Territory territoryAttack, Territory territoryDefend); // decides the winner of a battle and decrease the troops
+    // decides the winner of a battle and decrease the troops
+    public void battle(Territory territoryAttack, Territory territoryDefend);
 
-    public boolean victory(); // returns true when a player has no territories
+    // returns true when a player has no territories
+    public boolean victory(Player player1, Player player2);
 
+    //Channges the pointer for the owner of this territory
     public void changePlayerTerritory(Player player, Territory territory);
 
-    public Territory[] getTerritory();
+    //allows reading access by the game class
+    Territory[] getTerritory();
+
+    Territory allowsMoviment(Territory territory);
 
 
 }

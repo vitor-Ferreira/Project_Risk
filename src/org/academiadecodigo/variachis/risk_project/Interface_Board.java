@@ -10,8 +10,10 @@ public interface Interface_Board {
 
     public int limitBoardRow();//return the amount of rows on the grid
 
-    public void battle(); // decides the winner of a battle and decrease the troops
+    public void battle(Territory territoryAttack, Territory territoryDefend); // decides the winner of a battle and decrease the troops
 
     public boolean victory(); // returns true when a player has no territories
+
+    public void changePlayerTerritory(Player player, Territory territory);
 
 }

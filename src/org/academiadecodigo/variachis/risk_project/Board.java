@@ -33,17 +33,24 @@ public class Board implements Interface_Board {
 
     @Override
     public int putTroops(int amount, Territory territory) {
+        territory.setSoldiersIn(amount);
         return amount;
     }
 
     @Override
-    public void battle() {
-
+    public void battle(Territory territoryAttack, Territory territoryDefend) {
+        int attack = territoryAttack.getSoldiers();
+        int defend = territoryDefend.getSoldiers();
     }
 
     @Override
     public boolean victory() {
         return false;
+    }
+
+    @Override
+    public void changePlayerTerritory(Player player, Territory territory) {
+        territory.setPlayer(player);
     }
 
     public void territoryMaker() {

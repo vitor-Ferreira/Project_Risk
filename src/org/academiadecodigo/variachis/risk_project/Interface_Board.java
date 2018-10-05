@@ -26,7 +26,7 @@ public interface Interface_Board {
     //allows reading access by the game class
     Territory[] getTerritory();
 
-    Territory allowsMoviment(Territory territory);
+    boolean allowsMoviment(Movement movement);
 
 
 }

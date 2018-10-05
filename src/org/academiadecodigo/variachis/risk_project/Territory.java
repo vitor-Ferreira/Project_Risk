@@ -96,6 +96,4 @@ public class Territory {
     public Territory getNext() {
         return next;
     }*/
-
-
 }

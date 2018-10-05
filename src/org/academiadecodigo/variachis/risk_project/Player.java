@@ -29,5 +29,5 @@ public class Player {
         return currentTerritory;
     }
 
-    
+
 }

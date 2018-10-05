@@ -38,14 +38,13 @@ public class Player {
         return initialTerritory;
     }
 
-    public Territory getCurrentTerritories() {
+    public Territory getCurrentTerritories() { //get current total territories
 
         return currentTerritories;
     }
 
-    public void addConqueredTerritory(Territory territory) { //add newly conquered terr. to list
+    public void addConqueredTerritory(Territory territory) { //add newly conquered territory to list (not yet done) and counter
 
-         = territory; // <--
         numberOfTerritories += 1;
 
     }
@@ -57,27 +56,17 @@ public class Player {
 
     ///// ----- ///// ----- ///// ----- /////
 
-    /* public Territory move(Movement movement, Territory territory) { //for now, all soldiers-1 are moved
+    public void move(Movement movement, Territory territory) { //for now, all soldiers-1 are moved
 
 
-
-        .putSoldiersIn(soldiers); //just "territory" at the beginning doesn't make sense
-
-    } */
-
-    public Territory attack(Territory fromTerritory, Territory toTerritory) {
-
-        
-
-        board.battle;
     }
 
-    public Territory reinforce(Territory fromTerritory, Territory toTerritory, int soldiers) {
+    public void attack(Territory toTerritory) {
 
 
+    }
 
-        .setSoldiersOut(soldiers);
-        .setSoldiersIn(soldiers);
+    public void reinforce(Territory fromTerritory, Territory toTerritory, int soldiers) {
 
 
     }

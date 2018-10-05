@@ -43,7 +43,7 @@ public class Board implements Interface_Board {
     public void battle(Territory territoryAttack, Territory territoryDefend) {
         int attack = territoryAttack.getSoldiers() - 1;
         int defend = territoryDefend.getSoldiers();
-        territoryAttack.guardianSoldier();// waiting for method name to put soldier on territory = 1
+        territoryAttack.guardianSoldier();//put 1 soldier
 
         if (attack > defend) {
             territoryDefend.setSoldiersIn(attack - defend);
@@ -82,9 +82,8 @@ public class Board implements Interface_Board {
         territory.setPlayer(player);
     }
 
-    //intantiates each territory using a grid filosofy
+    //instantiates each territory using a grid filosofy
     public void territoryMaker() {
-
         for (int i = 0; i < territoriesArray.length - 1; i++) {
             territoriesArray[i] = new Territory(i, 1);// territory(Row, Col)
         }
@@ -97,9 +96,9 @@ public class Board implements Interface_Board {
 
     //finds the selected territory and verifies if is in the border of the game board
     @Override
-    public boolean allowsMoviment(Movement movement) {
+    public boolean allowsMovement(Movement movement) {
         Territory territory;
-        for (int i = 0; i < territoriesArray.length; i++) {
+        for (int i = 0; i < territoriesArray.length - 1; i++) {
             if (territoriesArray[i].isSelected()) {
                 territory = territoriesArray[i];
                 switch (movement) {
@@ -116,12 +115,37 @@ public class Board implements Interface_Board {
                             return false;
                         }
                     case RIGHT:
-                        if (numCols == territory.getCol()) {
+                        if (numCols == territory.getColumn()) {
                             return false;
                         }
                 }
             }
         }
         return true;
+    }
+
+
+    //finds the territorie who is selected
+    public Territory verifyTerritorySelected() {
+        Territory territory = territoriesArray[0];
+        for (int i = 0; i < territoriesArray.length - 1; i++) {
+            if (territoriesArray[i].isSelected()) {
+                territory = territoriesArray[i];
+            }
+        }
+        return territory;
+    }
+
+    public void moveToTerritory(Movement movement) {
+        Territory territory = verifyTerritorySelected();
+        switch (movement) {
+            case UP:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getRow() == territoriesArray[i].getRow() + 1) {
+                        territory.
+                        territoriesArray[i].select();
+                    }// have no ideia
+                }
+        }
     }
 }

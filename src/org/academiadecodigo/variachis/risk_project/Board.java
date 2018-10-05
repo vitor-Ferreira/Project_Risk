@@ -43,7 +43,7 @@ public class Board implements Interface_Board {
     public void battle(Territory territoryAttack, Territory territoryDefend) {
         int attack = territoryAttack.getSoldiers() - 1;
         int defend = territoryDefend.getSoldiers();
-        territoryAttack.setSoldiersIn(1);// waiting for method name to put soldier on territory = 1
+        territoryAttack.guardianSoldier();// waiting for method name to put soldier on territory = 1
 
         if (attack > defend) {
             territoryDefend.setSoldiersIn(attack - defend);
@@ -72,7 +72,6 @@ public class Board implements Interface_Board {
         }
         if (countP1 == 0 || countP2 == 0) {
             return true;
-
         }
         return false;
     }
@@ -96,8 +95,33 @@ public class Board implements Interface_Board {
         return this.territoriesArray;
     }
 
+    //finds the selected territory and verifies if is in the border of the game board
     @Override
-    public Territory allowsMoviment(Territory territory) {
-        return null;
+    public boolean allowsMoviment(Movement movement) {
+        Territory territory;
+        for (int i = 0; i < territoriesArray.length; i++) {
+            if (territoriesArray[i].isSelected()) {
+                territory = territoriesArray[i];
+                switch (movement) {
+                    case DOWN:
+                        if (numRows == territory.getRow()) {
+                            return false;
+                        }
+                    case UP:
+                        if (numRows == 0) {
+                            return false;
+                        }
+                    case LEFT:
+                        if (numCols == 0) {
+                            return false;
+                        }
+                    case RIGHT:
+                        if (numCols == territory.getCol()) {
+                            return false;
+                        }
+                }
+            }
+        }
+        return true;
     }
 }

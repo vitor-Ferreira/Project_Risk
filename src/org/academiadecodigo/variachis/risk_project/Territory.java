@@ -13,7 +13,7 @@ public class Territory {
     private Player player;
 
 
-    public Territory(int row, int column, String name) {
+    public Territory(int row, int column) {
         this.row = row;
         this.column = column;
 

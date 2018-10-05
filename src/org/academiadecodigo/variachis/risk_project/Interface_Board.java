@@ -4,7 +4,7 @@ public interface Interface_Board {
 
     public int putTroops(int amount, Territory territory);//put troops on the territory
 
-    public void increment(); //increase amount of troops at the beginning of the round
+    public void increment(Player player); //increase amount of troops at the beginning of the round
 
     public int limitBoardCol();// return the amount of cols on the grid
 
@@ -15,5 +15,8 @@ public interface Interface_Board {
     public boolean victory(); // returns true when a player has no territories
 
     public void changePlayerTerritory(Player player, Territory territory);
+
+    public Territory[] getTerritory();
+
 
 }

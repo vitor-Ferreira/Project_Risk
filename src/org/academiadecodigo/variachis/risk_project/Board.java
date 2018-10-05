@@ -24,10 +24,11 @@ public class Board implements Interface_Board {
     }
 
     @Override
-    public void increment() {// add 1 troop to every territory who has a player owner
+    public void increment(Player player) {// add 1 troop to every territory who has a player owner
         for (int i = 0; i < territoriesArray.length - 1; i++) {
-            if(territoriesArray[i].getPlayer()!=null){
-            territoriesArray[i].setSoldiersIn(1);}
+            if (territoriesArray[i].getPlayer() == player) {
+                territoriesArray[i].setSoldiersIn(1);
+            }
         }
     }
 
@@ -39,8 +40,10 @@ public class Board implements Interface_Board {
 
     @Override
     public void battle(Territory territoryAttack, Territory territoryDefend) {
-        int attack = territoryAttack.getSoldiers();
+        int attack = territoryAttack.getSoldiers()-1;
         int defend = territoryDefend.getSoldiers();
+
+        //incomplet
     }
 
     @Override
@@ -49,7 +52,7 @@ public class Board implements Interface_Board {
     }
 
     @Override
-    public void changePlayerTerritory(Player player, Territory territory) {
+    public void changePlayerTerritory(Player player, Territory territory) {//change the owner of a territory
         territory.setPlayer(player);
     }
 
@@ -57,5 +60,10 @@ public class Board implements Interface_Board {
         for (int i = 0; i < territoriesArray.length - 1; i++) {
             territoriesArray[i] = new Territory(i, 1);// territory(Row, Col)
         }
+    }
+
+
+    public Territory[] getTerritory() {// get the array with the territories
+        return this.territoriesArray;
     }
 }

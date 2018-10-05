@@ -18,17 +18,17 @@ public class Player {
         this.numberOfTerritories = 1;
     }
 
-    public int checkSoldiersOnTerritory(Territory territory) {
+    /* public int checkSoldiersOnTerritory(Territory territory) {
 
 
-    }
+    } */
 
     public int getTotalSoldiers() {
 
         return totalSoldiers;
     }
 
-    public Territory getInicialTerritory() {
+    public Territory getInitialTerritory() {
 
         return initialTerritory;
     }
@@ -53,16 +53,20 @@ public class Player {
 
     public Territory move(Territory territory, int soldiers) {
 
+        territory.setSoldiersIn(soldiers);
 
     }
 
     public Territory attack (Territory territory, int soldiers) {
 
 
+
     }
 
     public Territory reinforce(Territory fromTerritory, Territory toTerritory, int soldiers) {
 
+        fromTerritory.setSoldiersOut(soldiers);
+        toTerritory.setSoldiersIn(soldiers);
 
     }
 }

@@ -6,11 +6,13 @@ public class Player {
     //private int soldiersOnTerritory;
     private int totalSoldiers;
     private Territory initialTerritory;
-    private Territory currentlyOwnedTerritories;
+    private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //array to create, or not needed?
     private int numberOfCurrentlyOwnedTerritories;
     private Territory currentlySelectedTerritory;
 
     public Player(String color, int initialSoldiers, Territory randomInitialTerritory) {
+        //maybe randomInitialTerritory is not needed here.
+        //perhaps even the initialSoldiers int. All players start with the same number - 20 - after all.
 
         this.color = color;
         this.totalSoldiers = initialSoldiers;
@@ -20,60 +22,67 @@ public class Player {
     }
 
     /* public int checkSoldiersOnTerritory(Territory territory) {
-
         return
     } */
 
-    public int getTotalSoldiers() {
+    public String getColor() {
+        return color;
+    }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getTotalSoldiers() {
         return totalSoldiers;
     }
 
     public void setTotalSoldiers(int addToTotalSoldiers) {
-
         this.totalSoldiers += addToTotalSoldiers;
     }
 
     public Territory getInitialTerritory() {
-
         return initialTerritory;
     }
 
-    public Territory getCurrentlyOwnedTerritories() { //get current total territories
+    public void setInitialTerritory(Territory initialTerritory) {
+        this.initialTerritory = initialTerritory;
+    }
 
-        return currentlyOwnedTerritories;
+    public String getCurrentlyOwnedTerritories() { //get current total territories
+        for (int i = 0; i < currentlyOwnedTerritories.length; i++) {
+            return currentlyOwnedTerritories[i]; // <--
+        }
     }
 
     public void addConqueredTerritory(Territory territory) { //add newly conquered territory to list (not yet done) and counter
-
         numberOfCurrentlyOwnedTerritories += 1;
 
     }
 
     public int getNumberTerritories() {
-
         return numberOfCurrentlyOwnedTerritories;
     }
 
-    ///// ----- ///// ----- ///// ----- /////
-
-    /* public void move(Movement movement, Territory territory) { //for now, all soldiers-1 are moved
+    /* public void territorySelection() {
 
 
     } */
 
-    public void attack(Player player, Movement movement) { //attack what territory
+    ///// ----- ///// ----- ///// ----- /////
 
-        gameLogic.attack(this, movement);
+    public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
+
+        return movement;
+    }
+
+    /* public void attack(Player player, Movement movement) { //attack what territory
+        //attack should be on gameLogic
+
     }
 
     public void reinforce(Player player, Movement movement, int soldiers) { //reinforce what territory, reinforce with how many soldiers
-
-        gameLogic.reinforce(this, movement, soldiers);
-    }
-
-    /* public void select() {
-
+        //reinforcement should be on gameLogic (also, for now, reinforcements moveAll-1, like the attack does)
 
     } */
 }

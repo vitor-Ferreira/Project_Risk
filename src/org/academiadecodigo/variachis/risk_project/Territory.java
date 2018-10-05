@@ -10,7 +10,6 @@ public class Territory {
     private int column;
     private int soldiers;
     private boolean selected = false;
-    private String name;
     private Player player;
 
 
@@ -30,10 +29,6 @@ public class Territory {
     } */
 
 
-    public String getName() {
-        return name;
-    }
-
     public int getSoldiers() {
         return soldiers;
     }
@@ -47,17 +42,14 @@ public class Territory {
     }
 
 
-    public int getRow(){
-        return this.row:
+    public int getRow() {
+        return this.row;
     }
 
 
-    public int getColumn(){
+    public int getColumn() {
         return this.column;
     }
-
-
-
 
 
     public int getPosition() {
@@ -75,7 +67,7 @@ public class Territory {
     public boolean select() {
         return this.selected;
     }
-    
+
 
     public boolean isSelected() {
         return selected;
@@ -91,8 +83,8 @@ public class Territory {
     }
 
 
-    public int guardianSoldier(){
-            soldiers = 1;
+    public int guardianSoldier() {
+        return soldiers = 1;
     }
 
 

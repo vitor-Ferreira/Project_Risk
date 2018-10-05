@@ -6,14 +6,28 @@ public class Territory {
     private boolean conquered = false;
     private int soldiersTurn = 1;
     private int position;
+    private int positionX;
+    private int positionY;
     private int soldiers;
     private boolean selected = true;
     private String name;
+    private Player player;
 
-    public Territory(int position, String name) {
-        this.position = position;
+
+    public Territory(int positionX, int positionY, String name) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+
+        this.position = positionX + positionY;
+
         this.name = name;
     }
+
+
+    /* public Territory(int position, String name) {
+        this.position = position;
+        this.name = name;
+    } */
 
 
     public String getName() {
@@ -56,6 +70,22 @@ public class Territory {
     public boolean isSelected() {
         return selected;
     }
+
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
+    public int guardianSoldier(){
+            soldiers = 1;
+    }
+
+
     // --------------territory knows its neighbours?----------
 
 

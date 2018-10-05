@@ -6,14 +6,28 @@ public class Territory {
     private boolean conquered = false;
     private int soldiersTurn = 1;
     private int position;
+    private int row;
+    private int column;
     private int soldiers;
-    private boolean selected = true;
+    private boolean selected = false;
     private String name;
+    private Player player;
 
-    public Territory(int position, String name) {
-        this.position = position;
+
+    public Territory(int row, int column, String name) {
+        this.row = row;
+        this.column = column;
+
+        this.position = row + column;
+
         this.name = name;
     }
+
+
+    /* public Territory(int position, String name) {
+        this.position = position;
+        this.name = name;
+    } */
 
 
     public String getName() {
@@ -33,6 +47,19 @@ public class Territory {
     }
 
 
+    public int getRow(){
+        return this.row:
+    }
+
+
+    public int getColumn(){
+        return this.column;
+    }
+
+
+
+
+
     public int getPosition() {
         return position;
     }
@@ -45,17 +72,35 @@ public class Territory {
         return conquered = true;
     }
 
-    public boolean select() {
-        return true;
+    public void select() {
+        square.draw();
+        selected=true;
     }
 
-    public boolean unselected() {
-        return false;
+    public void unselect() {
+        square.delete();
+        selected =
     }
 
     public boolean isSelected() {
         return selected;
     }
+
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
+    public int guardianSoldier(){
+            soldiers = 1;
+    }
+
+
     // --------------territory knows its neighbours?----------
 
 

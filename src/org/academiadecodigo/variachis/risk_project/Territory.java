@@ -6,19 +6,19 @@ public class Territory {
     private boolean conquered = false;
     private int soldiersTurn = 1;
     private int position;
-    private int positionX;
-    private int positionY;
+    private int row;
+    private int column;
     private int soldiers;
     private boolean selected = true;
     private String name;
     private Player player;
 
 
-    public Territory(int positionX, int positionY, String name) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+    public Territory(int row, int column, String name) {
+        this.row = row;
+        this.column = column;
 
-        this.position = positionX + positionY;
+        this.position = row + column;
 
         this.name = name;
     }
@@ -45,6 +45,19 @@ public class Territory {
     public void setSoldiersOut(int s) {
         soldiers = soldiers - s;
     }
+
+
+    public int getRow(){
+        return this.row:
+    }
+
+
+    public int getColumn(){
+        return this.column;
+    }
+
+
+    
 
 
     public int getPosition() {

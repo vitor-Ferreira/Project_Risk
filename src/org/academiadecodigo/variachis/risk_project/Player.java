@@ -1,6 +1,7 @@
 package org.academiadecodigo.variachis.risk_project;
 
 public class Player {
+
     private String color;
     private int soldiers;
     private Territory currentTerritory;
@@ -24,8 +25,9 @@ public class Player {
     }
 
 
-
     public Territory getCurrentTerritory() {
         return currentTerritory;
     }
+
+    
 }

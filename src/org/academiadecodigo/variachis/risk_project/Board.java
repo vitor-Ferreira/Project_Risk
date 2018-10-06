@@ -5,6 +5,7 @@ public class Board implements Interface_Board {
     private int numRows;
     private int numCols;
     private Territory[] territoriesArray;
+    private Territory territoryDefend;
 
 
     public Board(int numRows, int numCols) {
@@ -34,13 +35,13 @@ public class Board implements Interface_Board {
     }
 
     @Override
-    public int putTroops(int amount, Territory territory) {
+    public int putTroops(int amount, Territory territory) { // do reinforce-------------------------------------------
         territory.setSoldiersIn(amount);
         return amount;
     }
 
     @Override
-    public void battle(Territory territoryAttack, Territory territoryDefend) {
+    public void battle(Territory territoryAttack) {// find a way to know how we find the territoriy attaker and defender
         int attack = territoryAttack.getSoldiers() - 1;
         int defend = territoryDefend.getSoldiers();
         territoryAttack.guardianSoldier();//put 1 soldier
@@ -85,7 +86,7 @@ public class Board implements Interface_Board {
     //instantiates each territory using a grid filosofy
     public void territoryMaker() {
         for (int i = 0; i < territoriesArray.length - 1; i++) {
-            territoriesArray[i] = new Territory(i, 1);// territory(Row, Col)
+            territoriesArray[i] = new Territory(i, 0);// territory(Row, Col)
         }
     }
 
@@ -125,7 +126,7 @@ public class Board implements Interface_Board {
     }
 
 
-    //finds the territory who is selected
+    //finds the territorie who is selected
     public Territory verifyTerritorySelected() {
         Territory territory = territoriesArray[0];
         for (int i = 0; i < territoriesArray.length - 1; i++) {
@@ -144,11 +145,38 @@ public class Board implements Interface_Board {
                     if (territory.getRow() == territoriesArray[i].getRow() + 1) {
                         territory.unselect();
                         territoriesArray[i].select();
-                    }// have no ideia
-
-
+                        territoryDefend=territoriesArray[i];
+                        return;
+                    }
                 }
-        }
+            case DOWN:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getRow() == territoriesArray[i].getRow() - 1) {
+                        territory.unselect();
+                        territoriesArray[i].select();
+                        territoryDefend=territoriesArray[i];
+                        return;
+                    }
+                }
+            case RIGHT:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getColumn() == territoriesArray[i].getColumn() + 1) {
+                        territory.unselect();
+                        territoriesArray[i].select();
+                        territoryDefend=territoriesArray[i];
+                        return;
+                    }
+                }
+            case LEFT:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getColumn() == territoriesArray[i].getColumn() - 1) {
+                        territory.unselect();
+                        territoriesArray[i].select();
+                        territoryDefend=territoriesArray[i];
+                        return;
+                    }
+                }
 
+        }
     }
 }

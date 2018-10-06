@@ -60,15 +60,10 @@ public class Territory {
     }
 
     public void select() {
-        square.draw();
+        // square.draw(); // this draws a square when the territory is selected
         selected=true;
     }
-
-    public void unselect() {
-        square.delete();
-        //square.draw(); // this draws a square when the territory is selected
-        this.selected = true;
-    }
+    
 
     public void unselect() {
         //square.delete(); // this deletes a square when the territory is unselected

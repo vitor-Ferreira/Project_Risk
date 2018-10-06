@@ -69,7 +69,7 @@ public class Player {
 
     } */
 
-    ///// ----- ///// ----- ///// ----- /////
+    ///// ----- ///// Movement Orders ///// ----- /////
 
     public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
 
@@ -86,4 +86,3 @@ public class Player {
 
     } */
 }
-

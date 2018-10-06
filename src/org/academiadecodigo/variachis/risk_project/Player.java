@@ -7,7 +7,7 @@ public class Player {
     private int totalSoldiers;
     private Territory initialTerritory;
     //private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //list of the player's owned territories. not needed for now.
-    private int numberOfCurrentlyOwnedTerritories;
+    //private int numberOfCurrentlyOwnedTerritories;
     private Territory currentlySelectedTerritory;
 
     public Player(String color, int initialSoldiers, Territory randomInitialTerritory) {
@@ -18,7 +18,7 @@ public class Player {
         this.totalSoldiers = initialSoldiers;
         this.initialTerritory = randomInitialTerritory;
         this.initialTerritory.setSoldiersIn(initialSoldiers);
-        this.numberOfCurrentlyOwnedTerritories = 1;
+        //this.numberOfCurrentlyOwnedTerritories = 1;
     }
 
     /* public int checkSoldiersOnTerritory(Territory territory) {
@@ -57,14 +57,13 @@ public class Player {
         }
     } */
 
-    public void addConqueredTerritory(Territory territory) { //add newly conquered territory to list (not yet done) and counter
+    /* public void addConqueredTerritory(Territory territory) { //add newly conquered territory to list (not yet done) and counter
         numberOfCurrentlyOwnedTerritories += 1;
+    } */
 
-    }
-
-    public int getNumberTerritories() {
+    /* public int getNumberOfCurrentlyOwnedTerritories() {
         return numberOfCurrentlyOwnedTerritories;
-    }
+    } */
 
     /* public void territorySelection() {
 
@@ -75,7 +74,7 @@ public class Player {
 
     public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
 
-        return movement;
+        return movement; //attention: keyboard input.
     }
 
     /* public void attack(Player player, Movement movement) { //attack what territory

@@ -15,8 +15,6 @@ public class Territory {
         this.column = column;
 
         this.position = row + column;
-
-        this.name = name;
     }
 
 

@@ -133,7 +133,7 @@ public class Board implements Interface_Board {
         }
         return true;
     }
-    
+
     //finds the territorie who is selected
     public Territory verifyTerritorySelected() {
         Territory territory = territoriesArray[0];
@@ -153,19 +153,21 @@ public class Board implements Interface_Board {
             case UP:
                 for (int i = 0; i < territoriesArray.length; i++) {
                     if (territoriesArray[i] == territory) {
-                        territory.unselect();
-                        territoriesArray[i + 1].select();
-                        return;
-                    }
-                }
-            case DOWN:
-                for (int i = 0; i < territoriesArray.length; i++) {
-                    if (territoriesArray[i] == territory) {
                         if (i != 0) {
                             territory.unselect();
                             territoriesArray[i - 1].select();
                             return;
                         }
+                    }
+                }
+            case DOWN:
+                for (int i = 0; i < territoriesArray.length; i++) {
+                    if (territoriesArray[i] == territory) {
+
+                            territory.unselect();
+                            territoriesArray[i + 1].select();
+                            return;
+
                     }
                 }
             case RIGHT:

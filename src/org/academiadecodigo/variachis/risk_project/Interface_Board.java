@@ -3,7 +3,7 @@ package org.academiadecodigo.variachis.risk_project;
 public interface Interface_Board {
 
     //put troops on the territory
-    public int putTroops(int amount, Territory territory);
+    public void reinforce(Territory territoryReinforce);
 
     //increase amount of troops at the beginning of the round
     public void increment(Player player);

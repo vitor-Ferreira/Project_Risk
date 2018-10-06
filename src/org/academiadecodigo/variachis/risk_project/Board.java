@@ -35,18 +35,16 @@ public class Board implements Interface_Board {
     }
 
     @Override
-    public int reinforce(Territory territoryReinforce) {// do reinforce-------------------------------------------
-        territoryDestiny.setSoldiersIn(territoryReinforce.getSoldiers()-1);
-        
-
-        territory.setSoldiersIn(amount);
-        return amount;
+    public void reinforce(Territory territoryReinforce) {
+        territoryReinforce.setSoldiersIn(territoryDestiny.getSoldiers()-1);
+        territoryDestiny.setSoldiersOut(1);
     }
 
     @Override
-    public void battle(Territory territoryAttack) {// find a way to know how we find the territoriy attaker and defender
+    public void battle(Territory territoryAttack) {
         int attack = territoryAttack.getSoldiers() - 1;
         int defend = territoryDestiny.getSoldiers();
+
         territoryAttack.guardianSoldier();//put 1 soldier
 
         if (attack > defend) {
@@ -139,16 +137,16 @@ public class Board implements Interface_Board {
         }
         return territory;
     }
-
+    //allows movement;
     public void moveToTerritory(Movement movement) {
         Territory territory = verifyTerritorySelected();
+        territoryDestiny = territory;
         switch (movement) {
             case UP:
                 for (int i = 0; i < territoriesArray.length - 1; i++) {
                     if (territory.getRow() == territoriesArray[i].getRow() + 1) {
                         territory.unselect();
                         territoriesArray[i].select();
-                        territoryDestiny =territoriesArray[i];
                         return;
                     }
                 }
@@ -157,7 +155,6 @@ public class Board implements Interface_Board {
                     if (territory.getRow() == territoriesArray[i].getRow() - 1) {
                         territory.unselect();
                         territoriesArray[i].select();
-                        territoryDestiny =territoriesArray[i];
                         return;
                     }
                 }
@@ -166,7 +163,6 @@ public class Board implements Interface_Board {
                     if (territory.getColumn() == territoriesArray[i].getColumn() + 1) {
                         territory.unselect();
                         territoriesArray[i].select();
-                        territoryDestiny =territoriesArray[i];
                         return;
                     }
                 }
@@ -175,7 +171,6 @@ public class Board implements Interface_Board {
                     if (territory.getColumn() == territoriesArray[i].getColumn() - 1) {
                         territory.unselect();
                         territoriesArray[i].select();
-                        territoryDestiny =territoriesArray[i];
                         return;
                     }
                 }

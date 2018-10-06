@@ -15,7 +15,7 @@ public interface Interface_Board {
     public int limitBoardRow();
 
     // decides the winner of a battle and decrease the troops
-    public void battle(Territory territoryAttack, Territory territoryDefend);
+    public void battle(Territory territoryAttack);
 
     // returns true when a player has no territories
     public boolean victory(Player player1, Player player2);

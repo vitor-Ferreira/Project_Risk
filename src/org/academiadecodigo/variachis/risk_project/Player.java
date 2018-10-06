@@ -6,7 +6,7 @@ public class Player {
     //private int soldiersOnTerritory;
     private int totalSoldiers;
     private Territory initialTerritory;
-    private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //array to create, or not needed?
+    //private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //list of the player's owned territories. not needed for now.
     private int numberOfCurrentlyOwnedTerritories;
     private Territory currentlySelectedTerritory;
 
@@ -49,11 +49,13 @@ public class Player {
         this.initialTerritory = initialTerritory;
     }
 
-    public String getCurrentlyOwnedTerritories() { //get current total territories
+    /* public String getCurrentlyOwnedTerritories() {
+        //get current total territories.
+        //not needed for now, as each territory knows who it belongs to.
         for (int i = 0; i < currentlyOwnedTerritories.length; i++) {
-            return currentlyOwnedTerritories[i]; // <--
+            System.out.println(currentlyOwnedTerritories[i]); // <--
         }
-    }
+    } */
 
     public void addConqueredTerritory(Territory territory) { //add newly conquered territory to list (not yet done) and counter
         numberOfCurrentlyOwnedTerritories += 1;
@@ -69,7 +71,7 @@ public class Player {
 
     } */
 
-    ///// ----- ///// ----- ///// ----- /////
+    ///// ----- ///// Movement Orders ///// ----- /////
 
     public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
 
@@ -86,4 +88,3 @@ public class Player {
 
     } */
 }
-

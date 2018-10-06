@@ -5,21 +5,16 @@ import javax.swing.*;
 public class Territory {
     private boolean conquered = false;
     private int soldiersTurn = 1;
-    private int position;
-    private int row;
-    private int column;
-    private int soldiers;
-    private boolean selected = false;
+    private int position, row, column, soldiers;
+    private boolean selected;
     private Player player;
 
 
-    public Territory(int row, int column, String name) {
+    public Territory(int row, int column) {
         this.row = row;
         this.column = column;
 
         this.position = row + column;
-
-        this.name = name;
     }
 
 
@@ -64,13 +59,18 @@ public class Territory {
         return conquered = true;
     }
 
-    public boolean select() {
-        return this.selected;
+    public void select() {
+        //square.draw(); // this draws a square when the territory is selected
+        this.selected = true;
     }
 
+    public void unselect() {
+        //square.delete(); // this deletes a square when the territory is unselected
+        this.selected = false;
+    }
 
     public boolean isSelected() {
-        return selected;
+        return this.selected;
     }
 
 

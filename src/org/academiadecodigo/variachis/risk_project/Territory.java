@@ -5,10 +5,7 @@ import javax.swing.*;
 public class Territory {
     private boolean conquered = false;
     private int soldiersTurn = 1;
-    private int position;
-    private int row;
-    private int column;
-    private int soldiers;
+    private int position, row, column, soldiers;
     private boolean selected;
     private Player player;
 
@@ -70,7 +67,7 @@ public class Territory {
     }
 
     public void unselect() {
-       //square.delete(); // this deletes a square when the territory is unselected
+        //square.delete(); // this deletes a square when the territory is unselected
         this.selected = false;
     }
 

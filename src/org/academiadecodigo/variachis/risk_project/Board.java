@@ -5,12 +5,13 @@ public class Board implements Interface_Board {
     private int numRows;
     private int numCols;
     private Territory[] territoriesArray;
-    private Territory territoryDestiny;// territory destiny when player moves
+    private Territory territoryOrigin;// territory destiny when player moves
 
 
     public Board(int numRows, int numCols) {
         this.numCols = numCols;
         this.numRows = numRows;
+        territoriesArray = new Territory[numRows];
         territoryMaker();
     }
 
@@ -36,43 +37,48 @@ public class Board implements Interface_Board {
 
     @Override
     public void reinforce(Territory territoryReinforce) {
-        territoryReinforce.setSoldiersIn(territoryDestiny.getSoldiers()-1);
-        territoryDestiny.setSoldiersOut(1);
+        territoryReinforce.setSoldiersIn(territoryOrigin.getSoldiers() - 1);
+        territoryOrigin.setSoldiersOut(1);
+
     }
 
     @Override
     public void battle(Territory territoryAttack) {
-        int attack = territoryAttack.getSoldiers() - 1;
-        int defend = territoryDestiny.getSoldiers();
+        int attack = territoryOrigin.getSoldiers() - 1;
+        int defend = territoryAttack.getSoldiers();
 
-        territoryAttack.guardianSoldier();//put 1 soldier
+        territoryOrigin.guardianSoldier();//put 1 soldier
 
         if (attack > defend) {
-            territoryDestiny.setSoldiersIn(attack - defend);
-            changePlayerTerritory(territoryAttack.getPlayer(), territoryDestiny);
+            territoryAttack.setSoldiersIn(attack - defend);
+            System.out.println(territoryAttack.getSoldiers());
+            changePlayerTerritory(territoryAttack.getPlayer(), territoryAttack);
             return;
         }
         if (defend > attack) {
-            territoryDestiny.setSoldiersIn(defend - attack);
+            territoryAttack.setSoldiersIn(defend - attack);
         }
     }
 
     @Override
-    //not done yet
+    //verify victory condition
     public boolean victory(Player player1, Player player2) {
         int countP1 = 0;
         int countP2 = 0;
-        for (int i = 0; i < territoriesArray.length - 1; i++) {
-            if (territoriesArray[i].getPlayer().equals(player1)) {
-                countP1++;
-                continue;
+        for (int i = 0; i < territoriesArray.length; i++) {
+
+            if (territoriesArray[i].getPlayer() == null) {
+
             }
-            if (territoriesArray[i].getPlayer().equals(player2)) {
+            if (territoriesArray[i].getPlayer() == player1) {
+                countP1++;
+            }
+            if (territoriesArray[i].getPlayer() == player2) {
                 countP2++;
-                continue;
             }
         }
         if (countP1 == 0 || countP2 == 0) {
+            System.out.println("VICToRYYYY");
             return true;
         }
         return false;
@@ -86,7 +92,7 @@ public class Board implements Interface_Board {
 
     //instantiates each territory using a grid filosofy
     public void territoryMaker() {
-        for (int i = 0; i < territoriesArray.length - 1; i++) {
+        for (int i = 0; i < territoriesArray.length; i++) {
             territoriesArray[i] = new Territory(i, 0);// territory(Row, Col)
         }
     }
@@ -100,7 +106,7 @@ public class Board implements Interface_Board {
     @Override
     public boolean allowsMovement(Movement movement) {
         Territory territory;
-        for (int i = 0; i < territoriesArray.length - 1; i++) {
+        for (int i = 0; i < territoriesArray.length; i++) {
             if (territoriesArray[i].isSelected()) {
                 territory = territoriesArray[i];
                 switch (movement) {
@@ -122,11 +128,12 @@ public class Board implements Interface_Board {
                         }
                 }
             }
+            moveToTerritory(movement);
+            return true;
         }
         return true;
     }
-
-
+    
     //finds the territorie who is selected
     public Territory verifyTerritorySelected() {
         Territory territory = territoriesArray[0];
@@ -137,13 +144,82 @@ public class Board implements Interface_Board {
         }
         return territory;
     }
+
     //allows movement;
     public void moveToTerritory(Movement movement) {
         Territory territory = verifyTerritorySelected();
-        territoryDestiny = territory;
+        territoryOrigin = territory;
         switch (movement) {
             case UP:
-                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                for (int i = 0; i < territoriesArray.length; i++) {
+                    if (territoriesArray[i] == territory) {
+                        territory.unselect();
+                        territoriesArray[i + 1].select();
+                        return;
+                    }
+                }
+            case DOWN:
+                for (int i = 0; i < territoriesArray.length; i++) {
+                    if (territoriesArray[i] == territory) {
+                        if (i != 0) {
+                            territory.unselect();
+                            territoriesArray[i - 1].select();
+                            return;
+                        }
+                    }
+                }
+            case RIGHT:
+                /*for (int i = 0; i < territoriesArray.length; i++) {
+                        if (territoriesArray[i] == territory) {
+                            territory.unselect();
+                            territoriesArray[i + 4].select();
+                            return;*/
+                return;
+
+
+            case LEFT:
+                /*for (int i = 0; i < territoriesArray.length; i++) {
+                    if (territoriesArray[i] == territory) {
+                        territory.unselect();
+                        territoriesArray[i - 4].select();
+                        return;
+                    }
+                }
+
+        }*/
+                return;
+
+        }
+    }
+
+    public void addTerritoryToP1(Player player) {
+
+        territoriesArray[0].select();
+        territoriesArray[0].setPlayer(player);
+        territoriesArray[0].setSoldiersIn(20);
+
+    }
+
+    public void addTerritoryToP2(Player player) {
+
+        territoriesArray[2].setPlayer(player);
+        territoriesArray[2].setSoldiersIn(20);
+    }
+
+    public void beginRoundP1() {
+        territoriesArray[0].select();
+    }
+
+    public void beginRoundP2() {
+        territoriesArray[2].select();
+    }
+
+    /*  public void moveToTerritory(Movement movement) {
+        Territory territory = verifyTerritorySelected();
+        territoryOrigin = territory;
+        switch (movement) {
+            case UP:
+                for (int i = 0; i < territoriesArray.length; i++) {
                     if (territory.getRow() == territoriesArray[i].getRow() + 1) {
                         territory.unselect();
                         territoriesArray[i].select();
@@ -151,15 +227,16 @@ public class Board implements Interface_Board {
                     }
                 }
             case DOWN:
-                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                for (int i = 0; i < territoriesArray.length; i++) {
                     if (territory.getRow() == territoriesArray[i].getRow() - 1) {
                         territory.unselect();
                         territoriesArray[i].select();
+                        System.out.println();
                         return;
                     }
                 }
             case RIGHT:
-                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                for (int i = 0; i < territoriesArray.length; i++) {
                     if (territory.getColumn() == territoriesArray[i].getColumn() + 1) {
                         territory.unselect();
                         territoriesArray[i].select();
@@ -167,7 +244,7 @@ public class Board implements Interface_Board {
                     }
                 }
             case LEFT:
-                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                for (int i = 0; i < territoriesArray.length; i++) {
                     if (territory.getColumn() == territoriesArray[i].getColumn() - 1) {
                         territory.unselect();
                         territoriesArray[i].select();
@@ -176,5 +253,5 @@ public class Board implements Interface_Board {
                 }
 
         }
-    }
+    }*/
 }

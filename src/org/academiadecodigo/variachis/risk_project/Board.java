@@ -5,6 +5,7 @@ public class Board implements Interface_Board {
     private int numRows;
     private int numCols;
     private Territory[] territoriesArray;
+    private Territory territoryDestiny;// territory destiny when player moves
 
 
     public Board(int numRows, int numCols) {
@@ -34,24 +35,25 @@ public class Board implements Interface_Board {
     }
 
     @Override
-    public int putTroops(int amount, Territory territory) {
-        territory.setSoldiersIn(amount);
-        return amount;
+    public void reinforce(Territory territoryReinforce) {
+        territoryReinforce.setSoldiersIn(territoryDestiny.getSoldiers()-1);
+        territoryDestiny.setSoldiersOut(1);
     }
 
     @Override
-    public void battle(Territory territoryAttack, Territory territoryDefend) {
+    public void battle(Territory territoryAttack) {
         int attack = territoryAttack.getSoldiers() - 1;
-        int defend = territoryDefend.getSoldiers();
+        int defend = territoryDestiny.getSoldiers();
+
         territoryAttack.guardianSoldier();//put 1 soldier
 
         if (attack > defend) {
-            territoryDefend.setSoldiersIn(attack - defend);
-            changePlayerTerritory(territoryAttack.getPlayer(), territoryDefend);
+            territoryDestiny.setSoldiersIn(attack - defend);
+            changePlayerTerritory(territoryAttack.getPlayer(), territoryDestiny);
             return;
         }
         if (defend > attack) {
-            territoryDefend.setSoldiersIn(defend - attack);
+            territoryDestiny.setSoldiersIn(defend - attack);
         }
     }
 
@@ -85,7 +87,7 @@ public class Board implements Interface_Board {
     //instantiates each territory using a grid filosofy
     public void territoryMaker() {
         for (int i = 0; i < territoriesArray.length - 1; i++) {
-            territoriesArray[i] = new Territory(i, 1);// territory(Row, Col)
+            territoriesArray[i] = new Territory(i, 0);// territory(Row, Col)
         }
     }
 
@@ -125,7 +127,7 @@ public class Board implements Interface_Board {
     }
 
 
-    //finds the territory who is selected
+    //finds the territorie who is selected
     public Territory verifyTerritorySelected() {
         Territory territory = territoriesArray[0];
         for (int i = 0; i < territoriesArray.length - 1; i++) {
@@ -135,20 +137,44 @@ public class Board implements Interface_Board {
         }
         return territory;
     }
-
+    //allows movement;
     public void moveToTerritory(Movement movement) {
         Territory territory = verifyTerritorySelected();
+        territoryDestiny = territory;
         switch (movement) {
             case UP:
                 for (int i = 0; i < territoriesArray.length - 1; i++) {
                     if (territory.getRow() == territoriesArray[i].getRow() + 1) {
                         territory.unselect();
                         territoriesArray[i].select();
-                    }// have no ideia
-
-
+                        return;
+                    }
                 }
-        }
+            case DOWN:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getRow() == territoriesArray[i].getRow() - 1) {
+                        territory.unselect();
+                        territoriesArray[i].select();
+                        return;
+                    }
+                }
+            case RIGHT:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getColumn() == territoriesArray[i].getColumn() + 1) {
+                        territory.unselect();
+                        territoriesArray[i].select();
+                        return;
+                    }
+                }
+            case LEFT:
+                for (int i = 0; i < territoriesArray.length - 1; i++) {
+                    if (territory.getColumn() == territoriesArray[i].getColumn() - 1) {
+                        territory.unselect();
+                        territoriesArray[i].select();
+                        return;
+                    }
+                }
 
+        }
     }
 }

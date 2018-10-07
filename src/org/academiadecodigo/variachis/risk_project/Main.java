@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         Grid g = new Grid(5, 15);
-        g.init();
+        g.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
 
         //GameLogic game = new GameLogic();
         //game.countRounds();

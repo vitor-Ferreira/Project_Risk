@@ -5,6 +5,9 @@ import java.util.Base64;
 public class Main {
     public static void main(String[] args) {
 
+        Grid g = new Grid(5, 15);
+        g.init();
+
         //GameLogic game = new GameLogic();
         //game.countRounds();
         Player p1 = new Player("red");

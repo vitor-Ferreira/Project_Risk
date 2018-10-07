@@ -126,7 +126,7 @@ public class GameLogic {
                 return;
             }
 
-            board.battle(territoryAttack); // Changes in the board.battle method
+            board.battle(); // Changes in the board.battle method
             attackDone = true;
         }
 
@@ -158,7 +158,7 @@ public class GameLogic {
             Territory territoryReinforce = board.verifyTerritorySelected();
 
             if (territoryReinforce.getPlayer() != player) {
-                board.reinforce(territoryReinforce);
+                board.reinforce();
                 reinforceDone = true;
             }
 

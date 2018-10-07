@@ -9,7 +9,7 @@ public class Territory {
     private boolean selected;
     private Player player;
 
-    
+
     public Territory(int row, int column) {
         this.row = row;
         this.column = column;
@@ -36,6 +36,9 @@ public class Territory {
         soldiers = soldiers - s;
     }
 
+    public void afterBattle(int s) {
+        soldiers = soldiers;
+    }
 
     public int getRow() {
         return this.row;
@@ -61,7 +64,7 @@ public class Territory {
 
     public void select() {
         // square.draw(); // this draws a square when the territory is selected
-        selected=true;
+        selected = true;
     }
 
 

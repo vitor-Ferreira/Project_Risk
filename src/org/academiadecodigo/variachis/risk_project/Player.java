@@ -10,12 +10,11 @@ public class Player {
     //private int numberOfCurrentlyOwnedTerritories;
     private Territory currentlySelectedTerritory;
 
-    public Player(String color, int initialSoldiers) {
+    public Player(String color) {
         //maybe randomInitialTerritory is not needed here.
         //perhaps even the initialSoldiers int. All players start with the same number - 20 - after all.
 
         this.color = color;
-        this.totalSoldiers = initialSoldiers;
         //this.initialTerritory = randomInitialTerritory;
 //
     }

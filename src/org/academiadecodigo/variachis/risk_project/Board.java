@@ -41,32 +41,48 @@ public class Board implements Interface_Board {
 
     @Override
     public void reinforce() {
-        territoryDestiny.setSoldiersIn(territoryDestiny.getSoldiers() + territoryOrigin.getSoldiers() - 1);
-        territoryOrigin.guardianSoldier();
+        System.out.println("destiny: " +territoryDestiny.getSoldiers());
+        System.out.println("origin: " +territoryOrigin.getSoldiers());
+       // territoryDestiny.setSoldiersIn(territoryDestiny.getSoldiers() + territoryOrigin.getSoldiers() - 1);
+        System.out.println("territory destiny: "+territoryDestiny.getSoldiers());
+        //territoryOrigin.guardianSoldier();
+
+        /* In case you want to replace the guardianAngel
+        int originSoldiersLeft = territoryOrigin.getSoldiers() - (territoryOrigin.getSoldiers() - 1 );
+        territoryOrigin.setSoldiersIn(originSoldiersLeft);*/
+
         //System.out.println("territory origin " + territoryOrigin.getSoldiers());//_______________________SOUT HERE
         //System.out.println("territory target " + territoryDestiny.getSoldiers());//_______________________SOUT HERE
     }
 
     @Override
     public void battle() {
-        int attack = territoryOrigin.getSoldiers() - 1;
-        //System.out.println("atack "+attack);//--______________________sout here
-        int defend = territoryDestiny.getSoldiers();
-        //System.out.println("defender "+defend);//--______________________sout here
-        if (attack == defend) {
-            territoryDestiny.afterBattle(0);//adds the result of battle on the territory
+        int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
+        //System.out.println("atackTroops " + attackTroops);//--______________________sout here
+        int defendTroops = territoryDestiny.getSoldiers() - attackTroops;
+        //System.out.println("defenderTroops " + defendTroops);//--______________________sout here
+        if (attackTroops == defendTroops) {
+            territoryDestiny.afterBattle(1); //adds the result of battle on the territory
+            territoryOrigin.setSoldiersOut(attackTroops);
+            System.out.println(" Draw - Territory destiny troops: " + territoryDestiny.getSoldiers());
             return;
         }
-        if (attack > defend) {
-            int newAmount = attack - defend;
+        if (attackTroops > defendTroops) {
+            int newAmount = attackTroops - defendTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
+            // System.out.println(territoryDestiny.getPlayer().getColor());
             territoryDestiny.setPlayer(territoryOrigin.getPlayer());
+            // System.out.println(territoryOrigin.getPlayer().getColor());
+            territoryOrigin.setSoldiersOut(attackTroops);
+            //System.out.println("Attack wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
             return;
         }
-        if (attack < defend) { //Correct condition, error due to the fact we only have 3 territories.
-            int newAmount = defend - attack;
+        if (attackTroops < defendTroops) { //Correct condition, error due to the fact we only have 3 territories.
+            int newAmount = defendTroops - attackTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-           // System.out.println(newAmount);//_______________________SOUT HERE
+            territoryOrigin.setSoldiersOut(attackTroops);
+           // System.out.println("new ammount: " + newAmount);//_______________________SOUT HERE
+            //System.out.println("Defense wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
         }
     }
 
@@ -104,6 +120,8 @@ public class Board implements Interface_Board {
     public void territoryMaker() {
         for (int i = 0; i < territoriesArray.length; i++) {
             territoriesArray[i] = new Territory(i, 0);// territory(Row, Col)
+
+            //we will need to do a for inside a for to create a map like a 3x3
         }
     }
 
@@ -144,10 +162,10 @@ public class Board implements Interface_Board {
         return true;
     }
 
-    //finds the territorie who is selected
+    //finds the selected territory
     public Territory verifyTerritorySelected() {
-        Territory territory = territoriesArray[0];
-        for (int i = 0; i < territoriesArray.length - 1; i++) {
+        Territory territory = null;
+        for (int i = 0; i < territoriesArray.length; i++) {
             if (territoriesArray[i].isSelected()) {
                 territory = territoriesArray[i];
             }
@@ -158,19 +176,21 @@ public class Board implements Interface_Board {
     //allows movement;
     public void moveToTerritory(Movement movement) {
         Territory territory = verifyTerritorySelected();
+        numberSoldiersAttacking = territory.getSoldiers();
         territoryOrigin = territory;
         //numberSoldiersAttacking = territoryOrigin.getSoldiers();
         switch (movement) {
             case UP:
                 for (int i = 0; i < territoriesArray.length; i++) {
                     if (territoriesArray[i] == territory) {
-
-
                         territoriesArray[i].unselect();
                         territoriesArray[i - 1].select();
                         territoriesArray[i - 1].setSoldiersIn(territory.getSoldiers() - 1);
                         territoriesArray[i].guardianSoldier();
                         territoryDestiny = territoriesArray[i - 1];
+                        if (territoriesArray[i - 1].getPlayer() == null) {
+                            territoriesArray[i - 1].setPlayer(territoriesArray[i].getPlayer());
+                        }
                         return;
 
                     }
@@ -178,14 +198,16 @@ public class Board implements Interface_Board {
             case DOWN:
                 for (int i = 0; i < territoriesArray.length; i++) {
                     if (territoriesArray[i] == territory) {
-
-                        territory.unselect();
+                        territoriesArray[i].unselect();
                         territoriesArray[i + 1].select();
                         territoriesArray[i + 1].setSoldiersIn(territory.getSoldiers() - 1);
-                        territory.guardianSoldier();
+                        territoriesArray[i].guardianSoldier();
                         territoryDestiny = territoriesArray[i + 1];
-                        //System.out.println("moving here " + territoriesArray[i + 1].getSoldiers());//_______________________SOUT HERE
-                        //System.out.println("moving out here " + territory.getSoldiers());//_______________________SOUT HERE
+                        if (territoriesArray[i + 1].getPlayer() == null) {
+                            territoriesArray[i + 1].setPlayer(territoriesArray[i].getPlayer());
+                        }
+                        // System.out.println("Troops to take with move " + territoriesArray[i + 1].getSoldiers());//_______________________SOUT HERE
+                        //  System.out.println("troops remaining after moving out " + territory.getSoldiers());//_______________________SOUT HERE
                         return;
 
                     }
@@ -219,6 +241,7 @@ public class Board implements Interface_Board {
         territoriesArray[0].select();
         territoriesArray[0].setPlayer(player);
         territoriesArray[0].setSoldiersIn(20);
+        //System.out.println(territoriesArray[0].getPlayer().getColor());
 
     }
 
@@ -226,14 +249,20 @@ public class Board implements Interface_Board {
 
         territoriesArray[2].setPlayer(player);
         territoriesArray[2].setSoldiersIn(20);
+        //System.out.println(territoriesArray[2].getPlayer().getColor());
     }
 
     public void beginRoundP1() {
+        Territory t = verifyTerritorySelected();
+        t.unselect();
         territoriesArray[0].select();
     }
 
     public void beginRoundP2() {
+        Territory t = verifyTerritorySelected();
+        t.unselect();
         territoriesArray[2].select();
+
     }
 
     /*  public void moveToTerritory(Movement movement) {

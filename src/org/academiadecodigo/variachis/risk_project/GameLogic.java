@@ -15,8 +15,8 @@ public class GameLogic {
     public GameLogic() {
         board = new Board(3, 1);
         territoryArray = board.getTerritory();
-        this.p1 = new Player("Red", 20);// check territoryArray
-        this.p2 = new Player("Blue", 20);// check territoryArray
+        this.p1 = new Player("Red");// check territoryArray
+        this.p2 = new Player("Blue");// check territoryArray
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
     }
@@ -46,7 +46,7 @@ public class GameLogic {
 
 
         //while (!board.victory(p1, p2)) {
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 11; i++) {   /** why 11 ? **/
 
             //round(p1);
 

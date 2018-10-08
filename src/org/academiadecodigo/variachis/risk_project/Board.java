@@ -35,7 +35,7 @@ public class Board implements Interface_Board {
             if (territoriesArray[i].getPlayer() == player) {
                 System.out.println("Soldiers before increment: " + territoriesArray[i].getSoldiers());
                 territoriesArray[i].setSoldiersIn(1);
-                System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
+               System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
             }
         }
     }
@@ -60,7 +60,7 @@ public class Board implements Interface_Board {
     public void battle() {
         int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
         System.out.println("atackTroops " + attackTroops);//--______________________sout here
-        int defendTroops = territoryDestiny.getSoldiers() - attackTroops;
+        int defendTroops = territoryDestiny.getSoldiers() - attackTroops-2;
         System.out.println("defenderTroops " + defendTroops);//--______________________sout here
         if (attackTroops == defendTroops) {
             territoryDestiny.afterBattle(1); //adds the result of battle on the territory
@@ -170,7 +170,8 @@ public class Board implements Interface_Board {
                     System.out.println("destiny "+territoryDestiny.getSoldiers());
                     System.out.println("Attack "+ numberSoldiersAttacking);
                     //int i = territory.getRow() - 1;
-
+                    System.out.println("destiny "+territoryDestiny.getSoldiers());
+                    System.out.println("Attack "+ numberSoldiersAttacking);
                     //numberSoldiersDefending = territoriesArray[territory.getRow() - 1].getSoldiers();
                     return;
                 }
@@ -183,7 +184,9 @@ public class Board implements Interface_Board {
                         territoriesArray[territory.getRow() + 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
-                    territoriesArray[territory.getRow()].guardianSoldier();territoryDestiny = territoriesArray[territory.getRow() + 1];
+                    territoriesArray[territory.getRow()].guardianSoldier();
+
+                    territoryDestiny = territoriesArray[territory.getRow() + 1];
                     territoriesArray[territory.getRow() + 1].select();
                     territory.unselect();
 

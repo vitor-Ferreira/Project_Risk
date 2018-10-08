@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         GameLogic game = new GameLogic();
-        //game.countRounds();
+        game.countRounds();
         Player p1 = new Player("red");
         Player p2 = new Player("blue");
 
@@ -23,15 +23,14 @@ public class Main {
         board.beginRoundP2();
         board.increment(p2);
         board.moveToTerritory(Movement.UP);
-       // System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
+        // System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
 
         board.battle();
 
         board.beginRoundP1();
         board.increment(p1);
-        board.moveToTerritory(Movement.DOWN);
+        board.moveToTerritory(Movement.UP);
         board.reinforce();
-
 
 
     }

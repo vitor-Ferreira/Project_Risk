@@ -1,13 +1,83 @@
 package org.academiadecodigo.variachis.risk_project;
 
-public class GameLogic implements Interface_Board {
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+public class GameLogic {
 
-    private Player p1;
+    private Grid grid;
+    private Player p1;//Ver territorios
     private Player p2;
     private Board board;
     private boolean attackDone = false;
+    private boolean reinforceDone = false;
+    private Territory territory;
+    private Territory[] territoryArray;
 
+
+    public GameLogic() {
+
+        board = new Board(1, 3);
+        grid = new Grid(1, 3);
+        grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
+        territoryArray = board.getTerritory();
+
+        Picture militaryHelmet = new Picture(grid.columnToX(0) , grid.rowToY(0) , "/Users/codecadet/Desktop/Project_Risk/Resources/military_helmet-512.png");
+        militaryHelmet.draw();
+        militaryHelmet.grow(-100, -100);
+
+        this.p1 = new Player("Red");// check territoryArray
+        this.p2 = new Player("Blue");// check territoryArray
+        board.addTerritoryToP1(p1);
+        board.addTerritoryToP2(p2);
+    }
+
+    public Movement mov() {
+        int mov = (int) Math.floor(Math.random() * 4);
+        Movement movi;
+        switch (mov) {
+            case 0:
+                movi = Movement.UP;
+                break;
+            case 1:
+                movi = Movement.DOWN;
+                break;
+            case 2:
+                movi = Movement.LEFT;
+                break;
+            default:
+                movi = Movement.RIGHT;
+        }
+        return movi;
+    }
+
+    public void countRounds() {
+
+        int rounds = 1;
+
+
+        //while (!board.victory(p1, p2)) {
+        for (int i = 0; i < 11; i++) {   /** why 11 ? **/
+
+            //round(p1);
+
+            System.out.println("rounds: " + rounds);
+            attackDone = false;
+
+            if (rounds % 2 == 0) {
+                System.out.println("p2");
+                board.beginRoundP2();
+                round(p2);
+                rounds++;
+            }
+
+            board.beginRoundP1();
+            System.out.println("p1");
+            round(p1);
+            rounds++;
+        }
+
+
+    }
 
     public void round(Player player) {
 
@@ -15,7 +85,8 @@ public class GameLogic implements Interface_Board {
         //to increment the troops in territories that have the player that is playing this round
         board.increment(player);
 
-        if (!attackDone) {
+
+        while (!attackDone) {
 
             attack(player);
         }
@@ -28,112 +99,85 @@ public class GameLogic implements Interface_Board {
 
     public void attack(Player player) {
 
-        Movement movement = player.move();
 
-        //check if territory that we are attacking from have +1 troop
+        Movement movi = mov();
+        Movement movement = player.move(movi);
+        System.out.println("move " + movi);
 
-        if (movement.getSoldiers() <= 1) {
-            //choose another territory to attack from
-        }
+        while (!attackDone) {
 
+            //check if territoryArray that we are attacking from have +1 troop
 
-        //gets the territory (movement) that the player wants to attack (defined in Player).
-
-
-        //check if the movement is allowed
-        while (!board.allowsMovement(movement)) {
-
-            //if not allowed return choose new movement
-            //needs to keep checking if new move is allowed...
-            movement = player.move();
-        }
+            /*if (board.verifyTerritorySelected().getSoldiers() <= 1) {
+                //choose another territoryArray to attack from
+                System.out.println("verify if territory only 1");
+                return;
+            }*/
 
 
-        //check if territories have different owners
-        Territory[] map = board.getTerritory();
-        for (int i = 0; i < map.length; i++) {
-            if (map[i].getPlayer() == player) {
-                player.move();
+            //gets the territoryArray (movement) that the player wants to attack (defined in Player).
+
+
+            //check if the movement is allowed
+            if (!board.allowsMovement(movement)) {
+
+                //if not allowed return choose new movement
+                //needs to keep checking if new move is allowed...
+                return;
             }
 
+
+            //check if territories have different owners
+
+            Territory territoryAttack = board.verifyTerritorySelected();
+
+            if (territoryAttack.getPlayer() == player) {
+
+                return;
+            }
+
+            board.battle(); // Changes in the board.battle method
+            attackDone = true;
         }
-
-
-        attackDone = true;
 
 
     }
 
     public void reinforce(Player player) {
 
-        Territory movement = player.move();
+        Movement movi = mov();
+        Movement movement = player.move(movi);
 
-        //Check if the territory that we are reinforcing from has more than 1 soldier
-        if (movement.getSoldiers() >= 1) {
-            //choose another territory to reinforce from
-        }
 
-        //gets the territory (movement) that the player wants to reinforce (defined in Player).
+        while (!reinforceDone) {
 
-        while (!board.allowsMovement(movement)) {
-
-            movement = player.move();
-
-        }
-
-        Territory[] map = board.getTerritory();
-        for (int i = 0; i < map.length; i++) {
-            if (map[i].getPlayer() != player) {
-                player.move();
+            //Check if the territoryArray that we are reinforcing from has more than 1 soldier
+            if (board.verifyTerritorySelected().getSoldiers() <= 1) {
+                return;
             }
+
+            //gets the territoryArray (movement) that the player wants to reinforce (defined in Player).
+
+            if (!board.allowsMovement(movement)) {
+
+
+                return;
+
+            }
+
+            Territory territoryReinforce = board.verifyTerritorySelected();
+
+            if (territoryReinforce.getPlayer() != player) {
+                board.reinforce();
+                reinforceDone = true;
+            }
+
+
+            //check if the territoryArray belongs to the same player
+            //needs to get the territoryArray that you want to move your troops to, and check if its allowed
+            //check if there is +1 troop
         }
-
-
-
-        //check if the territory belongs to the same player
-        //needs to get the territory that you want to move your troops to, and check if its allowed
-        //check if there is +1 troop
     }
 
 
-    @Override
-    public int putTroops(int amount, Territory territory) {
-        return 0;
-    }
-
-    @Override
-    public void increment(Player player) {
-        board.increment(player);
-    }
-
-    @Override
-    public int limitBoardCol() {
-        return 0;
-    }
-
-    @Override
-    public int limitBoardRow() {
-        return 0;
-    }
-
-    @Override
-    public void battle(Territory territoryAttack, Territory territoryDefend) {
-        board.battle(territoryAttack, territoryDefend);
-
-    }
-
-    @Override
-    public void changePlayerTerritory(Player player, Territory territory) {
-
-    }
-
-    @Override
-    public boolean victory() {
-        return false;
-    }
-
-    @Override
-    public Territory[] getTerritory() {
-        return new Territory[0];
-    }
 }

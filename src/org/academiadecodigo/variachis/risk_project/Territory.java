@@ -5,7 +5,10 @@ import javax.swing.*;
 public class Territory {
     private boolean conquered = false;
     private int soldiersTurn = 1;
-    private int position, row, column, soldiers;
+    private int position;
+    private int row;
+    private int column;
+    private int soldiers;
     private boolean selected;
     private Player player;
 
@@ -25,17 +28,24 @@ public class Territory {
 
 
     public int getSoldiers() {
-        return soldiers;
+        return this.soldiers;
+    }
+
+    public void setSoldiers(int s) {
+        this.soldiers = s;
     }
 
     public void setSoldiersIn(int s) {
-        soldiers = soldiers + s;
+        this.soldiers = this.soldiers + s;
     }
 
     public void setSoldiersOut(int s) {
-        soldiers = soldiers - s;
+        this.soldiers = this.soldiers - s;
     }
 
+    public void afterBattle(int s) {
+        this.soldiers = s;
+    }
 
     public int getRow() {
         return this.row;
@@ -60,9 +70,10 @@ public class Territory {
     }
 
     public void select() {
-        //square.draw(); // this draws a square when the territory is selected
+        // square.draw(); // this draws a square when the territory is selected
         this.selected = true;
     }
+
 
     public void unselect() {
         //square.delete(); // this deletes a square when the territory is unselected

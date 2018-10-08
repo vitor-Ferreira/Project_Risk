@@ -5,10 +5,10 @@ import java.util.Base64;
 public class Main {
     public static void main(String[] args) {
 
-        Grid g = new Grid(5, 15);
-        g.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
+        //Grid g = new Grid(1, 3);
+        //g.init();
 
-        //GameLogic game = new GameLogic();
+        GameLogic game = new GameLogic();
         //game.countRounds();
         Player p1 = new Player("red");
         Player p2 = new Player("blue");

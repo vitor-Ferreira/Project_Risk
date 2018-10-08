@@ -20,7 +20,7 @@ public class Grid implements Movable {
     private Rectangle rectangle3;
     private Rectangle selectRect; //rectangulo vermelho de seleçao.
 
-    private int cellSize = 20;
+    private int cellSize = 300;
 
     public Grid(int cols, int rows) {
         this.cols = cols;
@@ -33,25 +33,26 @@ public class Grid implements Movable {
     }
 
     public void init() {
-        gridRect = new Rectangle(PADDING, PADDING, getCellSize() * cols, getCellSize() * rows);
+
+        gridRect = new Rectangle(PADDING, PADDING, cellSize, cellSize * rows);
         gridRect.setColor(Color.BLUE);
         gridRect.draw();
 
-        rectangle1 = new Rectangle();
+        rectangle1 = new Rectangle(columnToX(0), rowToY(0), cellSize, cellSize);
         rectangle1.setColor(Color.GREEN);
         rectangle1.draw();
 
-        rectangle2 = new Rectangle();
+        rectangle2 = new Rectangle(columnToX(0), rowToY(1), cellSize, cellSize);
         rectangle2.setColor(Color.GREEN);
         rectangle2.draw();
 
-        rectangle3 = new Rectangle();
+        rectangle3 = new Rectangle(columnToX(0), rowToY(2), cellSize, cellSize);
         rectangle3.setColor(Color.GREEN);
         rectangle3.draw();
 
-        selectRect = new Rectangle();
+        /* selectRect = new Rectangle(columnToX(0), rowToY(0), cellSize, cellSize);
         selectRect.setColor(Color.RED);
-        selectRect.draw();
+        selectRect.draw(); */
     }
 
     public int getCols() {
@@ -67,7 +68,7 @@ public class Grid implements Movable {
     }
 
     public int setCellSize() {
-        int cellSize = 100;
+        //int cellSize = 100;
         return cellSize;
     }
 

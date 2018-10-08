@@ -1,8 +1,10 @@
 package org.academiadecodigo.variachis.risk_project;
 
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 public class GameLogic {
 
-
+    private Grid grid;
     private Player p1;//Ver territorios
     private Player p2;
     private Board board;
@@ -13,8 +15,16 @@ public class GameLogic {
 
 
     public GameLogic() {
-        board = new Board(3, 1);
+
+        board = new Board(1, 3);
+        grid = new Grid(1, 3);
+        grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
         territoryArray = board.getTerritory();
+
+        Picture militaryHelmet = new Picture(grid.columnToX(0) , grid.rowToY(0) , "/Users/codecadet/Desktop/Project_Risk/Resources/military_helmet-512.png");
+        militaryHelmet.draw();
+        militaryHelmet.grow(-100, -100);
+
         this.p1 = new Player("Red");// check territoryArray
         this.p2 = new Player("Blue");// check territoryArray
         board.addTerritoryToP1(p1);
@@ -53,7 +63,7 @@ public class GameLogic {
             System.out.println("rounds: " + rounds);
             attackDone = false;
 
-           if (rounds % 2 == 0) {
+            if (rounds % 2 == 0) {
                 System.out.println("p2");
                 board.beginRoundP2();
                 round(p2);

@@ -33,9 +33,9 @@ public class Board implements Interface_Board {
     public void increment(Player player) {
         for (int i = 0; i < territoriesArray.length; i++) {
             if (territoriesArray[i].getPlayer() == player) {
-                //System.out.println("Soldiers before increment: " + territoriesArray[i].getSoldiers());
+                System.out.println("Soldiers before increment: " + territoriesArray[i].getSoldiers());
                 territoriesArray[i].setSoldiersIn(1);
-                //System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
+                System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
             }
         }
     }
@@ -45,7 +45,7 @@ public class Board implements Interface_Board {
         System.out.println("destiny: " + territoryDestiny.getSoldiers());
         System.out.println("origin: " + territoryOrigin.getSoldiers());
         // territoryDestiny.setSoldiersIn(territoryDestiny.getSoldiers() + territoryOrigin.getSoldiers() - 1);
-        System.out.println("territory destiny: " + territoryDestiny.getSoldiers());
+
         //territoryOrigin.guardianSoldier();
 
         /* In case you want to replace the guardianAngel
@@ -136,45 +136,7 @@ public class Board implements Interface_Board {
     public boolean allowsMovement(Movement movement) {
         return true;
     }
-       /* Territory territory;
-        for (int i = 0; i < territoriesArray.length; i++) {
-            if (territoriesArray[i].isSelected()) {
-                territory = territoriesArray[i];
-                switch (movement) {
-                    case DOWN:
-                        if (i == numRows) {
-                            System.out.println("dont allow down");
-                            return false;
-                        }
-                        moveToTerritory(movement);
-                        System.out.println("allow down");
-                        return true;
-                    case UP:
-                        if (i == 0) {
-                            System.out.println("dont allow up");
-                            return false;
-                        }
-                        System.out.println("allow up");
-                        moveToTerritory(movement);
-                        return true;
-                    case LEFT:
-                        if (numCols == 0) {
 
-                            return false;
-                        }
-                        moveToTerritory(movement);
-                    case RIGHT:
-                        if (numCols == territory.getColumn()) {
-
-                            return false;
-                        }
-                        moveToTerritory(movement);
-                }
-            }
-            return true;
-        }
-        return true;
-    }*/
 
     //finds the selected territory
     public Territory verifyTerritorySelected() {
@@ -198,13 +160,15 @@ public class Board implements Interface_Board {
                     if (territoriesArray[territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getRow() - 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
                     }
+                    territoriesArray[territory.getRow() - 1].setSoldiersIn(territory.getSoldiers() - 1);
+                    territoriesArray[territory.getRow()].guardianSoldier();
+
                     territoryDestiny = territoriesArray[territory.getRow() - 1];
                     territoriesArray[territory.getRow() - 1].select();
                     territory.unselect();
 
-                    territoriesArray[territory.getRow() - 1].setSoldiersIn(territory.getSoldiers() - 1);
-                    territoriesArray[territory.getRow()].guardianSoldier();
-
+                    System.out.println("destiny "+territoryDestiny.getSoldiers());
+                    System.out.println("Attack "+ numberSoldiersAttacking);
                     //int i = territory.getRow() - 1;
 
                     //numberSoldiersDefending = territoriesArray[territory.getRow() - 1].getSoldiers();
@@ -218,14 +182,14 @@ public class Board implements Interface_Board {
                     if (territoriesArray[territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getRow() + 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
                     }
-                    territoryDestiny = territoriesArray[territory.getRow() + 1];
+                    territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
+                    territoriesArray[territory.getRow()].guardianSoldier();territoryDestiny = territoriesArray[territory.getRow() + 1];
                     territoriesArray[territory.getRow() + 1].select();
                     territory.unselect();
 
-                    territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
-                    territoriesArray[territory.getRow()].guardianSoldier();
-
                     //int i = territory.getRow() + 1;
+                    System.out.println("destiny "+territoryDestiny.getSoldiers());
+                    System.out.println("Attack "+ numberSoldiersAttacking);
 
                     //numberSoldiersDefending = territoriesArray[territory.getRow() + 1].getSoldiers();
                     return;

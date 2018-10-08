@@ -8,7 +8,7 @@ public class Main {
         //Grid g = new Grid(1, 3);
         //g.init();
 
-        GameLogic game = new GameLogic();
+        //GameLogic game = new GameLogic();
         //game.countRounds();
         Player p1 = new Player("red");
         Player p2 = new Player("blue");
@@ -32,7 +32,7 @@ public class Main {
 
         board.beginRoundP1();
         board.increment(p1);
-        board.moveToTerritory(Movement.DOWN);
+        board.moveToTerritory(Movement.UP);
         board.reinforce();
 
 

@@ -60,17 +60,17 @@ public class GameKeyboard implements KeyboardHandler {
                 //System.out.println("RIGHT KEY PRESSED");
                 break; */
             case KeyboardEvent.KEY_UP:
-                game.move(UP);
+                //game.move(UP);
                 //
                 //System.out.println("LEFT KEY PRESSED");
                 break;
             /* case KeyboardEvent.KEY_RIGHT:
-                game.move(RIGHT); */
+                game.move(RIGHT);
                 //
                 //System.out.println("RIGHT KEY PRESSED");
-                break;
+                break; */
             case KeyboardEvent.KEY_DOWN:
-                game.mov(DOWN);
+                //game.mov(DOWN);
                 //
                 //System.out.println("DOWN KEY PRESSED");
                 break;

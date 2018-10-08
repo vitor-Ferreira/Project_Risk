@@ -167,8 +167,8 @@ public class Board implements Interface_Board {
                     territoriesArray[territory.getRow() - 1].select();
                     territory.unselect();
 
-                    System.out.println("destiny "+territoryDestiny.getSoldiers());
-                    System.out.println("Attack "+ numberSoldiersAttacking);
+                    System.out.println("destiny " + territoryDestiny.getSoldiers());
+                    System.out.println("Attack " + numberSoldiersAttacking);
                     //int i = territory.getRow() - 1;
 
                     //numberSoldiersDefending = territoriesArray[territory.getRow() - 1].getSoldiers();
@@ -183,13 +183,14 @@ public class Board implements Interface_Board {
                         territoriesArray[territory.getRow() + 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
-                    territoriesArray[territory.getRow()].guardianSoldier();territoryDestiny = territoriesArray[territory.getRow() + 1];
+                    territoriesArray[territory.getRow()].guardianSoldier();
+                    territoryDestiny = territoriesArray[territory.getRow() + 1];
                     territoriesArray[territory.getRow() + 1].select();
                     territory.unselect();
 
                     //int i = territory.getRow() + 1;
-                    System.out.println("destiny "+territoryDestiny.getSoldiers());
-                    System.out.println("Attack "+ numberSoldiersAttacking);
+                    System.out.println("destiny " + territoryDestiny.getSoldiers());
+                    System.out.println("Attack " + numberSoldiersAttacking);
 
                     //numberSoldiersDefending = territoriesArray[territory.getRow() + 1].getSoldiers();
                     return;

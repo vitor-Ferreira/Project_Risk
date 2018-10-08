@@ -122,7 +122,7 @@ public class GameLogic {
 
 
             //check if the movement is allowed
-            board.moveToTerritory(movement);
+            //board.moveToTerritory(movement);
 
             //if not allowed return choose new movement
             //needs to keep checking if new move is allowed...
@@ -145,7 +145,7 @@ public class GameLogic {
 
     public void reinforce(Player player) {
 
-        Movement movement = player.move(movi); //??????????
+        //Movement movement = player.move(movi); //??????????
 
         while (!reinforceDone) {
 
@@ -156,22 +156,21 @@ public class GameLogic {
 
             //gets the territoryArray (movement) that the player wants to reinforce (defined in Player).
 
-            if (!board.allowsMovement(movement)) {
+            //if (!board.allowsMovement(movement)) {
 
-                return;
+            return;
 
-            }
-
-            Territory territoryReinforce = board.verifyTerritorySelected();
-
-            if (territoryReinforce.getPlayer() != player) {
-                board.reinforce();
-                reinforceDone = true;
-            }
-
-            //check if the territoryArray belongs to the same player
-            //needs to get the territoryArray that you want to move your troops to, and check if its allowed
-            //check if there is +1 troop
         }
+
+        Territory territoryReinforce = board.verifyTerritorySelected();
+
+        if (territoryReinforce.getPlayer() != player) {
+            board.reinforce();
+            reinforceDone = true;
+        }
+
+        //check if the territoryArray belongs to the same player
+        //needs to get the territoryArray that you want to move your troops to, and check if its allowed
+        //check if there is +1 troop
     }
 }

@@ -22,12 +22,17 @@ public class GameLogic {
         grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
         territoryArray = board.getTerritory();
 
-        Picture militaryHelmet = new Picture(grid.columnToX(0), grid.rowToY(0), "/Users/codecadet/Desktop/Project_Risk/Resources/military_helmet-512.png");
+        /* Picture militaryHelmet = new Picture(grid.columnToX(0), grid.rowToY(0), "/Users/codecadet/Desktop/Project_Risk/Resources/military_helmet-512.png");
         militaryHelmet.draw();
         militaryHelmet.grow(-100, -100);
+        */
 
         this.p1 = new Player("Red");// check territoryArray
         this.p2 = new Player("Blue");// check territoryArray
+
+        grid.playerImagesShow();
+        //grid.player2ImagesShow();
+
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
     }
@@ -36,15 +41,15 @@ public class GameLogic {
         //int move = (int) Math.floor(Math.random() * 4);
         Movement movi = movement;
         switch (movement) {
-            case LEFT:
+            /* case LEFT:
                 movi = Movement.LEFT;
-                break;
+                break; */
             case UP:
                 movi = Movement.UP;
                 break;
-            case RIGHT:
+            /* case RIGHT:
                 movi = Movement.RIGHT;
-                break;
+                break; */
             case DOWN:
                 movi = Movement.DOWN;
         }

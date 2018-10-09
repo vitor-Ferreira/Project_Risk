@@ -20,7 +20,7 @@ public class GameLogic {
     public void init() {
 
         board = new Board(3, 1);
-        grid = new Grid(1, 3);
+        grid = new Grid(1, 3); //Board may also need to know a Grid instance.
         grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
         territoryArray = board.getTerritory();
 
@@ -43,6 +43,7 @@ public class GameLogic {
         board.addTerritoryToP2(p2);
     }
 
+    //no need for this now. commands go directly from keyboard to board.
     /* public void move(Movement movement) {
         //int move = (int) Math.floor(Math.random() * 4);
         Movement mov = movement;
@@ -110,27 +111,23 @@ public class GameLogic {
             //check if territoryArray that we are attacking from has more than 1 soldier
             //if (board.verifyTerritorySelected().getSoldiers() <= 1) {
             //System.out.println(board.verifyTerritorySelected());
-            if (board.verifyTerritorySelected().getSoldiers() <= 1) {  /** CREATE GETTER **/
+            if (board.verifyTerritorySelected().getSoldiers() <= 1) {  /** PERHAPS CREATE GETTER IN BOARD **/
                 //choose another territoryArray to attack from
                 System.out.println("verify if territory only 1");
                 return;
             }
 
             /* //gets the territoryArray (movement) that the player wants to attack (defined in Player).
-
             //check if the movement is allowed
             //board.moveToTerritory(movement);
-
             //if not allowed return choose new movement
             //needs to keep checking if new move is allowed...
             //return; */
 
             //check if territories have different owners
-
             Territory territoryAttack = board.verifyTerritorySelected();
 
             if (territoryAttack.getPlayer() == player) {
-
                 return;
             }
 
@@ -140,8 +137,6 @@ public class GameLogic {
     }
 
     public void reinforce(Player player) {
-
-        //Movement movement = player.move(movi); //??????????
 
         while (!reinforceDone) {
 

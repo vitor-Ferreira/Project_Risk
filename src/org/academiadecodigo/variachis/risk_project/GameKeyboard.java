@@ -58,7 +58,7 @@ public class GameKeyboard implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent evt) {
 
-        switch (evt.getKey()) { //isto puderá estar errado. daqui deverá ir para o Player e não para o GameLogic, talvez. e só aí é que iria para o GameLogic.
+        switch (evt.getKey()) { 
 
             case KeyboardEvent.KEY_SPACE:
 

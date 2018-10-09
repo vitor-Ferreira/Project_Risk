@@ -13,8 +13,18 @@ public class GameKeyboard implements KeyboardHandler {
     // ^ a gameKeyboard object is instanced right when the game starts and we immediately start running it.
     // when it starts running it immediately creates (aka "the real") a keyboard object and starts running. test this.
 
+    private GameLogic game;
+    private Board board;
 
-    public void runKeyboard() throws InterruptedException {
+    public void setGame(GameLogic game) {
+        this.game = game;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void runKeyboard() {
 
         Keyboard k = new Keyboard(this);
 
@@ -48,31 +58,33 @@ public class GameKeyboard implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent evt) {
 
-        switch (evt.getKey()) { //isto puderá estar errado. daqui deverá ir para o Player e não para o GameLogic, talvez. e só aí é que iria para o GameLogic.
+        switch (evt.getKey()) { 
 
             case KeyboardEvent.KEY_SPACE:
 
                 //System.out.println("SPACE KEY PRESSED");
                 break;
+
             /* case KeyboardEvent.KEY_LEFT:
-                game.move(LEFT)
-                //example: car.move(Movement.LEFT);
+                //game.move(Movement.LEFT);
                 //System.out.println("RIGHT KEY PRESSED");
                 break; */
+
             case KeyboardEvent.KEY_UP:
-                //game.move(UP);
-                //
-                //System.out.println("LEFT KEY PRESSED");
+                board.moveToTerritory(Movement.UP);
+                //game.move(Movement.UP);
+                System.out.println("LEFT KEY PRESSED");
                 break;
+
             /* case KeyboardEvent.KEY_RIGHT:
-                game.move(RIGHT);
-                //
+                //game.move(Movement.RIGHT);
                 //System.out.println("RIGHT KEY PRESSED");
                 break; */
+
             case KeyboardEvent.KEY_DOWN:
-                //game.mov(DOWN);
-                //
-                //System.out.println("DOWN KEY PRESSED");
+                board.moveToTerritory(Movement.DOWN);
+                //game.move(Movement.DOWN);
+                System.out.println("DOWN KEY PRESSED");
                 break;
         }
     }

@@ -3,22 +3,22 @@ package org.academiadecodigo.variachis.risk_project;
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Grid implements Movable {
+public class Grid {
 
     public static final int PADDING = 10;
 
     private int cols;
     private int rows;
     private Territory territory;
+    private int x;
+    private int y;
 
     //private GridPosition gridPosition;
 
-    private Picture backgroundPicture;
-    private Rectangle gridRect; //a grelha em si - o field, podemos dizer.
-    private Rectangle rectangle1;
-    private Rectangle rectangle2;
-    private Rectangle rectangle3;
-    private Rectangle selectRect; //rectangulo vermelho de seleçao.
+
+    private Rectangle[][] cellsArray = new Rectangle[5][5];
+    private Picture moveableImage;
+
 
     private int cellSize = 200;
 
@@ -35,30 +35,119 @@ public class Grid implements Movable {
     public void init() {
 
 
-        gridRect = new Rectangle(PADDING, PADDING, cellSize, cellSize);
-        backgroundPicture = new Picture(PADDING, PADDING, "Resources/terrain.jpg");
+        Rectangle gridRect = new Rectangle(PADDING, PADDING, cellSize * cols, cellSize * rows);
+        Picture backgroundPicture = new Picture(PADDING, PADDING, "Resources/terrain.jpg");
         backgroundPicture.draw();
-        gridRect.setColor(Color.BLUE);
+        gridRect.setColor(Color.BLACK);
         gridRect.draw();
 
-        rectangle1 = new Rectangle(columnToX(0), rowToY(0), cellSize, cellSize);
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                System.out.println("i: " + i);
+                System.out.println("j: " + j);
+                Rectangle cell = new Rectangle(colsToX(i), rowToY(j), cellSize, cellSize);
+                cell.setColor(Color.BLACK);
+                cell.draw();
+                cellsArray[i][j] = cell;
 
-        rectangle1.draw();
-        rectangle1.setColor(Color.BLACK);
+            }
+        }
+
+        movementImage();
+        showNumberSoldiers();
+    }
+
+    public int colsToX(int cols) {
+        x = cols * cellSize + PADDING;
+        return x;
+
+    }
+
+    public int rowToY(int rows) {
+        y = rows * cellSize + PADDING;
+        return y;
+    }
+
+    public void movementImage(){ //Por argumentos para as posicoes pois vai ser ussado para fazer o set dos 2 players
+
+        //if(territory.getPlayer().getColor().equals("red")) {
+            moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
+            moveableImage.draw();
+        //}
+
+        //if(territory.getPlayer().getColor().equals("blue")) {
+            moveableImage = new Picture(PADDING, PADDING + (territory.getRow() - 1) * cellSize, "Resources/tank1.png");
+            moveableImage.draw();
+        //}
+
+    }
+
+    public void moveRight() {
+        if(moveableImage.getX() < cols * cellSize + PADDING ) {
+            moveableImage.translate(cellSize, 0);
+        }
+    }
+
+    public void moveLeft() {
+        if(moveableImage.getX() > PADDING) {
+            moveableImage.translate(-cellSize, 0);
+        }
+    }
+
+    public void moveUp() {
+        if(moveableImage.getY() > PADDING) {
+            moveableImage.translate(0, -cellSize);
+        }
+    }
+
+    public void moveDown() {
+        if(moveableImage.getY() < rows * cellSize + PADDING) {
+            moveableImage.translate(0, cellSize);
+
+        }
+    }
+    
+
+    public void showNumberSoldiers(){
+
+        //String getSoldiers = "" + territory.getSoldiers(); // Ver se da?????
+
+        for(int i = 0; i < cols; i++){
+            for (int j = 0; j < rows; j++){
+                System.out.println("i: " + i);
+                System.out.println("j: " + j);
+                //if (territory.getPlayer().getColor().equals("red")) {
+                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize , "20");
+                    text.grow(25, 25);
+                    text.draw();
+                    text.setColor(Color.RED);
+                //}
+
+                /*if (territory.getPlayer().getColor().equals("blue")) {
+                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize , "20");
+                    text.grow(25, 25);
+                    text.draw();
+                    text.setColor(Color.BLUE);
+                //} */
 
 
-        rectangle2 = new Rectangle(columnToX(0), rowToY(1), cellSize, cellSize);
-        rectangle2.draw();
+                //if (territory.getPlayer().getColor().equals("BLUE")) {
+                /*text = new Text(i, j, getSoldiers);
+                text.grow(25, 25);
+                text.draw();
+                text.setColor(Color.BLUE);
+                //}*/
+            }
+        }
 
 
-        rectangle3 = new Rectangle(columnToX(0), rowToY(2), cellSize, cellSize);
-        rectangle3.setColor(Color.BLACK);
-        rectangle3.draw();
+
+    }
 
         /* selectRect = new Rectangle(columnToX(0), rowToY(0), cellSize, cellSize);
         selectRect.setColor(Color.RED);
         selectRect.draw(); */
-    }
+    /*}
 
     public void playerImagesShow() {
         Picture playerIcon = new Picture(columnToX(0) - 150, rowToY(0) - 150, "Resources/tank.png");
@@ -94,7 +183,7 @@ public class Grid implements Movable {
         text.draw();
     }*/
 
-    public void player1ImagesHide() {
+    /*public void player1ImagesHide() {
         Picture playerIcon = new Picture(columnToX(0) - 150, rowToY(0) - 150, "Resources/tank.png");
         playerIcon.draw();
         playerIcon.grow(-150, -150);
@@ -117,51 +206,8 @@ public class Grid implements Movable {
         text.draw();
         text.delete();
 
-    }
+    }*/
 
-    public int getCols() {
-        return cols;
-    }
 
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCellSize() {
-        return cellSize;
-    }
-
-    public int setCellSize() {
-        //int cellSize = 100;
-        return cellSize;
-    }
-
-    public int getWidth() {
-        return gridRect.getWidth();
-    }
-
-    public int getHeight() {
-        return gridRect.getHeight();
-    }
-
-    public int getX() {
-        return gridRect.getX();
-    }
-
-    public int getY() {
-        return gridRect.getY();
-    }
-
-    public int columnToX(int column) {
-        return column * getCellSize() + PADDING;
-    }
-
-    public int rowToY(int row) {
-        return row * getCellSize() + PADDING;
-    }
-
-    @Override
-    public void translate(double v, double v1) {
-
-    }
 }
+

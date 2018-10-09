@@ -30,7 +30,7 @@ public class GameLogic {
         this.p1 = new Player("Red");// check territoryArray
         this.p2 = new Player("Blue");// check territoryArray
 
-        grid.playerImagesShow();
+        //grid.playerImagesShow();
         //grid.player2ImagesShow();
 
         board.addTerritoryToP1(p1);

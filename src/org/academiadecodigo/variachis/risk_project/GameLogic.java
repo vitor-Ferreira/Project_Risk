@@ -60,8 +60,8 @@ public class GameLogic {
             case DOWN:
                 mov = Movement.DOWN;
         }
-    }
-*/
+    }*/
+    
     public void start() {
 
         int rounds = 1;

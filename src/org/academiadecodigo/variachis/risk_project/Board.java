@@ -33,17 +33,17 @@ public class Board implements Interface_Board {
     public void increment(Player player) {
         for (int i = 0; i < territoriesArray.length; i++) {
             if (territoriesArray[i].getPlayer() == player) {
-                System.out.println("Soldiers before increment: " + territoriesArray[i].getSoldiers());
+                //System.out.println("Soldiers before increment: " + territoriesArray[i].getSoldiers());
                 territoriesArray[i].setSoldiersIn(1);
-               System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
+                //System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
             }
         }
     }
 
     @Override
     public void reinforce() {
-        System.out.println("destiny: " + territoryDestiny.getSoldiers());
-        System.out.println("origin: " + territoryOrigin.getSoldiers());
+        //System.out.println("destiny: " + territoryDestiny.getSoldiers());
+        //System.out.println("origin: " + territoryOrigin.getSoldiers());
         // territoryDestiny.setSoldiersIn(territoryDestiny.getSoldiers() + territoryOrigin.getSoldiers() - 1);
 
         //territoryOrigin.guardianSoldier();
@@ -59,9 +59,9 @@ public class Board implements Interface_Board {
     @Override
     public void battle() {
         int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
-        System.out.println("atackTroops " + attackTroops);//--______________________sout here
-        int defendTroops = territoryDestiny.getSoldiers() - attackTroops-2;
-        System.out.println("defenderTroops " + defendTroops);//--______________________sout here
+        //System.out.println("atackTroops " + attackTroops);//--______________________sout here
+        int defendTroops = territoryDestiny.getSoldiers() - attackTroops;
+        //System.out.println("defenderTroops " + defendTroops);//--______________________sout here
         if (attackTroops == defendTroops) {
             territoryDestiny.afterBattle(1); //adds the result of battle on the territory
             territoryOrigin.setSoldiersOut(attackTroops);
@@ -71,19 +71,19 @@ public class Board implements Interface_Board {
         if (attackTroops > defendTroops) {
             int newAmount = attackTroops - defendTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-            System.out.println(territoryDestiny.getPlayer().getColor());
+            //System.out.println(territoryDestiny.getPlayer().getColor());
             territoryDestiny.setPlayer(territoryOrigin.getPlayer());
-            System.out.println(territoryOrigin.getPlayer().getColor());
+            //System.out.println(territoryOrigin.getPlayer().getColor());
             territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("Attack wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
+            //System.out.println("Attack wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
             return;
         }
         if (attackTroops < defendTroops) { //Correct condition, error due to the fact we only have 3 territories.
             int newAmount = defendTroops - attackTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
             territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("new ammount: " + newAmount);//_______________________SOUT HERE
-            System.out.println("Defense wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
+            //System.out.println("new ammount: " + newAmount);//_______________________SOUT HERE
+            //System.out.println("Defense wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
         }
     }
 
@@ -95,7 +95,7 @@ public class Board implements Interface_Board {
         for (int i = 0; i < territoriesArray.length; i++) {
 
             if (territoriesArray[i].getPlayer() == null) {
-
+                continue;
             }
             if (territoriesArray[i].getPlayer() == player1) {
                 countP1++;
@@ -160,18 +160,24 @@ public class Board implements Interface_Board {
                     if (territoriesArray[territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getRow() - 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
                     }
+                    //System.out.println("----------- In Actual territory = "+territory.getSoldiers() );
+                    //System.out.println("******Actual soldiers in new territory = "+territoriesArray[territory.getRow()-1].getSoldiers());
                     territoriesArray[territory.getRow() - 1].setSoldiersIn(territory.getSoldiers() - 1);
+
+                    //System.out.println("******Actual soldiers in new territory after move = "+territoriesArray[territory.getRow()-1].getSoldiers());
                     territoriesArray[territory.getRow()].guardianSoldier();
 
                     territoryDestiny = territoriesArray[territory.getRow() - 1];
                     territoriesArray[territory.getRow() - 1].select();
+                    //System.out.println("before territory soldiers amount after move --------_-/ "+ territory.getSoldiers());
+                    //System.out.println("actual soldiers in new territory ++++++++++++" + territoriesArray[territory.getRow()-1].getSoldiers());
                     territory.unselect();
 
-                    System.out.println("destiny "+territoryDestiny.getSoldiers());
-                    System.out.println("Attack "+ numberSoldiersAttacking);
+                    //System.out.println("destiny " + territoryDestiny.getSoldiers());
+                    //System.out.println("Attack " + numberSoldiersAttacking);
                     //int i = territory.getRow() - 1;
-                    System.out.println("destiny "+territoryDestiny.getSoldiers());
-                    System.out.println("Attack "+ numberSoldiersAttacking);
+                    //System.out.println("destiny " + territoryDestiny.getSoldiers());
+                    //System.out.println("Attack " + numberSoldiersAttacking);
                     //numberSoldiersDefending = territoriesArray[territory.getRow() - 1].getSoldiers();
                     return;
                 }
@@ -183,16 +189,22 @@ public class Board implements Interface_Board {
                     if (territoriesArray[territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getRow() + 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
                     }
-                    territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
+                    //System.out.println("---DOWN-------- In Actual territory = "+territory.getSoldiers() );
+                    //System.out.println("******Actual soldiers in new territory = "+territoriesArray[territory.getRow()+1].getSoldiers());
+                    territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() - 1);
+
+                    //System.out.println("******Actual soldiers in new territory after move = "+territoriesArray[territory.getRow()+1].getSoldiers());
                     territoriesArray[territory.getRow()].guardianSoldier();
 
                     territoryDestiny = territoriesArray[territory.getRow() + 1];
                     territoriesArray[territory.getRow() + 1].select();
+                   // System.out.println("before territory soldiers amount after move --------_-/ "+ territory.getSoldiers());
+                   // System.out.println("actual soldiers in new territory ++++++++++++" + territoriesArray[territory.getRow()+1].getSoldiers());
                     territory.unselect();
 
                     //int i = territory.getRow() + 1;
-                    System.out.println("destiny "+territoryDestiny.getSoldiers());
-                    System.out.println("Attack "+ numberSoldiersAttacking);
+                    //System.out.println("destiny " + territoryDestiny.getSoldiers());
+                    //System.out.println("Attack " + numberSoldiersAttacking);
 
                     //numberSoldiersDefending = territoriesArray[territory.getRow() + 1].getSoldiers();
                     return;

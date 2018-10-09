@@ -32,10 +32,8 @@ public class Main {
 
         board.beginRoundP1();
         board.increment(p1);
-        board.moveToTerritory(Movement.UP);
+        board.moveToTerritory(Movement.DOWN);
         board.reinforce();
-
-
 
     }
 }

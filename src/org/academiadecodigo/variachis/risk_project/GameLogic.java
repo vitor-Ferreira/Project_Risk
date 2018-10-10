@@ -28,8 +28,6 @@ public class GameLogic {
         this.p2 = new Player("Blue");// check territoryArray
 
         board.addTerritoryToP1(p1);
-        grid.showNumberSoldiers();
-        grid.movementImage();
         board.addTerritoryToP2(p2);
         grid.showNumberSoldiers();
         grid.movementImage();
@@ -44,7 +42,7 @@ public class GameLogic {
 
                 round(p1);
 
-                System.out.println("rounds: " + rounds);
+            //    System.out.println("rounds: " + rounds);
                 attackDone = false;
 
                 if (rounds % 2 == 0) {
@@ -86,7 +84,7 @@ public class GameLogic {
             //System.out.println(board.verifyTerritorySelected());
             if (board.verifyTerritorySelected().getSoldiers() <= 1) {  /** PERHAPS CREATE GETTER IN BOARD **/
                 //choose another territoryArray to attack from
-                System.out.println("verify if territory only 1");
+              //  System.out.println("verify if territory only 1");
                 return;
             }
 

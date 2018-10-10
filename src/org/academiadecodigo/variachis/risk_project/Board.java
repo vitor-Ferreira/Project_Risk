@@ -21,7 +21,7 @@ public class Board implements Interface_Board {
 
     @Override
     public int limitBoardCol() {
-        System.out.println(numCols);
+        //System.out.println(numCols);
         return numCols;
 
     }
@@ -61,32 +61,32 @@ public class Board implements Interface_Board {
     @Override
     public void battle() {
         int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
-        System.out.println("attack troops: " + attackTroops);
+       // System.out.println("attack troops: " + attackTroops);
         int defendTroops = territoryDestiny.getSoldiers() - attackTroops;
-        System.out.println("defend troops: " + defendTroops);
+       // System.out.println("defend troops: " + defendTroops);
         if (attackTroops == defendTroops) {
             territoryDestiny.afterBattle(1); //adds the result of battle on the territory
-            System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+           // System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
+          //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             return;
         }
         if (attackTroops > defendTroops) {
             territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
+          //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             int newAmount = attackTroops - defendTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-            System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+         //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             territoryDestiny.setPlayer(territoryOrigin.getPlayer());
-            System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+         //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             return;
         }
         if (attackTroops < defendTroops) { //Correct condition, error due to the fact we only have 3 territories.
             territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
+          //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             int newAmount = defendTroops - attackTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-            System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+         //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
         }
     }
 
@@ -127,13 +127,12 @@ public class Board implements Interface_Board {
     public void territoryMaker() {
 
 
-
         for (int i = 0; i < numCols; i++) {
             for (int j = 0; j < numRows; j++) {
 
                 territoriesArray[i][j] = new Territory(i, j);// territory(Col, Row)
-                System.out.println(territoriesArray[i][j] + ":::" + i + j);
-                System.out.println(territoriesArray[i][j].getSoldiers());
+               // System.out.println(territoriesArray[i][j] + ":::" + i + j);
+               // System.out.println(territoriesArray[i][j].getSoldiers());
 
                 //we will need to do a for inside a for to create a map like a 3x3
             }
@@ -142,7 +141,7 @@ public class Board implements Interface_Board {
 
     // get the array with the territories
     public Territory[][] getTerritories() {
-        System.out.println(territoriesArray);
+      //  System.out.println(territoriesArray);
         return this.territoriesArray;
     }
 
@@ -175,7 +174,23 @@ public class Board implements Interface_Board {
         switch (movement) {
 
             case LEFT:
-                grid.moveLeft();
+                if (territory.getColumn() > 0) {
+                    grid.moveLeft();
+                    if (territoriesArray[territory.getColumn() - 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
+                        territoriesArray[territory.getColumn() - 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
+                    }
+                    territoriesArray[territory.getColumn() - 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
+                  //  System.out.println(territory.getSoldiers());
+                    territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
+                    territoryDestiny = territoriesArray[territory.getColumn() - 1][territory.getRow()];
+                    territoriesArray[territory.getColumn() - 1][territory.getRow()].select();
+                    territory.unselect();
+
+                    //System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    return;
+                }
+                territory.select();
+                return;
 
             case UP:
                 if (territory.getRow() > 0) {
@@ -190,16 +205,30 @@ public class Board implements Interface_Board {
                     territoriesArray[territory.getColumn()][territory.getRow() - 1].select();
                     territory.unselect();
 
-                    //int i = territory.getRow() - 1;
-
-                    //numberSoldiersDefending = territoriesArray[territory.getRow() - 1].getSoldiers();
+                  //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                     return;
                 }
                 territory.select();
                 return;
 
             case RIGHT:
-                grid.moveRight();
+                if (territory.getColumn() < numCols - 1) {
+                    grid.moveRight();
+                    if (territoriesArray[territory.getColumn() + 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
+                        territoriesArray[territory.getColumn() + 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
+                    }
+                    territoriesArray[territory.getColumn() + 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
+                //    System.out.println(territory.getSoldiers());
+                    territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
+                    territoryDestiny = territoriesArray[territory.getColumn() + 1][territory.getRow()];
+                    territoriesArray[territory.getColumn() + 1][territory.getRow()].select();
+                    territory.unselect();
+
+                  //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    return;
+                }
+                territory.select();
+                return;
 
             case DOWN:
                 if (territory.getRow() < numRows - 1) {
@@ -213,16 +242,9 @@ public class Board implements Interface_Board {
                     territoriesArray[territory.getColumn()][territory.getRow() + 1].select();
                     territory.unselect();
 
-                    //int i = territory.getRow() + 1;
-                    //System.out.println("destiny " + territoryDestiny.getSoldiers());
-                    //System.out.println("Attack " + numberSoldiersAttacking);
-                    System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
-
-                    //numberSoldiersDefending = territoriesArray[territory.getRow() + 1].getSoldiers();
-                    return;
+                  //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                 }
                 territory.select();
-                return;
         }
     }
 
@@ -244,7 +266,7 @@ public class Board implements Interface_Board {
     public void addTerritoryToP2(Player player) {
 
         territoriesArray[2][2].setPlayer(player);
-        System.out.println(territoriesArray[2][2]);
+     //   System.out.println(territoriesArray[2][2]);
         territoriesArray[2][2].setSoldiersIn(20);
         //System.out.println(territoriesArray[1][2].getPlayer().getColor());
     }

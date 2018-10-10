@@ -16,7 +16,6 @@ public class Territory {
     public Territory(int row, int column) {
         this.row = row;
         this.column = column;
-
         this.position = row + column;
     }
 

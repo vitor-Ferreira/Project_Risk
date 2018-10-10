@@ -9,11 +9,11 @@ public class Grid {
 
     private int cols;
     private int rows;
-    private Territory[][] territory=;
     private int x;
     private int y;
     private String numSoldiers;
     private Board board;
+    private Territory[][] territory;
 
     //private GridPosition gridPosition;
 
@@ -28,6 +28,8 @@ public class Grid {
         this.cols = cols;
         this.rows = rows;
         this.board=board;
+        territory = board.getTerritories();
+
     }
 
     public void canvas() {
@@ -112,10 +114,10 @@ public class Grid {
     
 
     public void showNumberSoldiers(){
-        territory.setSoldiersIn(3);
-        System.out.println(territory.getSoldiers());
 
-        //numSoldiers = Integer.toString(sdfsf);
+        //System.out.println(territory.getSoldiers());
+
+        numSoldiers = Integer.toString(territory[0][0].getSoldiers());
         System.out.println(numSoldiers);
 
         for(int i = 0; i < cols; i++){

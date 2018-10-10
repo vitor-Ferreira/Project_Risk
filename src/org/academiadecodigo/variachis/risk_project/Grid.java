@@ -9,22 +9,25 @@ public class Grid {
 
     private int cols;
     private int rows;
-    private Territory territory;
+    private Territory[][] territory=;
     private int x;
     private int y;
+    private String numSoldiers;
+    private Board board;
 
     //private GridPosition gridPosition;
 
 
-    private Rectangle[][] cellsArray = new Rectangle[5][5];
+    private Rectangle[][] cellsArray = new Rectangle[6][6];
     private Picture moveableImage;
 
 
     private int cellSize = 200;
 
-    public Grid(int cols, int rows) {
+    public Grid(int cols, int rows, Board board) {
         this.cols = cols;
         this.rows = rows;
+        this.board=board;
     }
 
     public void canvas() {
@@ -109,15 +112,18 @@ public class Grid {
     
 
     public void showNumberSoldiers(){
+        territory.setSoldiersIn(3);
+        System.out.println(territory.getSoldiers());
 
-        //String getSoldiers = "" + territory.getSoldiers(); // Ver se da?????
+        //numSoldiers = Integer.toString(sdfsf);
+        System.out.println(numSoldiers);
 
         for(int i = 0; i < cols; i++){
             for (int j = 0; j < rows; j++){
                 System.out.println("i: " + i);
                 System.out.println("j: " + j);
                 //if (territory.getPlayer().getColor().equals("red")) {
-                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize , "20");
+                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize , numSoldiers);
                     text.grow(25, 25);
                     text.draw();
                     text.setColor(Color.RED);

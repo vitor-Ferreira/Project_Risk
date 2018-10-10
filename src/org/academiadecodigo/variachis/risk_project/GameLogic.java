@@ -19,7 +19,7 @@ public class GameLogic {
 
     public void init() {
 
-        board = new Board(3, 1);
+        board = new Board(grid, 3, 1);
         grid = new Grid(1, 3); //Board may also need to know a Grid instance.
         grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
         territoryArray = board.getTerritory();

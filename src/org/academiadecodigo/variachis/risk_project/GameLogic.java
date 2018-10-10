@@ -15,49 +15,28 @@ public class GameLogic {
     private boolean reinforceDone = false;
 
     public void init() {
-
+        grid = new Grid(2, 3); //Board may also needs to know a Grid instance.
         board = new Board(grid, 2, 3);
-        grid = new Grid(2, 3, board); //Board may also needs to know a Grid instance.
-        grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
         territoryArray = board.getTerritories();
+        grid.init(territoryArray); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
 
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setBoard(board);
         keyboard.runKeyboard();
 
-        /* Picture militaryHelmet = new Picture(grid.columnToX(0), grid.rowToY(0), "Resources/military_helmet-512.png");
-        militaryHelmet.draw();
-        militaryHelmet.grow(-100, -100);
-        */
 
         this.p1 = new Player("Red");// check territoryArray
         this.p2 = new Player("Blue");// check territoryArray
 
-        //grid.playerImagesShow();
-        //grid.player2ImagesShow();
 
         board.addTerritoryToP1(p1);
+        grid.showNumberSoldiers();
+        grid.movementImage();
         board.addTerritoryToP2(p2);
-    }
+        grid.showNumberSoldiers();
+        grid.movementImage();
 
-    //no need for this now. commands go directly from keyboard to board.
-    /* public void move(Movement movement) {
-        //int move = (int) Math.floor(Math.random() * 4);
-        Movement mov = movement;
-        switch (mov) {
-            case LEFT:
-                mov = Movement.LEFT;
-                break;
-            case UP:
-                board.moveToTerritory(Movement.UP);
-                break;
-            case RIGHT:
-                mov = Movement.RIGHT;
-                break;
-            case DOWN:
-                mov = Movement.DOWN;
-        }
-    }*/
+    }
 
     public void start() {
 

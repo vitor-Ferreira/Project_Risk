@@ -20,12 +20,10 @@ public class Territory {
         this.position = row + column;
     }
 
-
     /* public Territory(int position, String name) {
         this.position = position;
         this.name = name;
     } */
-
 
     public int getSoldiers() {
         return this.soldiers;
@@ -97,16 +95,4 @@ public class Territory {
     public int guardianSoldier() {
         return soldiers = 1;
     }
-
-
-    // --------------territory knows its neighbours?----------
-
-
-   /* public Territory getDown() {
-        return down;
-    }
-
-    public Territory getNext() {
-        return next;
-    }*/
 }

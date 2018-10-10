@@ -7,12 +7,6 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 public class GameKeyboard implements KeyboardHandler {
 
-    //the 2 lines below are to be moved to GameLogic.
-    //GameKeyboard gameKeyboard = new GameKeyboard();
-    //gameKeyboard.runKeyboard();
-    // ^ a gameKeyboard object is instanced right when the game starts and we immediately start running it.
-    // when it starts running it immediately creates (aka "the real") a keyboard object and starts running. test this.
-
     private GameLogic game;
     private Board board;
 
@@ -65,25 +59,23 @@ public class GameKeyboard implements KeyboardHandler {
                 //System.out.println("SPACE KEY PRESSED");
                 break;
 
-            /* case KeyboardEvent.KEY_LEFT:
-                //game.move(Movement.LEFT);
-                //System.out.println("RIGHT KEY PRESSED");
-                break; */
-
-            case KeyboardEvent.KEY_UP:
-                board.moveToTerritory(Movement.UP);
-                //game.move(Movement.UP);
+            case KeyboardEvent.KEY_LEFT:
+                board.moveToTerritory(Movement.LEFT);
                 System.out.println("LEFT KEY PRESSED");
                 break;
 
-            /* case KeyboardEvent.KEY_RIGHT:
-                //game.move(Movement.RIGHT);
-                //System.out.println("RIGHT KEY PRESSED");
-                break; */
+            case KeyboardEvent.KEY_UP:
+                board.moveToTerritory(Movement.UP);
+                System.out.println("UP KEY PRESSED");
+                break;
+
+            case KeyboardEvent.KEY_RIGHT:
+                board.moveToTerritory(Movement.RIGHT);
+                System.out.println("RIGHT KEY PRESSED");
+                break;
 
             case KeyboardEvent.KEY_DOWN:
                 board.moveToTerritory(Movement.DOWN);
-                //game.move(Movement.DOWN);
                 System.out.println("DOWN KEY PRESSED");
                 break;
         }

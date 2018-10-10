@@ -61,32 +61,32 @@ public class Board implements Interface_Board {
     @Override
     public void battle() {
         int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
-       // System.out.println("attack troops: " + attackTroops);
+        // System.out.println("attack troops: " + attackTroops);
         int defendTroops = territoryDestiny.getSoldiers() - attackTroops;
-       // System.out.println("defend troops: " + defendTroops);
+        // System.out.println("defend troops: " + defendTroops);
         if (attackTroops == defendTroops) {
             territoryDestiny.afterBattle(1); //adds the result of battle on the territory
-           // System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+            // System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             territoryOrigin.setSoldiersOut(attackTroops);
-          //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
+            //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             return;
         }
         if (attackTroops > defendTroops) {
             territoryOrigin.setSoldiersOut(attackTroops);
-          //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
+            //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             int newAmount = attackTroops - defendTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-         //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+            //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             territoryDestiny.setPlayer(territoryOrigin.getPlayer());
-         //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+            //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             return;
         }
         if (attackTroops < defendTroops) { //Correct condition, error due to the fact we only have 3 territories.
             territoryOrigin.setSoldiersOut(attackTroops);
-          //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
+            //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             int newAmount = defendTroops - attackTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-         //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
+            //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
         }
     }
 
@@ -131,8 +131,8 @@ public class Board implements Interface_Board {
             for (int j = 0; j < numRows; j++) {
 
                 territoriesArray[i][j] = new Territory(i, j);// territory(Col, Row)
-               // System.out.println(territoriesArray[i][j] + ":::" + i + j);
-               // System.out.println(territoriesArray[i][j].getSoldiers());
+                // System.out.println(territoriesArray[i][j] + ":::" + i + j);
+                // System.out.println(territoriesArray[i][j].getSoldiers());
 
                 //we will need to do a for inside a for to create a map like a 3x3
             }
@@ -141,7 +141,7 @@ public class Board implements Interface_Board {
 
     // get the array with the territories
     public Territory[][] getTerritories() {
-      //  System.out.println(territoriesArray);
+        //  System.out.println(territoriesArray);
         return this.territoriesArray;
     }
 
@@ -172,7 +172,6 @@ public class Board implements Interface_Board {
         territoryOrigin = territory;
         numberSoldiersAttacking = territory.getSoldiers();
         switch (movement) {
-
             case LEFT:
                 if (territory.getColumn() > 0) {
                     grid.moveLeft();
@@ -180,7 +179,7 @@ public class Board implements Interface_Board {
                         territoriesArray[territory.getColumn() - 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getColumn() - 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
-                  //  System.out.println(territory.getSoldiers());
+                    //  System.out.println(territory.getSoldiers());
                     territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
                     territoryDestiny = territoriesArray[territory.getColumn() - 1][territory.getRow()];
                     territoriesArray[territory.getColumn() - 1][territory.getRow()].select();
@@ -205,7 +204,7 @@ public class Board implements Interface_Board {
                     territoriesArray[territory.getColumn()][territory.getRow() - 1].select();
                     territory.unselect();
 
-                  //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                     return;
                 }
                 territory.select();
@@ -218,13 +217,13 @@ public class Board implements Interface_Board {
                         territoriesArray[territory.getColumn() + 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getColumn() + 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
-                //    System.out.println(territory.getSoldiers());
+                    //    System.out.println(territory.getSoldiers());
                     territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
                     territoryDestiny = territoriesArray[territory.getColumn() + 1][territory.getRow()];
                     territoriesArray[territory.getColumn() + 1][territory.getRow()].select();
                     territory.unselect();
 
-                  //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                     return;
                 }
                 territory.select();
@@ -242,7 +241,7 @@ public class Board implements Interface_Board {
                     territoriesArray[territory.getColumn()][territory.getRow() + 1].select();
                     territory.unselect();
 
-                  //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                 }
                 territory.select();
         }
@@ -265,9 +264,9 @@ public class Board implements Interface_Board {
 
     public void addTerritoryToP2(Player player) {
 
-        territoriesArray[2][2].setPlayer(player);
-     //   System.out.println(territoriesArray[2][2]);
-        territoriesArray[2][2].setSoldiersIn(20);
+        territoriesArray[numCols - 1][numRows - 1].setPlayer(player);
+        //   System.out.println(territoriesArray[2][2]);
+        territoriesArray[numCols - 1][numRows - 1].setSoldiersIn(20);
         //System.out.println(territoriesArray[1][2].getPlayer().getColor());
     }
 
@@ -275,14 +274,14 @@ public class Board implements Interface_Board {
         Territory t = verifyTerritorySelected();
         t.unselect();
         territoriesArray[0][0].select();
-        territoryOrigin = territoriesArray[0][0];
+        //territoryOrigin = territoriesArray[0][0];
     }
 
     public void beginRoundP2() {
         Territory t = verifyTerritorySelected();
         t.unselect();
-        territoriesArray[2][2].select();
-        territoryOrigin = territoriesArray[2][2];
+        territoriesArray[numCols - 1][numRows - 1].select();
+        //  territoryOrigin = territoriesArray[numCols-1][numRows-1];
 
     }
 }

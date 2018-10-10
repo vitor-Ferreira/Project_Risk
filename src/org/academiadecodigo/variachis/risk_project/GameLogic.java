@@ -4,8 +4,10 @@ public class GameLogic {
 
     private Grid grid;
 
-    private Player p1;//Ver territorios
+    private Player p1;
     private Player p2;
+    private Player activePlayer;
+    private Movement moveChoice;
 
     private Board board;
     private Territory territory;
@@ -15,7 +17,8 @@ public class GameLogic {
     private boolean reinforceDone = false;
 
     public void init() {
-        grid = new Grid(3, 3); //Board may also needs to know a Grid instance.
+
+        grid = new Grid(3, 3);
         board = new Board(grid, 3, 3);
         territoryArray = board.getTerritories();
         grid.init(territoryArray); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
@@ -24,8 +27,8 @@ public class GameLogic {
         keyboard.setBoard(board);
         keyboard.runKeyboard();
 
-        this.p1 = new Player("Red");// check territoryArray
-        this.p2 = new Player("Blue");// check territoryArray
+        this.p1 = new Player("Blue");
+        this.p2 = new Player("Red");
 
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
@@ -36,27 +39,21 @@ public class GameLogic {
     public void start() {
 
         int rounds = 1;
-
-        while (!board.victory(p1, p2)) {
-            for (int i = 0; i < 11; i++) { //why 11? because if it's not 11, the for doesn't stop. this is a quick fix.
-
-                round(p1);
-
+        for (int i = 0; i < 11; i++) { //why 11? because if it's not 11, the for doesn't stop. this is a quick fix.
+            round(p1);
             //    System.out.println("rounds: " + rounds);
-                attackDone = false;
+            attackDone = false;
 
-                if (rounds % 2 == 0) {
-                    System.out.println("p2's turn");
-                    board.beginRoundP2();
-                    round(p2);
-                    rounds++;
-                }
-
-                board.beginRoundP1();
-                System.out.println("p1's turn");
-                round(p1);
+            if (rounds % 2 == 0) {
+                System.out.println("p2's turn");
+                board.beginRoundP2();
+                round(p2);
                 rounds++;
             }
+            board.beginRoundP1();
+            System.out.println("p1's turn");
+            round(p1);
+            rounds++;
         }
     }
 
@@ -66,25 +63,26 @@ public class GameLogic {
         //to increment the troops in territories that have the player that is playing this round
         board.increment(player);
 
-        while (!attackDone) {
-            attack(player);
-        }
+        // while (!attackDone) {
+        attack();
 
         reinforce(player);
+
+        activePlayer = activePlayer == p1 ? p2 : p1;
     }
 
-    public void attack(Player player) {
-
-        //System.out.println("move " + movi);
+    public void attack() {
 
         while (!attackDone) {
+
+            board.moveToTerritory(moveChoice);
 
             //check if territoryArray that we are attacking from has more than 1 soldier
             //if (board.verifyTerritorySelected().getSoldiers() <= 1) {
             //System.out.println(board.verifyTerritorySelected());
-            if (board.verifyTerritorySelected().getSoldiers() <= 1) {  /** PERHAPS CREATE GETTER IN BOARD **/
+            if (board.getTerritoryOrigin().getSoldiers() <= 1) {  /** PERHAPS CREATE GETTER IN BOARD **/
                 //choose another territoryArray to attack from
-              //  System.out.println("verify if territory only 1");
+                //  System.out.println("verify if territory only 1");
                 return;
             }
 
@@ -98,11 +96,12 @@ public class GameLogic {
             //check if territories have different owners
             Territory territoryAttack = board.verifyTerritorySelected();
 
-            if (territoryAttack.getPlayer() == player) {
+            if (territoryAttack.getPlayer() == activePlayer) {
                 return;
             }
 
             board.battle(); // Changes in the board.battle method
+
             attackDone = true;
         }
     }
@@ -110,9 +109,9 @@ public class GameLogic {
     public void reinforce(Player player) {
 
         while (!reinforceDone) {
-
+            board.moveToTerritory(moveChoice);
             //Check if the territoryArray that we are reinforcing from has more than 1 soldier
-            if (board.verifyTerritorySelected().getSoldiers() <= 1) {
+            if (board.getTerritoryOrigin().getSoldiers() <= 1) {
                 return;
             }
 
@@ -129,6 +128,10 @@ public class GameLogic {
             board.reinforce();
             reinforceDone = true;
         }
+    }
+
+    public void movePlayer(Movement movement) {
+        moveChoice = movement;
     }
 
     public Player getP1() {

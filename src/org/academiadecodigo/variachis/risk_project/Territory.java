@@ -9,18 +9,15 @@ public class Territory {
     private int row;
     private int column;
     private int soldiers;
-    private boolean selected = false;
-    private String name;
+    private boolean selected;
     private Player player;
 
 
-    public Territory(int row, int column, String name) {
+    public Territory(int row, int column) {
         this.row = row;
         this.column = column;
 
         this.position = row + column;
-
-        this.name = name;
     }
 
 
@@ -30,34 +27,34 @@ public class Territory {
     } */
 
 
-    public String getName() {
-        return name;
+    public int getSoldiers() {
+        return this.soldiers;
     }
 
-    public int getSoldiers() {
-        return soldiers;
+    public void setSoldiers(int s) {
+        this.soldiers = s;
     }
 
     public void setSoldiersIn(int s) {
-        soldiers = soldiers + s;
+        this.soldiers = this.soldiers + s;
     }
 
     public void setSoldiersOut(int s) {
-        soldiers = soldiers - s;
+        this.soldiers = this.soldiers - s;
+    }
+
+    public void afterBattle(int s) {
+        this.soldiers = s;
+    }
+
+    public int getRow() {
+        return this.row;
     }
 
 
-    public int getRow(){
-        return this.row:
-    }
-
-
-    public int getColumn(){
+    public int getColumn() {
         return this.column;
     }
-
-
-
 
 
     public int getPosition() {
@@ -72,13 +69,19 @@ public class Territory {
         return conquered = true;
     }
 
-    public boolean select() {
-        return this.selected;
+    public void select() {
+        // square.draw(); // this draws a square when the territory is selected
+        this.selected = true;
     }
-    
+
+
+    public void unselect() {
+        //square.delete(); // this deletes a square when the territory is unselected
+        this.selected = false;
+    }
 
     public boolean isSelected() {
-        return selected;
+        return this.selected;
     }
 
 
@@ -91,8 +94,8 @@ public class Territory {
     }
 
 
-    public int guardianSoldier(){
-            soldiers = 1;
+    public int guardianSoldier() {
+        return soldiers = 1;
     }
 
 

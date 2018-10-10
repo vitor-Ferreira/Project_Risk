@@ -1,25 +1,36 @@
 package org.academiadecodigo.variachis.risk_project;
 
+import java.util.Base64;
+
 public class Main {
     public static void main(String[] args) {
 
-
-        Territory t1 = new Territory(0, "cona");
-        Territory t2 = new Territory(1, "fodase");
-        Territory t3 = new Territory(2, "pissa");
-
         GameLogic game = new GameLogic();
-game.setTerritoriesArray(t1,t2,t3);
-        //Player p1 = new Player("Red", 20, territory0);
+        //Player p1 = new Player("red");
+        //Player p2 = new Player("blue");
 
-        game.moveSoldiers(9, Movement.UP);
-        //Player p2 = new Player("Red", 20);
+        game.init();
+        game.start();
 
-        //System.out.println(p1.getInicialTerritory());
-        //game.moveToTerritory(p1,Movement.UP);
-        //System.out.println(p1.getCurrentTerritory());
-        //System.out.println(territory0.getSoldiers());
-        //System.out.println(territory1.getSoldiers());
+        /* Board board = new Board(3, 1);
+        board.territoryMaker();
+        board.addTerritoryToP1(game.getP1());
+        board.addTerritoryToP2(game.getP2());
 
+        board.increment(game.getP1());
+        board.moveToTerritory(mov); ex:Movement.DOWN
+        //System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
+
+        board.beginRoundP2();
+        board.increment(game.getP2());
+        board.moveToTerritory(mov); ex:Movement.UP
+        // System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
+
+        board.battle();
+
+        board.beginRoundP1();
+        board.increment(game.getP1());
+        board.moveToTerritory(mov); ex:Movement.UP
+        board.reinforce(); */
     }
 }

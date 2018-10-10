@@ -3,7 +3,7 @@ package org.academiadecodigo.variachis.risk_project;
 public interface Interface_Board {
 
     //put troops on the territory
-    public int putTroops(int amount, Territory territory);
+    public void reinforce();
 
     //increase amount of troops at the beginning of the round
     public void increment(Player player);
@@ -15,7 +15,7 @@ public interface Interface_Board {
     public int limitBoardRow();
 
     // decides the winner of a battle and decrease the troops
-    public void battle(Territory territoryAttack, Territory territoryDefend);
+    public void battle();
 
     // returns true when a player has no territories
     public boolean victory(Player player1, Player player2);

@@ -1,8 +1,5 @@
 package org.academiadecodigo.variachis.risk_project;
 
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
-
 public class GameLogic {
 
     private Grid grid;
@@ -12,17 +9,17 @@ public class GameLogic {
 
     private Board board;
     private Territory territory;
-    private Territory[] territoryArray;
+    private Territory[][] territoryArray;
 
     private boolean attackDone = false;
     private boolean reinforceDone = false;
 
     public void init() {
 
-        board = new Board(grid, 3, 1);
-        grid = new Grid(1, 3); //Board may also need to know a Grid instance.
+        board = new Board(grid, 2, 3);
+        grid = new Grid(2, 3); //Board may also needs to know a Grid instance.
         grid.init(); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
-        territoryArray = board.getTerritory();
+        territoryArray = board.getTerritories();
 
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setBoard(board);
@@ -61,7 +58,7 @@ public class GameLogic {
                 mov = Movement.DOWN;
         }
     }*/
-    
+
     public void start() {
 
         int rounds = 1;

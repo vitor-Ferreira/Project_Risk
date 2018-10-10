@@ -23,10 +23,5 @@ public interface Interface_Board {
     //Channges the pointer for the owner of this territory
     public void changePlayerTerritory(Player player, Territory territory);
 
-    //allows reading access by the game class
-    Territory[] getTerritory();
-
     boolean allowsMovement(Movement movement);
-
-
 }

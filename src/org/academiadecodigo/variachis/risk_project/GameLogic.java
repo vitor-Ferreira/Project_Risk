@@ -41,7 +41,7 @@ public class GameLogic {
         int rounds = 1;
         for (int i = 0; i < 11; i++) { //why 11? because if it's not 11, the for doesn't stop. this is a quick fix.
             round(p1);
-            //    System.out.println("rounds: " + rounds);
+            //    System.out.println("round: " + rounds);
             attackDone = false;
 
             if (rounds % 2 == 0) {
@@ -133,7 +133,7 @@ public class GameLogic {
     public void movePlayer(Movement movement) {
         moveChoice = movement;
     }
-
+    
     public Player getP1() {
         return p1;
     }

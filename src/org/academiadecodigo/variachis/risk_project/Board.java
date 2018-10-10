@@ -172,6 +172,7 @@ public class Board implements Interface_Board {
         territoryOrigin = territory;
         numberSoldiersAttacking = territory.getSoldiers();
         switch (movement) {
+
             case LEFT:
                 if (territory.getColumn() > 0) {
                     grid.moveLeft();

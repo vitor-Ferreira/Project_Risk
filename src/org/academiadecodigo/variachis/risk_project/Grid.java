@@ -69,7 +69,7 @@ public class Grid {
         }
 
         if (territory[2][2].getPlayer().getColor().equals("Blue")) {
-            moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow() - 1) * cellSize, "/Users/codecadet/Desktop/Project_Risk/Resources/Sombreiro 02 transparente (200 X 200).png");
+            moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow() - 1) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
             moveableImage.draw();
         }
 
@@ -93,10 +93,14 @@ public class Grid {
 
     public void moveRight() {
 
+        System.out.println("AHSAISHASSHAISH");
+
         if (moveableImage.getX() < cols * cellSize + PADDING) {
 
+            System.out.println(")))))))");
             moveableImage.translate(cellSize, 0);
         }
+        System.out.println("ppppppppp");
     }
 
     public void moveDown() {
@@ -128,7 +132,7 @@ public class Grid {
                 //   System.out.println("Epá");
 
                 if (territory[i][j].getPlayer() == null) {
-                    System.out.println("NO PLAYER AT " + i + " " + j);
+                    //System.out.println("NO PLAYER AT " + i + " " + j);
                     continue;
                 }
 

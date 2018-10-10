@@ -76,35 +76,35 @@ public class Grid {
         //}
 
         //if(territory.getPlayer().getColor().equals("blue")) {
-            moveableImage = new Picture(PADDING, PADDING + (territory.getRow() - 1) * cellSize, "Resources/tank1.png");
-            moveableImage.draw();
+            //moveableImage = new Picture(PADDING, PADDING + (territory.getRow() - 1) * cellSize, "Resources/tank1.png");
+            //moveableImage.draw();
         //}
 
     }
 
     public void moveRight() {
-        if(moveableImage.getX() < cols * cellSize + PADDING ) {
+        /* if(moveableImage.getX() < cols * cellSize + PADDING ) {
+        } */
             moveableImage.translate(cellSize, 0);
-        }
     }
 
     public void moveLeft() {
-        if(moveableImage.getX() > PADDING) {
+        /* if(moveableImage.getX() > PADDING) {
+        } */
             moveableImage.translate(-cellSize, 0);
-        }
     }
 
     public void moveUp() {
-        if(moveableImage.getY() > PADDING) {
+        /* if(moveableImage.getY() > PADDING) {
+        } */
             moveableImage.translate(0, -cellSize);
-        }
     }
 
     public void moveDown() {
-        if(moveableImage.getY() < rows * cellSize + PADDING) {
-            moveableImage.translate(0, cellSize);
+        /* if(moveableImage.getY() < rows * cellSize + PADDING) {
 
-        }
+        } */
+            moveableImage.translate(0, cellSize);
     }
     
 

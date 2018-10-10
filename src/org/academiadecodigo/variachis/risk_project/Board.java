@@ -2,8 +2,9 @@ package org.academiadecodigo.variachis.risk_project;
 
 public class Board implements Interface_Board {
 
-    private int numRows;
+    private Grid grid;
     private int numCols;
+    private int numRows;
     private Territory[] territoriesArray;
     private Territory territoryOrigin;// territory destiny when player moves
     private Territory territoryDestiny;
@@ -11,7 +12,8 @@ public class Board implements Interface_Board {
     private int numberSoldiersDefending;
 
 
-    public Board(int numRows, int numCols) {
+    public Board(Grid grid, int numRows, int numCols) {
+        this.grid = grid;
         this.numCols = numCols;
         this.numRows = numRows;
         territoriesArray = new Territory[numRows];
@@ -156,6 +158,7 @@ public class Board implements Interface_Board {
         territoryOrigin = territory;
         switch (movement) {
             case UP:
+                grid.moveUp();
                 if (territory.getRow() > 0) {
                     if (territoriesArray[territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getRow() - 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
@@ -178,6 +181,7 @@ public class Board implements Interface_Board {
                 return;
 
             case DOWN:
+                grid.moveDown();
                 if (territory.getRow() < numRows - 1) {
                     if (territoriesArray[territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getRow() + 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());

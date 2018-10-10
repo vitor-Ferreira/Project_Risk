@@ -15,8 +15,8 @@ public class GameLogic {
     private boolean reinforceDone = false;
 
     public void init() {
-        grid = new Grid(2, 3); //Board may also needs to know a Grid instance.
-        board = new Board(grid, 2, 3);
+        grid = new Grid(3, 3); //Board may also needs to know a Grid instance.
+        board = new Board(grid, 3, 3);
         territoryArray = board.getTerritories();
         grid.init(territoryArray); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
 
@@ -24,10 +24,8 @@ public class GameLogic {
         keyboard.setBoard(board);
         keyboard.runKeyboard();
 
-
         this.p1 = new Player("Red");// check territoryArray
         this.p2 = new Player("Blue");// check territoryArray
-
 
         board.addTerritoryToP1(p1);
         grid.showNumberSoldiers();
@@ -35,7 +33,6 @@ public class GameLogic {
         board.addTerritoryToP2(p2);
         grid.showNumberSoldiers();
         grid.movementImage();
-
     }
 
     public void start() {

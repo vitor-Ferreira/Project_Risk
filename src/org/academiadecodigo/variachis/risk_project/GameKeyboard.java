@@ -54,10 +54,10 @@ public class GameKeyboard implements KeyboardHandler {
 
         switch (evt.getKey()) { 
 
-            case KeyboardEvent.KEY_SPACE:
+            /* case KeyboardEvent.KEY_SPACE:
 
-                //System.out.println("SPACE KEY PRESSED");
-                break;
+                System.out.println("SPACE KEY PRESSED");
+                break; */
 
             case KeyboardEvent.KEY_LEFT:
                 board.moveToTerritory(Movement.LEFT);

@@ -12,25 +12,25 @@ public class Main {
         game.init();
         game.start();
 
-        /* Board board = new Board(3, 1);
-        board.territoryMaker();
-        board.addTerritoryToP1(game.getP1());
-        board.addTerritoryToP2(game.getP2());
+       /* Board board = new Board(3, 1);
+       board.territoryMaker();
+       board.addTerritoryToP1(game.getP1());
+       board.addTerritoryToP2(game.getP2());
 
-        board.increment(game.getP1());
-        board.moveToTerritory(mov); ex:Movement.DOWN
-        //System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
+       board.increment(game.getP1());
+       board.moveToTerritory(mov); ex:Movement.DOWN
+       //System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
 
-        board.beginRoundP2();
-        board.increment(game.getP2());
-        board.moveToTerritory(mov); ex:Movement.UP
-        // System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
+       board.beginRoundP2();
+       board.increment(game.getP2());
+       board.moveToTerritory(mov); ex:Movement.UP
+       // System.out.println("Check the soldiers of the selected T: " + board.verifyTerritorySelected().getSoldiers());
 
-        board.battle();
+       board.battle();
 
-        board.beginRoundP1();
-        board.increment(game.getP1());
-        board.moveToTerritory(mov); ex:Movement.UP
-        board.reinforce(); */
+       board.beginRoundP1();
+       board.increment(game.getP1());
+       board.moveToTerritory(mov); ex:Movement.UP
+       board.reinforce(); */
     }
 }

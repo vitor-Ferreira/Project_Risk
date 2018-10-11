@@ -5,112 +5,116 @@ public class Board implements Interface_Board {
     private Grid grid;
     private int numCols;
     private int numRows;
-    private Territory[] territoriesArray;
-    private Territory territoryOrigin;// territory destiny when player moves
-    private Territory territoryDestiny;
+    private Territory[][] territoriesArray;
+    private Territory territoryOrigin; /** Problema em Origin: começa nulo! **/ //territory destiny when player moves
+    private Territory territoryDestiny; /** Problema em Destiny: começa nulo! **/
     private int numberSoldiersAttacking;
-    private int numberSoldiersDefending;
 
+    /** ter 2 territoryOrigin e territoryDestiny e incializá-los logo aqui nas propriedades **/
+    //private int numberSoldiersDefending;
 
-    public Board(Grid grid, int numRows, int numCols) {
+    public Board(Grid grid, int numCols, int numRows) {
         this.grid = grid;
         this.numCols = numCols;
         this.numRows = numRows;
-        territoriesArray = new Territory[numRows];
+        territoriesArray = new Territory[numCols][numRows];
         territoryMaker();
     }
 
     @Override
-    public int limitBoardCol() {
+    public int checkLimitBoardCol() {
         return numCols;
     }
 
     @Override
-    public int limitBoardRow() {
+    public int checkLimitBoardRow() {
         return numRows;
     }
 
     // add 1 troop to every territory who has a player owner
     @Override
-    public void increment(Player player) {
-        for (int i = 0; i < territoriesArray.length; i++) {
-            if (territoriesArray[i].getPlayer() == player) {
-                System.out.println("Soldiers before increment: " + territoriesArray[i].getSoldiers());
-                territoriesArray[i].setSoldiersIn(1);
-                System.out.println("Soldiers after increment: " + territoriesArray[i].getSoldiers());
+    public void increment() {
+        for (int i = 0; i < numCols; i++) {
+            for (int j = 0; j < numRows; j++) {
+                //if (territoriesArray[i][j].getPlayer()) {
+                //System.out.println("Soldiers before increment: " + territoriesArray[i][j].getSoldiers());
+                territoriesArray[i][j].setSoldiersIn(1);
+                System.out.println("Territories soldiers Incremented. Sodiers now: " + territoriesArray[i][j].getSoldiers());
             }
         }
     }
 
     @Override
     public void reinforce() {
-        System.out.println("destiny: " + territoryDestiny.getSoldiers());
-        System.out.println("origin: " + territoryOrigin.getSoldiers());
-        // territoryDestiny.setSoldiersIn(territoryDestiny.getSoldiers() + territoryOrigin.getSoldiers() - 1);
-
-        //territoryOrigin.guardianSoldier();
+        territoryDestiny.setSoldiersIn(territoryDestiny.getSoldiers() + territoryOrigin.getSoldiers() - 1);
+        territoryOrigin.guardianSoldier();
 
         /* In case you want to replace the guardianAngel
         int originSoldiersLeft = territoryOrigin.getSoldiers() - (territoryOrigin.getSoldiers() - 1 );
         territoryOrigin.setSoldiersIn(originSoldiersLeft);*/
 
-        //System.out.println("territory origin " + territoryOrigin.getSoldiers());//_______________________SOUT HERE
-        //System.out.println("territory target " + territoryDestiny.getSoldiers());//_______________________SOUT HERE
+        //System.out.println("territory origin soldiers: " + territoryOrigin.getSoldiers());
+        //System.out.println("territory destiny soldiers: " + territoryDestiny.getSoldiers());
     }
 
     @Override
     public void battle() {
         int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
-        System.out.println("atackTroops " + attackTroops);//--______________________sout here
+        // System.out.println("attack troops: " + attackTroops);
+        System.out.println("territorydestiny: " + territoryDestiny);
         int defendTroops = territoryDestiny.getSoldiers() - attackTroops;
-        System.out.println("defenderTroops " + defendTroops);//--______________________sout here
+        // System.out.println("defend troops: " + defendTroops);
         if (attackTroops == defendTroops) {
             territoryDestiny.afterBattle(1); //adds the result of battle on the territory
+            // System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println(" Draw - Territory destiny troops: " + territoryDestiny.getSoldiers());
+            //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             return;
         }
         if (attackTroops > defendTroops) {
+            territoryOrigin.setSoldiersOut(attackTroops);
+            //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             int newAmount = attackTroops - defendTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-            System.out.println(territoryDestiny.getPlayer().getColor());
+            //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             territoryDestiny.setPlayer(territoryOrigin.getPlayer());
-            System.out.println(territoryOrigin.getPlayer().getColor());
-            territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("Attack wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
+            //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
             return;
         }
         if (attackTroops < defendTroops) { //Correct condition, error due to the fact we only have 3 territories.
+            territoryOrigin.setSoldiersOut(attackTroops);
+            //  System.out.println("territory origin soldiers " + territoryOrigin.getSoldiers());
             int newAmount = defendTroops - attackTroops;
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
-            territoryOrigin.setSoldiersOut(attackTroops);
-            System.out.println("new ammount: " + newAmount);//_______________________SOUT HERE
-            System.out.println("Defense wins - Territory destiny troops: " + territoryDestiny.getSoldiers());
+            //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
         }
     }
 
     @Override
     //verify victory condition
     public boolean victory(Player player1, Player player2) {
-        int countP1 = 0;
+       /* int countP1 = 0;
         int countP2 = 0;
-        for (int i = 0; i < territoriesArray.length; i++) {
+        for (int i = 0; i < numCols; i++) {
+            for (int j = 0; j < numRows; j++) {
 
-            if (territoriesArray[i].getPlayer() == null) {
+                if (territoriesArray[i][j].getPlayer() == null) {
 
+                }
+                if (territoriesArray[i][j].getPlayer() == player1) {
+                    countP1++;
+                }
+                if (territoriesArray[i][j].getPlayer() == player2) {
+                    countP2++;
+                }
             }
-            if (territoriesArray[i].getPlayer() == player1) {
-                countP1++;
+            if (countP1 == 0 || countP2 == 0) {
+                System.out.println("VICToRYYYY");//_______________________SOUT HERE
+                return true;
             }
-            if (territoriesArray[i].getPlayer() == player2) {
-                countP2++;
-            }
-        }
-        if (countP1 == 0 || countP2 == 0) {
-            System.out.println("VICToRYYYY");//_______________________SOUT HERE
-            return true;
-        }
-        return false;
+            return false;
+        }*/
+        return false;//??????????????????????????
     }
 
     @Override
@@ -121,15 +125,21 @@ public class Board implements Interface_Board {
 
     //instantiates each territory using a grid filosofy
     public void territoryMaker() {
-        for (int i = 0; i < territoriesArray.length; i++) {
-            territoriesArray[i] = new Territory(i, 0);// territory(Row, Col)
 
-            //we will need to do a for inside a for to create a map like a 3x3
+        for (int i = 0; i < numCols; i++) {
+            for (int j = 0; j < numRows; j++) {
+
+                territoriesArray[i][j] = new Territory(i, j);// territory(Col, Row)
+                // System.out.println(territoriesArray[i][j] + ":::" + i + j);
+                // System.out.println(territoriesArray[i][j].getSoldiers());
+
+                //we will need to do a for inside a for to create a map like a 3x3
+            }
         }
     }
 
     // get the array with the territories
-    public Territory[] getTerritory() {
+    public Territory[][] getTerritories() {
         return this.territoriesArray;
     }
 
@@ -139,13 +149,14 @@ public class Board implements Interface_Board {
         return true;
     }
 
-
     //finds the selected territory
     public Territory verifyTerritorySelected() {
         Territory territory = null;
-        for (int i = 0; i < territoriesArray.length; i++) {
-            if (territoriesArray[i].isSelected()) {
-                territory = territoriesArray[i];
+        for (int i = 0; i < numCols; i++) {
+            for (int j = 0; j < numRows; j++) {
+                if (territoriesArray[i][j].isSelected()) {
+                    territory = territoriesArray[i][j];
+                }
             }
         }
         return territory;
@@ -153,83 +164,113 @@ public class Board implements Interface_Board {
 
     //move the player
     public void moveToTerritory(Movement movement) {
-        Territory territory = verifyTerritorySelected();//verify which territory is selected
-        numberSoldiersAttacking = territory.getSoldiers();
-        territoryOrigin = territory;
-        switch (movement) {
-            case UP:
-                grid.moveUp();
-                if (territory.getRow() > 0) {
-                    if (territoriesArray[territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
-                        territoriesArray[territory.getRow() - 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
-                    }
-                    territoriesArray[territory.getRow() - 1].setSoldiersIn(territory.getSoldiers() - 1);
-                    territoriesArray[territory.getRow()].guardianSoldier();
 
-                    territoryDestiny = territoriesArray[territory.getRow() - 1];
-                    territoriesArray[territory.getRow() - 1].select();
+        Territory territory = verifyTerritorySelected();//verify which territory is selected
+        territoryOrigin = territory;
+        numberSoldiersAttacking = territory.getSoldiers();
+        switch (movement) {
+
+            case LEFT:
+                if (territory.getColumn() > 0) {
+                    grid.moveLeft();
+                    if (territoriesArray[territory.getColumn() - 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
+                        territoriesArray[territory.getColumn() - 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
+                    }
+                    territoriesArray[territory.getColumn() - 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
+                    territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
+                    territoryDestiny = territoriesArray[territory.getColumn() - 1][territory.getRow()];
+                    territoriesArray[territory.getColumn() - 1][territory.getRow()].select();
                     territory.unselect();
 
-                    System.out.println("destiny " + territoryDestiny.getSoldiers());
-                    System.out.println("Attack " + numberSoldiersAttacking);
-                    //int i = territory.getRow() - 1;
+                    //System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    return;
+                }
+                territory.select();
+                return;
 
-                    //numberSoldiersDefending = territoriesArray[territory.getRow() - 1].getSoldiers();
+            case UP:
+                if (territory.getRow() > 0) {
+                    grid.moveUp();
+                    if (territoriesArray[territory.getColumn()][territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
+                        territoriesArray[territory.getColumn()][territory.getRow() - 1].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
+                    }
+                    territoriesArray[territory.getColumn()][territory.getRow() - 1].setSoldiersIn(territory.getSoldiers() - 1);
+                    territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
+
+                    territoryDestiny = territoriesArray[territory.getColumn()][territory.getRow() - 1];
+                    territoriesArray[territory.getColumn()][territory.getRow() - 1].select();
+                    territory.unselect();
+
+                    //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
+                    return;
+                }
+                territory.select();
+                return;
+
+            case RIGHT:
+                if (territory.getColumn() < numCols - 1) {
+                    grid.moveRight();
+                    if (territoriesArray[territory.getColumn() + 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
+                        territoriesArray[territory.getColumn() + 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
+                    }
+                    territoriesArray[territory.getColumn() + 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
+                    territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
+                    territoryDestiny = territoriesArray[territory.getColumn() + 1][territory.getRow()];
+                    territoriesArray[territory.getColumn() + 1][territory.getRow()].select();
+                    territory.unselect();
+
+                    //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                     return;
                 }
                 territory.select();
                 return;
 
             case DOWN:
-                grid.moveDown();
                 if (territory.getRow() < numRows - 1) {
-                    if (territoriesArray[territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
-                        territoriesArray[territory.getRow() + 1].setPlayer(territoriesArray[territory.getRow()].getPlayer());
+                    grid.moveDown();
+                    if (territoriesArray[territory.getColumn()][territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
+                        territoriesArray[territory.getColumn()][territory.getRow() + 1].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
-                    territoriesArray[territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
-                    territoriesArray[territory.getRow()].guardianSoldier();
-                    territoryDestiny = territoriesArray[territory.getRow() + 1];
-                    territoriesArray[territory.getRow() + 1].select();
+                    territoriesArray[territory.getColumn()][territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);
+                    territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
+                    territoryDestiny = territoriesArray[territory.getColumn()][territory.getRow() + 1];
+                    territoriesArray[territory.getColumn()][territory.getRow() + 1].select();
                     territory.unselect();
 
-                    //int i = territory.getRow() + 1;
-                    System.out.println("destiny " + territoryDestiny.getSoldiers());
-                    System.out.println("Attack " + numberSoldiersAttacking);
-
-                    //numberSoldiersDefending = territoriesArray[territory.getRow() + 1].getSoldiers();
-                    return;
+                    //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                 }
                 territory.select();
-                return;
         }
     }
 
+    public Territory getTerritoryOrigin() {
+        return territoryOrigin;
+    }
+
     public void addTerritoryToP1(Player player) {
-
-        territoriesArray[0].select();
-        territoriesArray[0].setPlayer(player);
-        territoriesArray[0].setSoldiersIn(20);
-        //System.out.println(territoriesArray[0].getPlayer().getColor());
-
+        territoriesArray[0][0].select();
+        territoriesArray[0][0].setPlayer(player);
+        territoriesArray[0][0].setSoldiersIn(20);
+        territoryOrigin = territoriesArray[0][0];
     }
 
     public void addTerritoryToP2(Player player) {
 
-        territoriesArray[2].setPlayer(player);
-        territoriesArray[2].setSoldiersIn(20);
-        //System.out.println(territoriesArray[2].getPlayer().getColor());
+        territoriesArray[numCols - 1][numRows - 1].setPlayer(player);
+        territoriesArray[numCols - 1][numRows - 1].setSoldiersIn(20);
     }
 
-    public void beginRoundP1() {
+    public void beginRoundP1() { //review this logic
         Territory t = verifyTerritorySelected();
         t.unselect();
-        territoriesArray[0].select();
+        territoriesArray[0][0].select();
+        //territoryOrigin = territoriesArray[0][0];
     }
 
-    public void beginRoundP2() {
+    public void beginRoundP2() { //review this logic
         Territory t = verifyTerritorySelected();
         t.unselect();
-        territoriesArray[2].select();
-
+        territoriesArray[numCols - 1][numRows - 1].select();
+        //  territoryOrigin = territoriesArray[numCols-1][numRows-1];
     }
 }

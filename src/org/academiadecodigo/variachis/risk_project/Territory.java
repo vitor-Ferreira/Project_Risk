@@ -1,10 +1,9 @@
 package org.academiadecodigo.variachis.risk_project;
 
-import javax.swing.*;
-
 public class Territory {
+
     private boolean conquered = false;
-    private int soldiersTurn = 1;
+    //private int soldiersTurn = 1; //??
     private int position;
     private int row;
     private int column;
@@ -16,16 +15,13 @@ public class Territory {
     public Territory(int row, int column) {
         this.row = row;
         this.column = column;
-
-        this.position = row + column;
+        this.position = row + column; //??
     }
-
 
     /* public Territory(int position, String name) {
         this.position = position;
         this.name = name;
     } */
-
 
     public int getSoldiers() {
         return this.soldiers;
@@ -97,16 +93,4 @@ public class Territory {
     public int guardianSoldier() {
         return soldiers = 1;
     }
-
-
-    // --------------territory knows its neighbours?----------
-
-
-   /* public Territory getDown() {
-        return down;
-    }
-
-    public Territory getNext() {
-        return next;
-    }*/
 }

@@ -9,16 +9,15 @@ public class Grid {
 
     private int cols;
     private int rows;
-    private Territory territory;
     private int x;
     private int y;
+    private String numSoldiers;
+    private Territory[][] territory;
 
     //private GridPosition gridPosition;
 
-
-    private Rectangle[][] cellsArray = new Rectangle[5][5];
+    private Rectangle[][] cellsArray = new Rectangle[6][6];
     private Picture moveableImage;
-
 
     private int cellSize = 200;
 
@@ -27,40 +26,31 @@ public class Grid {
         this.rows = rows;
     }
 
-    public void canvas() {
+    public void init(Territory[][] territories) {
 
-        Canvas.getInstance();
-    }
-
-    public void init() {
-
+        this.territory = territories;
 
         Rectangle gridRect = new Rectangle(PADDING, PADDING, cellSize * cols, cellSize * rows);
-        Picture backgroundPicture = new Picture(PADDING, PADDING, "Resources/terrain.jpg");
+        Picture backgroundPicture = new Picture(PADDING, PADDING, "Resources/terrain2.jpg");
         backgroundPicture.draw();
         gridRect.setColor(Color.BLACK);
         gridRect.draw();
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                System.out.println("i: " + i);
-                System.out.println("j: " + j);
+                //  System.out.println("i: " + i);
+                // System.out.println("j: " + j);
                 Rectangle cell = new Rectangle(colsToX(i), rowToY(j), cellSize, cellSize);
                 cell.setColor(Color.BLACK);
                 cell.draw();
                 cellsArray[i][j] = cell;
-
             }
         }
-
-        movementImage();
-        showNumberSoldiers();
     }
 
     public int colsToX(int cols) {
         x = cols * cellSize + PADDING;
         return x;
-
     }
 
     public int rowToY(int rows) {
@@ -68,146 +58,98 @@ public class Grid {
         return y;
     }
 
-    public void movementImage(){ //Por argumentos para as posicoes pois vai ser ussado para fazer o set dos 2 players
+    public void movementImage() { //Por argumentos para as posicoes pois vai ser ussado para fazer o set dos 2 players
 
-        //if(territory.getPlayer().getColor().equals("red")) {
+        //  System.out.println("RED " + territory[0][0].getPlayer());
+        // System.out.println("BLUE" + territory[2][2].getPlayer());
+
+        if (territory[0][0].getPlayer().getColor().equals("Blue")) {
             moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
             moveableImage.draw();
-        //}
+        }
 
-        //if(territory.getPlayer().getColor().equals("blue")) {
-            //moveableImage = new Picture(PADDING, PADDING + (territory.getRow() - 1) * cellSize, "Resources/tank1.png");
-            //moveableImage.draw();
-        //}
+        if (territory[2][2].getPlayer().getColor().equals("Red")) {
+            moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow() - 1) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
+            moveableImage.draw();
+        }
 
-    }
-
-    public void moveRight() {
-        /* if(moveableImage.getX() < cols * cellSize + PADDING ) {
-        } */
-            moveableImage.translate(cellSize, 0);
     }
 
     public void moveLeft() {
-        /* if(moveableImage.getX() > PADDING) {
-        } */
+
+        if (moveableImage.getX() > PADDING) {
+
             moveableImage.translate(-cellSize, 0);
+        }
     }
 
     public void moveUp() {
-        /* if(moveableImage.getY() > PADDING) {
-        } */
+
+        if (moveableImage.getY() > PADDING) {
+
             moveableImage.translate(0, -cellSize);
+        }
+    }
+
+    public void moveRight() {
+
+        System.out.println("AHSAISHASSHAISH");
+
+        if (moveableImage.getX() < cols * cellSize + PADDING) {
+
+            System.out.println(")))))))");
+            moveableImage.translate(cellSize, 0);
+        }
+        System.out.println("ppppppppp");
     }
 
     public void moveDown() {
-        /* if(moveableImage.getY() < rows * cellSize + PADDING) {
 
-        } */
+        if (moveableImage.getY() < rows * cellSize + PADDING) {
+
             moveableImage.translate(0, cellSize);
+        }
     }
-    
 
-    public void showNumberSoldiers(){
+    public void showNumberSoldiers() {
 
-        //String getSoldiers = "" + territory.getSoldiers(); // Ver se da?????
+        //System.out.println(territory.getSoldiers());
 
-        for(int i = 0; i < cols; i++){
-            for (int j = 0; j < rows; j++){
-                System.out.println("i: " + i);
-                System.out.println("j: " + j);
-                //if (territory.getPlayer().getColor().equals("red")) {
-                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize , "20");
+
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+
+                // System.out.println("i: " + i);
+                // System.out.println("j: " + j);
+
+                numSoldiers = Integer.toString(territory[i][j].getSoldiers());
+                //   System.out.println(numSoldiers);
+
+                //  System.out.println("territory array " + territory[i][j]);
+
+                // System.out.println("t + p " + territory[i][j].getPlayer().getColor());
+
+                if (territory[i][j].getPlayer() == null) {
+                    //System.out.println("NO PLAYER AT " + i + " " + j);
+                    continue;
+                }
+
+                if (territory[i][j].getPlayer().getColor().equals("Blue")) {
+                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
                     text.grow(25, 25);
                     text.draw();
                     text.setColor(Color.RED);
-                //}
 
-                /*if (territory.getPlayer().getColor().equals("blue")) {
-                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize , "20");
+                    //   System.out.println("Uff");
+                }
+
+                if (territory[i][j].getPlayer().getColor().equals("Red")) {
+                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
                     text.grow(25, 25);
                     text.draw();
                     text.setColor(Color.BLUE);
-                //} */
-
-
-                //if (territory.getPlayer().getColor().equals("BLUE")) {
-                /*text = new Text(i, j, getSoldiers);
-                text.grow(25, 25);
-                text.draw();
-                text.setColor(Color.BLUE);
-                //}*/
+                }
             }
         }
-
-
-
     }
-
-        /* selectRect = new Rectangle(columnToX(0), rowToY(0), cellSize, cellSize);
-        selectRect.setColor(Color.RED);
-        selectRect.draw(); */
-    /*}
-
-    public void playerImagesShow() {
-        Picture playerIcon = new Picture(columnToX(0) - 150, rowToY(0) - 150, "Resources/tank.png");
-        playerIcon.draw();
-        playerIcon.grow(-150, -150);
-
-    }
-
-    public void soldierNumber() {
-
-        if (territory.getPlayer().getColor().equals("RED")) {
-            Text text = new Text(columnToX(getCols()) + cellSize * 0.4, rowToY(getRows()) + cellSize * 0.5, "20");
-            text.grow(25, 25);
-            text.draw();
-            text.setColor(Color.RED);
-        }
-        if (territory.getPlayer().getColor().equals("BLUE")) {
-            Text text = new Text(columnToX(getCols()) + cellSize * 0.4, rowToY(getRows()) + cellSize * 0.5, "20");
-            text.grow(25, 25);
-            text.draw();
-            text.setColor(Color.BLUE);
-        }
-
-    }
-
-    /*public void player2ImagesShow(){
-        Picture playerIcon = new Picture(columnToX(2) -550 , rowToY(2) -170 , "Resources/tank.png");
-        playerIcon.draw();
-        playerIcon.grow(-150, -150);
-        Text text = new Text(columnToX(2) - 320, rowToY(2) + 80, "20");
-        text.grow(25,25);
-        text.setColor(Color.BLUE);
-        text.draw();
-    }*/
-
-    /*public void player1ImagesHide() {
-        Picture playerIcon = new Picture(columnToX(0) - 150, rowToY(0) - 150, "Resources/tank.png");
-        playerIcon.draw();
-        playerIcon.grow(-150, -150);
-        playerIcon.delete();
-        Text text = new Text(columnToX(0) + cellSize * 0.4, rowToY(0) + cellSize * 0.5, "20");
-        text.grow(25, 25);
-        text.setColor(Color.RED);
-        text.draw();
-        text.delete();
-    }
-
-    public void player2ImagesHide() {
-        Picture playerIcon = new Picture(columnToX(2) - 550, rowToY(2) - 170, "Resources/tank.png");
-        playerIcon.draw();
-        playerIcon.grow(-150, -150);
-        playerIcon.delete();
-        Text text = new Text(columnToX(2) - 320, rowToY(2) + 80, "20");
-        text.grow(25, 25);
-        text.setColor(Color.BLUE);
-        text.draw();
-        text.delete();
-
-    }*/
-
-
 }
-

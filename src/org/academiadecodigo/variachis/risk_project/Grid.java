@@ -31,7 +31,7 @@ public class Grid {
         this.territory = territories;
 
         Rectangle gridRect = new Rectangle(PADDING, PADDING, cellSize * cols, cellSize * rows);
-        Picture backgroundPicture = new Picture(PADDING, PADDING, "Resources/terrain.jpg");
+        Picture backgroundPicture = new Picture(PADDING, PADDING, "Resources/terrain2.jpg");
         backgroundPicture.draw();
         gridRect.setColor(Color.BLACK);
         gridRect.draw();
@@ -63,12 +63,12 @@ public class Grid {
         //  System.out.println("RED " + territory[0][0].getPlayer());
         // System.out.println("BLUE" + territory[2][2].getPlayer());
 
-        if (territory[0][0].getPlayer().getColor().equals("Red")) {
+        if (territory[0][0].getPlayer().getColor().equals("Blue")) {
             moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
             moveableImage.draw();
         }
 
-        if (territory[2][2].getPlayer().getColor().equals("Blue")) {
+        if (territory[2][2].getPlayer().getColor().equals("Red")) {
             moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow() - 1) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
             moveableImage.draw();
         }
@@ -129,14 +129,12 @@ public class Grid {
 
                 // System.out.println("t + p " + territory[i][j].getPlayer().getColor());
 
-                //   System.out.println("Epá");
-
                 if (territory[i][j].getPlayer() == null) {
                     //System.out.println("NO PLAYER AT " + i + " " + j);
                     continue;
                 }
 
-                if (territory[i][j].getPlayer().getColor().equals("Red")) {
+                if (territory[i][j].getPlayer().getColor().equals("Blue")) {
                     Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
                     text.grow(25, 25);
                     text.draw();
@@ -145,7 +143,7 @@ public class Grid {
                     //   System.out.println("Uff");
                 }
 
-                if (territory[i][j].getPlayer().getColor().equals("Blue")) {
+                if (territory[i][j].getPlayer().getColor().equals("Red")) {
                     Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
                     text.grow(25, 25);
                     text.draw();

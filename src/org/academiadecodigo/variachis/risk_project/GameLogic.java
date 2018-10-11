@@ -3,15 +3,17 @@ package org.academiadecodigo.variachis.risk_project;
 public class GameLogic {
 
     private Grid grid;
-
-    private Player p1;
-    private Player p2;
-    private Player activePlayer;
-    private Movement moveChoice;
-
     private Board board;
     private Territory territory;
     private Territory[][] territoryArray;
+
+    private Player p1;
+    private Player p2;
+    private Player activePlayer = p1;
+    //private Movement moveChoice;
+
+    private int rounds = 1; //if we want to keep track of the number of rounds.
+    private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
     private boolean attackDone = false;
     private boolean reinforceDone = false;
@@ -38,35 +40,50 @@ public class GameLogic {
 
     public void start() {
 
-        int rounds = 1;
-        for (int i = 0; i < 11; i++) { //why 11? because if it's not 11, the for doesn't stop. this is a quick fix.
-            round(p1);
-            //    System.out.println("round: " + rounds);
-            attackDone = false;
+        System.out.println("Current Round: " + rounds);
 
-            if (rounds % 2 == 0) {
-                System.out.println("p2's turn");
+        //for (int i = 0; i < 11; i++) { //why 11? because if it's not 11, the for doesn't stop. this is just a quick fix.
+
+            //round();
+            //System.out.println("round: " + rounds);
+
+            //attackDone = false;
+
+            /* if (rounds % 2 == 0) {
+                System.out.println("Player 2's turn");
                 board.beginRoundP2();
-                round(p2);
+                round();
                 rounds++;
             }
+
             board.beginRoundP1();
-            System.out.println("p1's turn");
-            round(p1);
+            System.out.println("Player 1's turn");
+            round(); */
+
+
             rounds++;
-        }
+        //}
+
+        /** plano de acção: em vez de fazer a estratégia em cima descrita, fazer algo com activePlayer. a cada vez que activePlayer faz uma jogada, muda
+         * de P1 para P2 e vice-versa. Só há um activePlayer de cada vez. as jogadas (i.e movements, etc, aplicam-se em nome do activePlayer. **/
     }
 
-    public void round(Player player) {
+    public void round() { //"o round é um jogo automático"; "premir uma tecla -> acção. dependendo da roundStage, significados diferentes."
 
-        //Phase 1 - increment, uses the method increment from the board
-        //to increment the troops in territories that have the player that is playing this round
-        board.increment(player);
+        if (roundStage == RoundStage.INCREMENT) {
+            board.increment(); //para os 2 players
+            roundStage = RoundStage.ATTACK;
+        }
 
-        // while (!attackDone) {
-        attack();
+        if (roundStage == RoundStage.ATTACK) {
+            attack();
+            roundStage = RoundStage.REINFORCEMENT;
+        }
 
-        reinforce(player);
+        if (roundStage == RoundStage.REINFORCEMENT) {
+            reinforce();
+            roundStage = RoundStage.INCREMENT;
+        }
 
         activePlayer = activePlayer == p1 ? p2 : p1;
     }
@@ -75,12 +92,13 @@ public class GameLogic {
 
         while (!attackDone) {
 
-            board.moveToTerritory(moveChoice);
+            //board.moveToTerritory(moveChoice);
+            //moveActivePlayer(move);
 
             //check if territoryArray that we are attacking from has more than 1 soldier
             //if (board.verifyTerritorySelected().getSoldiers() <= 1) {
             //System.out.println(board.verifyTerritorySelected());
-            if (board.getTerritoryOrigin().getSoldiers() <= 1) {  /** PERHAPS CREATE GETTER IN BOARD **/
+            if (board.getTerritoryOrigin().getSoldiers() <= 1) {
                 //choose another territoryArray to attack from
                 //  System.out.println("verify if territory only 1");
                 return;
@@ -101,27 +119,26 @@ public class GameLogic {
             }
 
             board.battle(); // Changes in the board.battle method
-
             attackDone = true;
         }
     }
 
-    public void reinforce(Player player) {
+    public void reinforce() {
 
         while (!reinforceDone) {
-            board.moveToTerritory(moveChoice);
-            //Check if the territoryArray that we are reinforcing from has more than 1 soldier
+
+            //board.moveToTerritory(moveChoice);
+            //moveActivePlayer(move);
+
             if (board.getTerritoryOrigin().getSoldiers() <= 1) {
                 return;
             }
 
             //gets the territoryArray (movement) that the player wants to reinforce (defined in Player).
 
-            //if (!board.allowsMovement(movement)) {
-
             Territory territoryReinforce = board.verifyTerritorySelected();
 
-            if (territoryReinforce.getPlayer() != player) {
+            if (territoryReinforce.getPlayer() != activePlayer) {
                 return;
             }
 
@@ -130,15 +147,58 @@ public class GameLogic {
         }
     }
 
-    public void movePlayer(Movement movement) {
+    /* public void movePlayer(Movement movement) {
         moveChoice = movement;
+    } */
+
+    public void moveActivePlayer(Movement movement) {
+
+        Movement move = movement;
+
+        switch (move) {
+
+            case LEFT:
+                if (!attackDone) {
+                    board.moveToTerritory(Movement.LEFT);
+                }
+                return;
+
+            case UP:
+                if (!attackDone) {
+                    board.moveToTerritory(Movement.UP);
+                }
+                return;
+
+            case RIGHT:
+                if (!attackDone) {
+                    board.moveToTerritory(Movement.RIGHT);
+                }
+                return;
+
+            case DOWN:
+                if (!attackDone) {
+                    board.moveToTerritory(Movement.DOWN);
+                }
+                return;
+        }
     }
-    
+
     public Player getP1() {
         return p1;
     }
 
     public Player getP2() {
         return p2;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public enum RoundStage {
+        INCREMENT,
+        ATTACK,
+        REINFORCEMENT
+
     }
 }

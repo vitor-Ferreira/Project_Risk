@@ -8,15 +8,9 @@ public class Player {
     private Territory initialTerritory;
     //private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //list of the player's owned territories. not needed for now.
     //private int numberOfCurrentlyOwnedTerritories;
-    private Territory currentlySelectedTerritory;
 
     public Player(String color) {
-        //maybe randomInitialTerritory is not needed here.
-        //perhaps even the initialSoldiers int. All players start with the same number - 20 - after all.
-
         this.color = color;
-        //this.initialTerritory = randomInitialTerritory;
-//
     }
 
     /* public int checkSoldiersOnTerritory(Territory territory) {
@@ -47,6 +41,11 @@ public class Player {
         this.initialTerritory = initialTerritory;
     }
 
+    public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
+
+        return movement; //attention: keyboard input.
+    }
+
     /* public String getCurrentlyOwnedTerritories() {
         //get current total territories.
         //not needed for now, as each territory knows who it belongs to.
@@ -61,27 +60,5 @@ public class Player {
 
     /* public int getNumberOfCurrentlyOwnedTerritories() {
         return numberOfCurrentlyOwnedTerritories;
-    } */
-
-    /* public void territorySelection() {
-
-
-    } */
-
-    ///// ----- ///// Movement Orders ///// ----- /////
-
-    public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
-
-        return movement; //attention: keyboard input.
-    }
-
-    /* public void attack(Player player, Movement movement) { //attack what territory
-        //attack should be on gameLogic
-
-    }
-
-    public void reinforce(Player player, Movement movement, int soldiers) { //reinforce what territory, reinforce with how many soldiers
-        //reinforcement should be on gameLogic (also, for now, reinforcements moveAll-1, like the attack does)
-
     } */
 }

@@ -9,6 +9,8 @@ public class GameKeyboard implements KeyboardHandler {
 
     private GameLogic game;
     private Board board;
+    private Grid grid;
+
 
     public void setGame(GameLogic game) {
         this.game = game;
@@ -16,6 +18,10 @@ public class GameKeyboard implements KeyboardHandler {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public void setGrid(Grid grid) {
+        this.grid = grid;
     }
 
     public void runKeyboard() {

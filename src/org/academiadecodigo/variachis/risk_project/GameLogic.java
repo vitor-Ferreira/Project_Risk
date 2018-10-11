@@ -10,13 +10,8 @@ public class GameLogic {
     private Territory[][] territoryArray;
     private Text textToDisplay;
 
-<<<<<<< HEAD
-    private Player p1 = new Player("Blue");;
-    private Player p2 = new Player("Red");;
-=======
     private Player p1 = new Player("Blue");
     private Player p2 = new Player("Red");
->>>>>>> master
     private Player activePlayer = p1;
     //private Movement moveChoice;
 
@@ -54,9 +49,9 @@ public class GameLogic {
         System.out.println("Current Round: " + rounds);
 
 
-            //System.out.println("round: " + rounds);
+        //System.out.println("round: " + rounds);
 
-            //attackDone = false;
+        //attackDone = false;
 
             /* if (rounds % 2 == 0) {
                 System.out.println("Player 2's turn");

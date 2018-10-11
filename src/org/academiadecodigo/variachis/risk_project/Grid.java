@@ -14,6 +14,7 @@ public class Grid {
     private String numSoldiers;
     private Territory[][] territory;
 
+
     //private GridPosition gridPosition;
 
     private Rectangle[][] cellsArray = new Rectangle[6][6];
@@ -63,17 +64,18 @@ public class Grid {
         //  System.out.println("RED " + territory[0][0].getPlayer());
         // System.out.println("BLUE" + territory[2][2].getPlayer());
 
-        if (territory[0][0].getPlayer().getColor().equals("Blue")) {
+        if (territory[0][0].getPlayer().getColor().equals("Red")) {
             moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
             moveableImage.draw();
         }
 
-        if (territory[2][2].getPlayer().getColor().equals("Red")) {
-            moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow()) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
+        if (territory[2][2].getPlayer().getColor().equals("Blue")) {
+            moveableImage = new Picture(PADDING + (territory[2][2].getColumn()) * cellSize, PADDING + (territory[2][2].getRow()) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
             moveableImage.draw();
         }
 
     }
+
 
     public void moveLeft() {
 
@@ -93,19 +95,15 @@ public class Grid {
 
     public void moveRight() {
 
-        System.out.println("AHSAISHASSHAISH");
+        if (moveableImage.getX() + 200 < cols * cellSize + PADDING) {
 
-        if (moveableImage.getX() < cols * cellSize + PADDING) {
-
-            System.out.println(")))))))");
             moveableImage.translate(cellSize, 0);
         }
-        System.out.println("ppppppppp");
     }
 
     public void moveDown() {
 
-        if (moveableImage.getY() < rows * cellSize + PADDING) {
+        if (moveableImage.getY() + 200 < rows * cellSize + PADDING) {
 
             moveableImage.translate(0, cellSize);
         }
@@ -137,7 +135,7 @@ public class Grid {
                     continue;
                 }
 
-                if (territory[i][j].getPlayer().getColor().equals("Blue")) {
+                if (territory[i][j].getPlayer().getColor().equals("Red")) {
                     Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
                     text.grow(25, 25);
                     text.draw();
@@ -146,7 +144,7 @@ public class Grid {
                     //   System.out.println("Uff");
                 }
 
-                if (territory[i][j].getPlayer().getColor().equals("Red")) {
+                if (territory[i][j].getPlayer().getColor().equals("Blue")) {
                     Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
                     text.grow(25, 25);
                     text.draw();

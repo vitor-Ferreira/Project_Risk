@@ -40,18 +40,18 @@ public class GameLogic {
 
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
-        grid.showNumberSoldiers();
         grid.movementImage();
+        grid.showNumberSoldiers();
     }
 
     public void start() {
 
         System.out.println("Current Round: " + rounds);
 
+        round();
+        //System.out.println("round: " + rounds);
 
-            //System.out.println("round: " + rounds);
-
-            //attackDone = false;
+        //attackDone = false;
 
             /* if (rounds % 2 == 0) {
                 System.out.println("Player 2's turn");
@@ -67,16 +67,21 @@ public class GameLogic {
          * de P1 para P2 e vice-versa. Só há um activePlayer de cada vez. as jogadas (i.e movements, etc, aplicam-se em nome do activePlayer. **/
     }
 
+    public Text getTextToDisplay(){
+
+    }
+
+
     public void round() { //"o round é um jogo automático"; "premir uma tecla -> acção. dependendo da roundStage, significados diferentes."
 
 
         textToDisplay.setText(roundStage.toString());
 
-        if (roundStage == RoundStage.INCREMENT) {
+        /*if (roundStage == RoundStage.INCREMENT) {
             board.increment(); //para os 2 players
             roundStage = RoundStage.ATTACK;
             return;
-        }
+        }*/
 
         if (roundStage == RoundStage.ATTACK) {
             attack();
@@ -87,11 +92,16 @@ public class GameLogic {
         if (roundStage == RoundStage.REINFORCEMENT) {
             reinforce();
             roundStage = RoundStage.INCREMENT;
+
+        }
+        if (activePlayer == p2) {
             rounds++;
         }
 
         // TODO: 11/10/2018 Make sure that `rounds` is only incremented after two players have played
+
         activePlayer = activePlayer == p1 ? p2 : p1;
+
     }
 
     public void attack() {
@@ -207,4 +217,9 @@ public class GameLogic {
         REINFORCEMENT
 
     }
+
+    public RoundStage getRoundStage(){
+        return roundStage;
+    }
+
 }

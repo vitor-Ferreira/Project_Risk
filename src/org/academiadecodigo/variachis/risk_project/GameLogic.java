@@ -16,11 +16,10 @@ public class GameLogic {
     //private Movement moveChoice;
 
     private int rounds = 1; //if we want to keep track of the number of rounds.
-    private int maxRounds = 11;
+    private int maxRounds = 11; //doubtful
     private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
     private boolean attackDone = false;
-    private boolean reinforceDone = false;
 
     public void init() {
 
@@ -29,13 +28,13 @@ public class GameLogic {
         territoryArray = board.getTerritories();
         grid.init(territoryArray);
 
-
         textToDisplay = new Text(400, 400, "Attack Phase");
         textToDisplay.draw();
         textToDisplay.grow(50, 50);
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setGame(this);
         keyboard.setBoard(board);
+        keyboard.setGrid(grid);
         keyboard.runKeyboard();
 
         board.addTerritoryToP1(p1);
@@ -72,21 +71,18 @@ public class GameLogic {
 
         textToDisplay.setText(roundStage.toString());
 
-        if (roundStage == RoundStage.INCREMENT) {
-            board.increment(); //para os 2 players
+        if (roundStage == RoundStage.REINFORCE) {
+            board.increment();
             roundStage = RoundStage.ATTACK;
             return;
         }
 
         if (roundStage == RoundStage.ATTACK) {
             attack();
-            roundStage = RoundStage.REINFORCEMENT;
-            return;
+            roundStage = RoundStage.REINFORCE;
         }
 
-        if (roundStage == RoundStage.REINFORCEMENT) {
-            reinforce();
-            roundStage = RoundStage.INCREMENT;
+        if (activePlayer == p2) {
             rounds++;
         }
 
@@ -129,7 +125,7 @@ public class GameLogic {
         }
     }
 
-    public void reinforce() {
+  /*  public void reinforce() {
 
         while (!reinforceDone) {
 
@@ -151,7 +147,7 @@ public class GameLogic {
             board.reinforce();
             reinforceDone = true;
         }
-    }
+    } */
 
     /* public void movePlayer(Movement movement) {
         moveChoice = movement;
@@ -202,9 +198,8 @@ public class GameLogic {
     }
 
     public enum RoundStage {
-        INCREMENT,
-        ATTACK,
-        REINFORCEMENT
+        REINFORCE,
+        ATTACK
 
     }
 }

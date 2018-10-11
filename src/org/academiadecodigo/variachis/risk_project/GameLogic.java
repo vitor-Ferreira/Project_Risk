@@ -16,11 +16,10 @@ public class GameLogic {
     //private Movement moveChoice;
 
     private int rounds = 1; //if we want to keep track of the number of rounds.
-    private int maxRounds = 11;
+    private int maxRounds = 11; //doubtful
     private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
     private boolean attackDone = false;
-    private boolean reinforceDone = false;
 
     public void init() {
 
@@ -29,13 +28,13 @@ public class GameLogic {
         territoryArray = board.getTerritories();
         grid.init(territoryArray);
 
-
         textToDisplay = new Text(400, 400, "Attack Phase");
         textToDisplay.draw();
         textToDisplay.grow(50, 50);
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setGame(this);
         keyboard.setBoard(board);
+        keyboard.setGrid(grid);
         keyboard.runKeyboard();
 
         board.addTerritoryToP1(p1);
@@ -48,7 +47,6 @@ public class GameLogic {
 
         System.out.println("Current Round: " + rounds);
 
-        round();
         //System.out.println("round: " + rounds);
 
         //attackDone = false;
@@ -67,41 +65,28 @@ public class GameLogic {
          * de P1 para P2 e vice-versa. Só há um activePlayer de cada vez. as jogadas (i.e movements, etc, aplicam-se em nome do activePlayer. **/
     }
 
-    public Text getTextToDisplay(){
-
-    }
-
-
     public void round() { //"o round é um jogo automático"; "premir uma tecla -> acção. dependendo da roundStage, significados diferentes."
 
 
         textToDisplay.setText(roundStage.toString());
 
-        /*if (roundStage == RoundStage.INCREMENT) {
-            board.increment(); //para os 2 players
+        if (roundStage == RoundStage.REINFORCE) {
+            board.increment();
             roundStage = RoundStage.ATTACK;
             return;
-        }*/
+        }
 
         if (roundStage == RoundStage.ATTACK) {
             attack();
-            roundStage = RoundStage.REINFORCEMENT;
-            return;
+            roundStage = RoundStage.REINFORCE;
         }
 
-        if (roundStage == RoundStage.REINFORCEMENT) {
-            reinforce();
-            roundStage = RoundStage.INCREMENT;
-
-        }
         if (activePlayer == p2) {
             rounds++;
         }
 
         // TODO: 11/10/2018 Make sure that `rounds` is only incremented after two players have played
-
         activePlayer = activePlayer == p1 ? p2 : p1;
-
     }
 
     public void attack() {
@@ -139,7 +124,7 @@ public class GameLogic {
         }
     }
 
-    public void reinforce() {
+  /*  public void reinforce() {
 
         while (!reinforceDone) {
 
@@ -161,7 +146,7 @@ public class GameLogic {
             board.reinforce();
             reinforceDone = true;
         }
-    }
+    } */
 
     /* public void movePlayer(Movement movement) {
         moveChoice = movement;
@@ -212,14 +197,8 @@ public class GameLogic {
     }
 
     public enum RoundStage {
-        INCREMENT,
-        ATTACK,
-        REINFORCEMENT
+        REINFORCE,
+        ATTACK
 
     }
-
-    public RoundStage getRoundStage(){
-        return roundStage;
-    }
-
 }

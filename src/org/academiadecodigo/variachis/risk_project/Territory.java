@@ -5,16 +5,16 @@ public class Territory {
     private boolean conquered = false;
     //private int soldiersTurn = 1; //??
     private int position;
-    private int row;
     private int column;
+    private int row;
     private int soldiers;
     private boolean selected;
     private Player player;
 
 
-    public Territory(int row, int column) {
-        this.row = row;
+    public Territory(int column, int row) {
         this.column = column;
+        this.row = row;
         this.position = row + column; //??
     }
 
@@ -45,13 +45,12 @@ public class Territory {
         this.soldiers = s;
     }
 
-    public int getRow() {
-        return this.row;
-    }
-
-
     public int getColumn() {
         return this.column;
+    }
+
+    public int getRow() {
+        return this.row;
     }
 
 

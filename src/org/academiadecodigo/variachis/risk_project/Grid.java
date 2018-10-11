@@ -14,7 +14,6 @@ public class Grid {
     private String numSoldiers;
     private Territory[][] territory;
 
-
     //private GridPosition gridPosition;
 
     private Rectangle[][] cellsArray = new Rectangle[6][6];
@@ -75,7 +74,6 @@ public class Grid {
         }
 
     }
-
 
     public void moveLeft() {
 

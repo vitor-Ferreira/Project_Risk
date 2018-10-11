@@ -7,8 +7,8 @@ public class GameLogic {
     private Territory territory;
     private Territory[][] territoryArray;
 
-    private Player p1;
-    private Player p2;
+    private Player p1 = new Player("Blue");;
+    private Player p2 = new Player("Red");;
     private Player activePlayer = p1;
     //private Movement moveChoice;
 
@@ -28,9 +28,6 @@ public class GameLogic {
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setBoard(board);
         keyboard.runKeyboard();
-
-        this.p1 = new Player("Blue");
-        this.p2 = new Player("Red");
 
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);

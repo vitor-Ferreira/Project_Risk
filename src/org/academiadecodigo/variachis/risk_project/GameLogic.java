@@ -1,18 +1,22 @@
 package org.academiadecodigo.variachis.risk_project;
 
+import org.academiadecodigo.simplegraphics.graphics.Text;
+
 public class GameLogic {
 
     private Grid grid;
     private Board board;
     private Territory territory;
     private Territory[][] territoryArray;
+    private Text textToDisplay;
 
-    private Player p1;
-    private Player p2;
+    private Player p1 = new Player("Blue");
+    private Player p2 = new Player("Red");
     private Player activePlayer = p1;
     //private Movement moveChoice;
 
     private int rounds = 1; //if we want to keep track of the number of rounds.
+    private int maxRounds = 11;
     private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
     private boolean attackDone = false;
@@ -23,14 +27,16 @@ public class GameLogic {
         grid = new Grid(3, 3);
         board = new Board(grid, 3, 3);
         territoryArray = board.getTerritories();
-        grid.init(territoryArray); //corrigir: ao fecharmos esta janela, o processo não encerra logo.
+        grid.init(territoryArray);
 
+
+        textToDisplay = new Text(400, 400, "Attack Phase");
+        textToDisplay.draw();
+        textToDisplay.grow(50, 50);
         GameKeyboard keyboard = new GameKeyboard();
+        keyboard.setGame(this);
         keyboard.setBoard(board);
         keyboard.runKeyboard();
-
-        this.p1 = new Player("Blue");
-        this.p2 = new Player("Red");
 
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
@@ -42,9 +48,7 @@ public class GameLogic {
 
         System.out.println("Current Round: " + rounds);
 
-        //for (int i = 0; i < 11; i++) { //why 11? because if it's not 11, the for doesn't stop. this is just a quick fix.
 
-            //round();
             //System.out.println("round: " + rounds);
 
             //attackDone = false;
@@ -59,32 +63,34 @@ public class GameLogic {
             board.beginRoundP1();
             System.out.println("Player 1's turn");
             round(); */
-
-
-            rounds++;
-        //}
-
         /** plano de acção: em vez de fazer a estratégia em cima descrita, fazer algo com activePlayer. a cada vez que activePlayer faz uma jogada, muda
          * de P1 para P2 e vice-versa. Só há um activePlayer de cada vez. as jogadas (i.e movements, etc, aplicam-se em nome do activePlayer. **/
     }
 
     public void round() { //"o round é um jogo automático"; "premir uma tecla -> acção. dependendo da roundStage, significados diferentes."
 
+
+        textToDisplay.setText(roundStage.toString());
+
         if (roundStage == RoundStage.INCREMENT) {
             board.increment(); //para os 2 players
             roundStage = RoundStage.ATTACK;
+            return;
         }
 
         if (roundStage == RoundStage.ATTACK) {
             attack();
             roundStage = RoundStage.REINFORCEMENT;
+            return;
         }
 
         if (roundStage == RoundStage.REINFORCEMENT) {
             reinforce();
             roundStage = RoundStage.INCREMENT;
+            rounds++;
         }
 
+        // TODO: 11/10/2018 Make sure that `rounds` is only incremented after two players have played
         activePlayer = activePlayer == p1 ? p2 : p1;
     }
 

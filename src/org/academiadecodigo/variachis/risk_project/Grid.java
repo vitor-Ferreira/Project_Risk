@@ -69,7 +69,7 @@ public class Grid {
         }
 
         if (territory[2][2].getPlayer().getColor().equals("Red")) {
-            moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow() - 1) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
+            moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow()) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
             moveableImage.draw();
         }
 
@@ -130,7 +130,10 @@ public class Grid {
                 // System.out.println("t + p " + territory[i][j].getPlayer().getColor());
 
                 if (territory[i][j].getPlayer() == null) {
-                    //System.out.println("NO PLAYER AT " + i + " " + j);
+                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
+                    text.grow(25, 25);
+                    text.draw();
+                    text.setColor(Color.WHITE);
                     continue;
                 }
 

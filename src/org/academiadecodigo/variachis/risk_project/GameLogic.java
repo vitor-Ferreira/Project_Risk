@@ -16,11 +16,10 @@ public class GameLogic {
     //private Movement moveChoice;
 
     private int rounds = 1; //if we want to keep track of the number of rounds.
-    private int maxRounds = 11;
+    private int maxRounds = 11; //doubtful
     private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
     private boolean attackDone = false;
-    private boolean reinforceDone = false;
 
     public void init() {
 
@@ -29,29 +28,28 @@ public class GameLogic {
         territoryArray = board.getTerritories();
         grid.init(territoryArray);
 
-
-        textToDisplay = new Text(400, 400, "Attack Phase");
+        textToDisplay = new Text(290, 290, "Attack Phase");
         textToDisplay.draw();
-        textToDisplay.grow(50, 50);
+        textToDisplay.grow(60, 60);
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setGame(this);
         keyboard.setBoard(board);
+        keyboard.setGrid(grid);
         keyboard.runKeyboard();
 
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
-        grid.showNumberSoldiers();
         grid.movementImage();
+        grid.showNumberSoldiers();
     }
 
     public void start() {
 
         System.out.println("Current Round: " + rounds);
 
+        //System.out.println("round: " + rounds);
 
-            //System.out.println("round: " + rounds);
-
-            //attackDone = false;
+        //attackDone = false;
 
             /* if (rounds % 2 == 0) {
                 System.out.println("Player 2's turn");
@@ -72,21 +70,18 @@ public class GameLogic {
 
         textToDisplay.setText(roundStage.toString());
 
-        if (roundStage == RoundStage.INCREMENT) {
-            board.increment(); //para os 2 players
+        if (roundStage == RoundStage.REINFORCE) {
+            board.increment();
             roundStage = RoundStage.ATTACK;
             return;
         }
 
         if (roundStage == RoundStage.ATTACK) {
             attack();
-            roundStage = RoundStage.REINFORCEMENT;
-            return;
+            roundStage = RoundStage.REINFORCE;
         }
 
-        if (roundStage == RoundStage.REINFORCEMENT) {
-            reinforce();
-            roundStage = RoundStage.INCREMENT;
+        if (activePlayer == p2) {
             rounds++;
         }
 
@@ -129,7 +124,7 @@ public class GameLogic {
         }
     }
 
-    public void reinforce() {
+    /*  public void reinforce() {
 
         while (!reinforceDone) {
 
@@ -151,7 +146,7 @@ public class GameLogic {
             board.reinforce();
             reinforceDone = true;
         }
-    }
+    } */
 
     /* public void movePlayer(Movement movement) {
         moveChoice = movement;
@@ -202,9 +197,8 @@ public class GameLogic {
     }
 
     public enum RoundStage {
-        INCREMENT,
-        ATTACK,
-        REINFORCEMENT
+        REINFORCE,
+        ATTACK
 
     }
 }

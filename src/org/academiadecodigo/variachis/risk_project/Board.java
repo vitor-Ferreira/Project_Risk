@@ -40,6 +40,31 @@ public class Board implements Interface_Board {
     // add 1 troop to every territory who has a player owner
     @Override
     public void increment() {
+        for (int i = 0; i < numCols; i++) {
+            for (int j = 0; j < numRows; j++) {
+                //if (territoriesArray[i][j].getPlayer()) {
+                //System.out.println(“Soldiers before increment: ” + territoriesArray[i][j].getSoldiers());
+                int rng = (int) (Math.random() * 10);
+                if (rng == 0) {
+                    rng = 1;
+                }
+
+                if (rng <= 1) {
+                    territoriesArray[i][j].setSoldiersIn(3);
+                } else if (rng > 1 && rng <= 4) {
+                    territoriesArray[i][j].setSoldiersIn(2);
+                } else if (rng > 4) {
+                    territoriesArray[i][j].setSoldiersIn(1);
+                }
+                System.out.println("Territories soldiers Incremented. Sodiers now: " + territoriesArray[i][j].getSoldiers());
+            }
+        }
+    }
+
+
+
+   /* @Override
+    public void increment() {
         System.out.println("method is being called");
         for (int i = 0; i < numCols; i++) {
             for (int j = 0; j < numRows; j++) {
@@ -53,7 +78,7 @@ public class Board implements Interface_Board {
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public void reinforce() {
@@ -101,32 +126,32 @@ public class Board implements Interface_Board {
         }
     }
 
+
     @Override
     //verify victory condition
     public boolean victory(Player player1, Player player2) {
-       /* int countP1 = 0;
+        int countP1 = 0;
         int countP2 = 0;
         for (int i = 0; i < numCols; i++) {
             for (int j = 0; j < numRows; j++) {
 
-                if (territoriesArray[i][j].getPlayer() == null) {
+                if (territoriesArray[i][j].getPlayer() != null) {
 
-                }
-                if (territoriesArray[i][j].getPlayer() == player1) {
-                    countP1++;
-                }
-                if (territoriesArray[i][j].getPlayer() == player2) {
-                    countP2++;
+                    if (territoriesArray[i][j].getPlayer().getColor().equals("Red")) {
+                        countP1++;
+                    } else {
+                        countP2++;
+                    }
+                    if (countP1 > countP2) {
+                        System.out.println("P1 wins (Por imagem)");
+                    }
+                    System.out.println("P2 wins (Por imagem");
                 }
             }
-            if (countP1 == 0 || countP2 == 0) {
-                System.out.println("VICToRYYYY");//_______________________SOUT HERE
-                return true;
-            }
-            return false;
-        }*/
-        return false;//??????????????????????????
+        }
+        return true;
     }
+
 
     @Override
     //change the owner of a territory
@@ -259,16 +284,17 @@ public class Board implements Interface_Board {
     }
 
     public void addTerritoryToP1(Player player) {
-        territoriesArray[0][0].select();
-        territoriesArray[0][0].setPlayer(player);
-        territoriesArray[0][0].setSoldiersIn(20);
+        territoriesArray[numCols - 1][numRows - 1].select();
+
+        territoriesArray[numCols - 1][numRows - 1].setPlayer(player);
+        territoriesArray[numCols - 1][numRows - 1].setSoldiersIn(20);
         //territoryOrigin = territoriesArray[0][0];
     }
 
     public void addTerritoryToP2(Player player) {
+        territoriesArray[0][0].setPlayer(player);
+        territoriesArray[0][0].setSoldiersIn(20);
 
-        territoriesArray[numCols-1][numRows-1].setPlayer(player);
-        territoriesArray[numCols-1][numRows-1].setSoldiersIn(20);
     }
 
     public void beginRoundP1() { //review this logic
@@ -283,5 +309,13 @@ public class Board implements Interface_Board {
         t.unselect();
         territoriesArray[numCols - 1][numRows - 1].select();
         //  territoryOrigin = territoriesArray[numCols-1][numRows-1];
+    }
+
+    public void setTerritoryOrigin(Territory origin) {
+        territoryOrigin = origin;
+    }
+
+    public void setTerritoryDestiny(Territory destiny) {
+        territoryDestiny = destiny;
     }
 }

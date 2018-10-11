@@ -11,7 +11,6 @@ public class GameKeyboard implements KeyboardHandler {
     private Board board;
     private Grid grid;
 
-
     public void setGame(GameLogic game) {
         this.game = game;
     }
@@ -28,11 +27,16 @@ public class GameKeyboard implements KeyboardHandler {
 
         Keyboard k = new Keyboard(this);
 
-        KeyboardEvent event = new KeyboardEvent();
-        event.setKey(KeyboardEvent.KEY_SPACE); //cada tecla que queremos mapear é um novo evento,
+        KeyboardEvent select = new KeyboardEvent();
+        select.setKey(KeyboardEvent.KEY_S); //cada tecla que queremos mapear é um novo evento,
         // por isso temos que criar um novo evento a cada tecla nova à qual queremos atribuir cenas.
-        event.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        k.addEventListener(event);
+        select.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        k.addEventListener(select);
+
+        KeyboardEvent attack = new KeyboardEvent();
+        attack.setKey(KeyboardEvent.KEY_A);
+        attack.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        k.addEventListener(attack);
 
         KeyboardEvent left = new KeyboardEvent();
         left.setKey(KeyboardEvent.KEY_LEFT);
@@ -58,34 +62,35 @@ public class GameKeyboard implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent evt) {
 
-        switch (evt.getKey()) { 
+        switch (evt.getKey()) {
 
-            /* case KeyboardEvent.KEY_SPACE:
+            case KeyboardEvent.KEY_S: //selects current territory and sets it as territoryOrigin
+                board.setTerritoryOrigin(board.verifyTerritorySelected());
+                System.out.println("S PRESSED");
+                break;
 
-                System.out.println("SPACE KEY PRESSED");
-                break; */
+            case KeyboardEvent.KEY_A: //selects a territory to attack
+                board.setTerritoryDestiny(board.verifyTerritorySelected());
+                System.out.println("A PRESSED");
+                break;
 
             case KeyboardEvent.KEY_LEFT:
-                game.moveActivePlayer(Movement.LEFT);
-                //board.moveToTerritory(Movement.LEFT);
+                grid.moveLeft(); //moves selection rectangle in Grid
                 System.out.println("LEFT KEY PRESSED");
                 break;
 
             case KeyboardEvent.KEY_UP:
-                game.moveActivePlayer(Movement.UP);
-                //board.moveToTerritory(Movement.UP);
+                grid.moveUp();
                 System.out.println("UP KEY PRESSED");
                 break;
 
             case KeyboardEvent.KEY_RIGHT:
-                game.moveActivePlayer(Movement.RIGHT);
-                //board.moveToTerritory(Movement.RIGHT);
+                grid.moveRight();
                 System.out.println("RIGHT KEY PRESSED");
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                game.moveActivePlayer(Movement.DOWN);
-                //board.moveToTerritory(Movement.DOWN);
+                grid.moveDown();
                 System.out.println("DOWN KEY PRESSED");
                 break;
         }

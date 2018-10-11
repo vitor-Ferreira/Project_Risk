@@ -211,6 +211,7 @@ public class Board implements Interface_Board {
                     grid.moveLeft();
                     if (territoriesArray[territory.getColumn() - 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getColumn() - 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
+                        System.out.println("Player: " + territory.getPlayer() + territory.getColumn());
                     }
                     territoriesArray[territory.getColumn() - 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
                     territoriesArray[territory.getColumn()][territory.getRow()].guardianSoldier();
@@ -222,6 +223,7 @@ public class Board implements Interface_Board {
                     return;
                 }
                 territory.select();
+                System.out.println("Cant move left---------------------------");
                 return;
 
             case UP:
@@ -241,6 +243,7 @@ public class Board implements Interface_Board {
                     return;
                 }
                 territory.select();
+                System.out.println("Cant move up---------------------------");
                 return;
 
             case RIGHT:
@@ -259,6 +262,7 @@ public class Board implements Interface_Board {
                     return;
                 }
                 territory.select();
+                System.out.println("Cant move right---------------------------");
                 return;
 
             case DOWN:
@@ -276,6 +280,7 @@ public class Board implements Interface_Board {
                     //  System.out.println(territoriesArray[territory.getColumn()][territory.getRow()].getSoldiers());
                 }
                 territory.select();
+                System.out.println("Cant move down---------------------------");
         }
     }
 

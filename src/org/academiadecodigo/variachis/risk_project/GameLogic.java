@@ -59,8 +59,8 @@ public class GameLogic {
             }
 
             board.beginRoundP1();
-            System.out.println("Player 1's turn");
-            round(); */
+            System.out.println("Player 1's turn");*/
+            round();
         /** plano de acção: em vez de fazer a estratégia em cima descrita, fazer algo com activePlayer. a cada vez que activePlayer faz uma jogada, muda
          * de P1 para P2 e vice-versa. Só há um activePlayer de cada vez. as jogadas (i.e movements, etc, aplicam-se em nome do activePlayer. **/
     }
@@ -124,7 +124,7 @@ public class GameLogic {
         }
     }
 
-    /*  public void reinforce() {
+  /*  public void reinforce() {
 
         while (!reinforceDone) {
 

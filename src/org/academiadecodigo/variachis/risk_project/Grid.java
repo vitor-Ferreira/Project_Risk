@@ -69,11 +69,7 @@ public class Grid {
         }
 
         if (territory[2][2].getPlayer().getColor().equals("Red")) {
-<<<<<<< HEAD
-            moveableImage = new Picture(PADDING + (territory[2][2].getColumn()) * cellSize, PADDING + (territory[2][2].getRow()) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
-=======
             moveableImage = new Picture(PADDING, PADDING + (territory[2][2].getRow()) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
->>>>>>> master
             moveableImage.draw();
         }
 
@@ -118,7 +114,8 @@ public class Grid {
     public void showNumberSoldiers() {
 
         //System.out.println(territory.getSoldiers());
-        
+
+
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
 

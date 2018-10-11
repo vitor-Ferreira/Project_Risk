@@ -32,6 +32,8 @@ public class Territory {
     }
 
     public void setSoldiersIn(int s) {
+        System.out.println("previous ammount of soldiers is: " + this.soldiers);
+        System.out.println("incrementing by: " + s);
         this.soldiers = this.soldiers + s;
     }
 
@@ -92,5 +94,14 @@ public class Territory {
 
     public int guardianSoldier() {
         return soldiers = 1;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Territory{" +
+                "row=" + row +
+                ", column=" + column +
+                '}';
     }
 }

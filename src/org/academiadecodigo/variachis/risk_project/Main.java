@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         GameLogic game = new GameLogic();
+
         //Player p1 = new Player("red");
         //Player p2 = new Player("blue");
 

@@ -46,24 +46,21 @@ public class Board implements Interface_Board {
                 //if (territoriesArray[i][j].getPlayer()) {
                 //System.out.println(“Soldiers before increment: ” + territoriesArray[i][j].getSoldiers());
                 int rng = (int) (Math.random() * 10);
-                if (rng == 0) {
-                    rng = 1;
-                }
 
-                if (rng <= 1) {
-                    territoriesArray[i][j].setSoldiersIn(3);
-                } else if (rng > 1 && rng <= 4) {
-                    territoriesArray[i][j].setSoldiersIn(2);
-                } else if (rng > 4) {
-                    territoriesArray[i][j].setSoldiersIn(1);
+                if (territoriesArray[i][j].getPlayer() == game.getActivePlayer()) {
+
+                    if (rng <= 1) {
+                        territoriesArray[i][j].setSoldiersIn(3);
+                    } else if (rng > 1 && rng <= 4) {
+                        territoriesArray[i][j].setSoldiersIn(2);
+                    } else if (rng > 4) {
+                        territoriesArray[i][j].setSoldiersIn(1);
+                    }
+                    System.out.println("Territories soldiers Incremented. Sodiers now: " + territoriesArray[i][j].getSoldiers());
                 }
-                System.out.println("Territories soldiers Incremented. Sodiers now: " + territoriesArray[i][j].getSoldiers());
             }
         }
     }
-
-
-
 
 
     @Override

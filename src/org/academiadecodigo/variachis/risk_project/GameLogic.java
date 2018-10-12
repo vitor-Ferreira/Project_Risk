@@ -11,8 +11,8 @@ public class GameLogic {
     private Territory[][] territoryArray;
     private Text textToDisplay;
 
-    private Player p2 = new Player("Blue", new Picture(10, 10, "Resources/tank1.png")); //correct this
-    private Player p1 = new Player("Red", new Picture(10 + 400, 10 + 400, "Resources/Sombreiro 02 transparente (200 X 200).png")); //correct this
+    private Player p2 = new Player("Red", new Picture(10, 10, "Resources/tank1.png")); //correct this
+    private Player p1 = new Player("Blue", new Picture(10 + 400, 10 + 400, "Resources/Sombreiro 02 transparente (200 X 200).png")); //correct this
     private Player activePlayer = p1;
 
     private int rounds = 1; //if we want to keep track of the number of rounds.
@@ -29,7 +29,7 @@ public class GameLogic {
         territoryArray = board.getTerritories();
         grid.init(territoryArray);
 
-        textToDisplay = new Text(290, 290, "Attack Phase");
+        textToDisplay = new Text(290, 290, "Press Any Key");
         textToDisplay.draw();
         textToDisplay.grow(60, 60);
 

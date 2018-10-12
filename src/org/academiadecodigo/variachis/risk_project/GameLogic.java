@@ -19,7 +19,7 @@ public class GameLogic {
     //private int maxRounds = 11; //doubtful
     private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
-    private boolean attackDone = false;
+    //private boolean attackDone = false;
 
     public void init() {
 
@@ -74,15 +74,15 @@ public class GameLogic {
 
     public void attack() {
 
-        while (!attackDone) {
+        //while (!attackDone) {
 
-            //check if territoryArray that we are attacking from has more than 1 soldier
-            //System.out.println(board.verifyTerritorySelected());
-            if (board.getTerritoryOrigin().getSoldiers() <= 1) {
-                //choose another territoryArray to attack from
-                //  System.out.println("verify if territory only 1");
-                return;
-            }
+        //check if territoryArray that we are attacking from has more than 1 soldier
+        //System.out.println(board.verifyTerritorySelected());
+        if (board.getTerritoryOrigin().getSoldiers() <= 1) {
+            //choose another territoryArray to attack from
+            //  System.out.println("verify if territory only 1");
+            return;
+        }
             /* //gets the territoryArray (movement) that the player wants to attack (defined in Player).
             //check if the movement is allowed
             //board.moveToTerritory(movement);
@@ -90,18 +90,20 @@ public class GameLogic {
             //needs to keep checking if new move is allowed...
             //return; */
 
-            //check if territories have different owners
-            Territory territoryAttack = board.verifyTerritorySelected();
+        //check if territories have different owners
+        Territory territoryAttack = board.verifyTerritorySelected();
 
-            System.out.println("ter get P " + territoryAttack.getPlayer().getColor());
-            if (territoryAttack.getPlayer() == activePlayer) {
-                return;
-            }
-
-            board.battle(); // Changes in the board.battle method
-            attackDone = true;
+        System.out.println("ter get P " + territoryAttack.getPlayer().getColor());
+        if (territoryAttack.getPlayer() == activePlayer) {
+            return;
         }
+
+        board.battle(); // Changes in the board.battle method
+        grid.loadNumberSoldiers();
+        grid.showNumberSoldiers();
+        //attackDone = true;
     }
+    //}
 
   /*  public void reinforce() {
 

@@ -13,7 +13,6 @@ public class Grid {
     private int y;
     private String numSoldiers;
     private Territory[][] territory;
-
     private Player p1;
 
     private Player activePlayer = p1;
@@ -91,6 +90,7 @@ public class Grid {
                 // System.out.println("j: " + j);
 
                 numSoldiers = Integer.toString(territory[i][j].getSoldiers());
+
                 //   System.out.println(numSoldiers);
 
                 //  System.out.println("territory array " + territory[i][j]);
@@ -98,26 +98,26 @@ public class Grid {
                 // System.out.println("t + p " + territory[i][j].getPlayer().getColor());
 
                 if (territory[i][j].getPlayer() == null) {
-                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
-                    text.grow(25, 25);
-                    text.draw();
-                    text.setColor(Color.WHITE);
+                    territory[i][j].setText(i * cellSize + 0.5 * cellSize,j * cellSize + 0.5 * cellSize, Color.WHITE);
                     continue;
                 }
 
                 if (territory[i][j].getPlayer().getColor().equals("Red")) {
-                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
-                    text.grow(25, 25);
-                    text.draw();
-                    text.setColor(Color.RED);
+                    territory[i][j].setText(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize,Color.RED);
                 }
 
                 if (territory[i][j].getPlayer().getColor().equals("Blue")) {
-                    Text text = new Text(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize, numSoldiers);
-                    text.grow(25, 25);
-                    text.draw();
-                    text.setColor(Color.BLUE);
+                    territory[i][j].setText(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize,Color.BLUE);
                 }
+            }
+        }
+    }
+
+    public void loadNumberSoldiers() {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+
+
             }
         }
     }

@@ -1,21 +1,27 @@
 package org.academiadecodigo.variachis.risk_project;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
+
 public class Territory {
 
     private boolean conquered = false;
     //private int soldiersTurn = 1; //??
     private int position;
-    private int row;
     private int column;
+    private int row;
     private int soldiers;
     private boolean selected;
     private Player player;
+    private Text text;
 
 
-    public Territory(int row, int column) {
-        this.row = row;
+    public Territory(int column, int row) {
         this.column = column;
+        this.row = row;
         this.position = row + column; //??
+
+
     }
 
     /* public Territory(int position, String name) {
@@ -29,12 +35,14 @@ public class Territory {
 
     public void setSoldiers(int s) {
         this.soldiers = s;
+
     }
 
     public void setSoldiersIn(int s) {
         System.out.println("previous ammount of soldiers is: " + this.soldiers);
         System.out.println("incrementing by: " + s);
         this.soldiers = this.soldiers + s;
+
     }
 
     public void setSoldiersOut(int s) {
@@ -45,13 +53,12 @@ public class Territory {
         this.soldiers = s;
     }
 
-    public int getRow() {
-        return this.row;
-    }
-
-
     public int getColumn() {
         return this.column;
+    }
+
+    public int getRow() {
+        return this.row;
     }
 
 
@@ -96,6 +103,15 @@ public class Territory {
         return soldiers = 1;
     }
 
+    public void setText(double x, double y, Color color) {
+if (text!=null){
+    text.delete();
+}
+        this.text = new Text(x,y,((Integer)soldiers).toString());
+        text.grow(25, 25);
+        text.draw();
+        text.setColor(color);
+    }
 
     @Override
     public String toString() {

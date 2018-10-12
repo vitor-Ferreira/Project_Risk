@@ -9,7 +9,6 @@ public class GameKeyboard implements KeyboardHandler {
 
     private GameLogic game;
     private Board board;
-    private Grid grid;
 
     public void setGame(GameLogic game) {
         this.game = game;
@@ -19,17 +18,12 @@ public class GameKeyboard implements KeyboardHandler {
         this.board = board;
     }
 
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
-
     public void runKeyboard() {
 
         Keyboard k = new Keyboard(this);
 
         KeyboardEvent select = new KeyboardEvent();
-        select.setKey(KeyboardEvent.KEY_S); //cada tecla que queremos mapear é um novo evento,
-        // por isso temos que criar um novo evento a cada tecla nova à qual queremos atribuir cenas.
+        select.setKey(KeyboardEvent.KEY_S);
         select.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         k.addEventListener(select);
 
@@ -64,19 +58,19 @@ public class GameKeyboard implements KeyboardHandler {
 
         switch (evt.getKey()) {
 
-            case KeyboardEvent.KEY_S: //selects current territory and sets it as territoryOrigin
+            case KeyboardEvent.KEY_S:
                 board.setTerritoryOrigin(board.verifyTerritorySelected());
                 System.out.println("S PRESSED");
                 break;
 
-            case KeyboardEvent.KEY_A: //selects a territory to attack
+            case KeyboardEvent.KEY_A:
                 board.setTerritoryDestiny(board.verifyTerritorySelected());
                 game.round();
                 System.out.println("A PRESSED");
                 break;
 
             case KeyboardEvent.KEY_LEFT:
-                game.moveActivePlayer(Movement.LEFT); //moves selection rectangle in Grid
+                game.moveActivePlayer(Movement.LEFT);
                 System.out.println("LEFT KEY PRESSED");
                 break;
 
@@ -98,7 +92,7 @@ public class GameKeyboard implements KeyboardHandler {
     }
 
     @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) { //not needed for now.
-        //
+    public void keyReleased(KeyboardEvent keyboardEvent) {
+
     }
 }

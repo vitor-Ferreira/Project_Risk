@@ -6,20 +6,13 @@ public class Player {
 
     private String color;
     private Picture picture;
-    //private int soldiersOnTerritory;
     private int totalSoldiers;
     private Territory initialTerritory;
-    //private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //list of the player's owned territories. not needed for now.
-    //private int numberOfCurrentlyOwnedTerritories;
 
     public Player(String color, Picture picture) {
         this.color = color;
         this.picture = picture;
     }
-
-    /* public int checkSoldiersOnTerritory(Territory territory) {
-        return
-    } */
 
     public String getColor() {
         return color;

@@ -5,8 +5,6 @@ import org.academiadecodigo.simplegraphics.graphics.Text;
 
 public class Territory {
 
-    private boolean conquered = false;
-    //private int soldiersTurn = 1; //??
     private int position;
     private int column;
     private int row;
@@ -21,13 +19,7 @@ public class Territory {
         this.row = row;
         this.position = row + column; //??
 
-
     }
-
-    /* public Territory(int position, String name) {
-        this.position = position;
-        this.name = name;
-    } */
 
     public int getSoldiers() {
         return this.soldiers;
@@ -66,22 +58,11 @@ public class Territory {
         return position;
     }
 
-    public boolean isConquered() {
-        return conquered;
-    }
-
-    public boolean conquer() {
-        return conquered = true;
-    }
-
     public void select() {
-        // square.draw(); // this draws a square when the territory is selected
         this.selected = true;
     }
 
-
     public void unselect() {
-        //square.delete(); // this deletes a square when the territory is unselected
         this.selected = false;
     }
 

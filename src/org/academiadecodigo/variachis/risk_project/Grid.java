@@ -13,14 +13,8 @@ public class Grid {
     private int y;
     private String numSoldiers;
     private Territory[][] territory;
-    private Player p1;
-
-    private Player activePlayer = p1;
-
-    //private GridPosition gridPosition;
 
     private Rectangle[][] cellsArray = new Rectangle[6][6];
-    private Picture moveableImage;
 
     private int cellSize = 200;
 
@@ -41,8 +35,6 @@ public class Grid {
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                //  System.out.println("i: " + i);
-                // System.out.println("j: " + j);
                 Rectangle cell = new Rectangle(colsToX(i), rowToY(j), cellSize, cellSize);
                 cell.setColor(Color.BLACK);
                 cell.draw();
@@ -61,41 +53,12 @@ public class Grid {
         return y;
     }
 
-    /* public void movementImage() { //Por argumentos para as posicoes pois vai ser ussado para fazer o set dos 2 players
-
-        //  System.out.println("RED " + territory[0][0].getPlayer());
-        // System.out.println("BLUE" + territory[2][2].getPlayer());
-
-        if (territory[2][2].getPlayer().getColor().equals("Blue")) {
-            Picture movableImage = territory[2][2].getPlayer().getPicture();
-            moveableImage.draw();
-        }
-
-        if (territory[0][0].getPlayer().getColor().equals("Red")) {
-            //moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
-
-            moveableImage.draw();
-        }
-
-    } */
-
     public void showNumberSoldiers() {
-
-        //System.out.println(territory.getSoldiers());
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
 
-                // System.out.println("i: " + i);
-                // System.out.println("j: " + j);
-
                 numSoldiers = Integer.toString(territory[i][j].getSoldiers());
-
-                //   System.out.println(numSoldiers);
-
-                //  System.out.println("territory array " + territory[i][j]);
-
-                // System.out.println("t + p " + territory[i][j].getPlayer().getColor());
 
                 if (territory[i][j].getPlayer() == null) {
                     territory[i][j].setText(i * cellSize + 0.5 * cellSize,j * cellSize + 0.5 * cellSize, Color.WHITE);
@@ -109,15 +72,6 @@ public class Grid {
                 if (territory[i][j].getPlayer().getColor().equals("Blue")) {
                     territory[i][j].setText(i * cellSize + 0.5 * cellSize, j * cellSize + 0.5 * cellSize,Color.BLUE);
                 }
-            }
-        }
-    }
-
-    public void loadNumberSoldiers() {
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
-
-
             }
         }
     }

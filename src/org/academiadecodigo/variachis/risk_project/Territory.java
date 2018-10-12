@@ -19,7 +19,7 @@ public class Territory {
     public Territory(int column, int row) {
         this.column = column;
         this.row = row;
-        this.position = row + column; //??
+        this.position = row + column;
 
     }
 

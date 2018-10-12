@@ -159,7 +159,7 @@ public class Board implements Interface_Board {
             case LEFT:
                 if (territory.getColumn() > 0) {
                     game.getActivePlayer().moveLeft();
-                    if (territoriesArray[territory.getColumn() - 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
+                    if (territoriesArray[territory.getColumn() - 1][territory.getRow()].getPlayer() == null) {
                         territoriesArray[territory.getColumn() - 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                         System.out.println("Player: " + territory.getPlayer() + territory.getColumn());
                     }
@@ -178,7 +178,7 @@ public class Board implements Interface_Board {
             case UP:
                 if (territory.getRow() > 0) {
                     game.getActivePlayer().moveUp();
-                    if (territoriesArray[territory.getColumn()][territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
+                    if (territoriesArray[territory.getColumn()][territory.getRow() - 1].getPlayer() == null) {
                         territoriesArray[territory.getColumn()][territory.getRow() - 1].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getColumn()][territory.getRow() - 1].setSoldiersIn(territory.getSoldiers() - 1);
@@ -197,7 +197,7 @@ public class Board implements Interface_Board {
             case RIGHT:
                 if (territory.getColumn() < numCols - 1) {
                     game.getActivePlayer().moveRight();
-                    if (territoriesArray[territory.getColumn() + 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
+                    if (territoriesArray[territory.getColumn() + 1][territory.getRow()].getPlayer() == null) {
                         territoriesArray[territory.getColumn() + 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getColumn() + 1][territory.getRow()].setSoldiersIn(territory.getSoldiers() - 1);
@@ -215,7 +215,7 @@ public class Board implements Interface_Board {
             case DOWN:
                 if (territory.getRow() < numRows - 1) {
                     game.getActivePlayer().moveDown();
-                    if (territoriesArray[territory.getColumn()][territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
+                    if (territoriesArray[territory.getColumn()][territory.getRow() + 1].getPlayer() == null) {
                         territoriesArray[territory.getColumn()][territory.getRow() + 1].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
                     territoriesArray[territory.getColumn()][territory.getRow() + 1].setSoldiersIn(territory.getSoldiers() + 1);

@@ -5,12 +5,14 @@ import org.academiadecodigo.simplegraphics.graphics.Text;
 
 public class Territory {
 
-    private int position;
+    private Player player;
+    private int soldiers;
+
     private int column;
     private int row;
-    private int soldiers;
+    private int position;
+
     private boolean selected;
-    private Player player;
     private Text text;
 
 

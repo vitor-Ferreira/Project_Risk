@@ -1,6 +1,7 @@
 package org.academiadecodigo.variachis.risk_project;
 
 import org.academiadecodigo.simplegraphics.graphics.Text;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class GameLogic {
 
@@ -10,13 +11,12 @@ public class GameLogic {
     private Territory[][] territoryArray;
     private Text textToDisplay;
 
-    private Player p1 = new Player("Blue");
-    private Player p2 = new Player("Red");
+    private Player p2 = new Player("Blue", new Picture(10, 10, "Resources/tank1.png")); //correct this
+    private Player p1 = new Player("Red", new Picture(10 + 400, 10 + 400, "Resources/Sombreiro 02 transparente (200 X 200).png")); //correct this
     private Player activePlayer = p1;
-    //private Movement moveChoice;
 
     private int rounds = 1; //if we want to keep track of the number of rounds.
-    private int maxRounds = 11; //doubtful
+    //private int maxRounds = 11; //doubtful
     private RoundStage roundStage = RoundStage.ATTACK; //começamos no ataque
 
     private boolean attackDone = false;
@@ -25,12 +25,14 @@ public class GameLogic {
 
         grid = new Grid(3, 3);
         board = new Board(grid, 3, 3);
+        board.setGame(this);
         territoryArray = board.getTerritories();
         grid.init(territoryArray);
 
         textToDisplay = new Text(290, 290, "Attack Phase");
         textToDisplay.draw();
         textToDisplay.grow(60, 60);
+
         GameKeyboard keyboard = new GameKeyboard();
         keyboard.setGame(this);
         keyboard.setBoard(board);
@@ -39,34 +41,15 @@ public class GameLogic {
 
         board.addTerritoryToP1(p1);
         board.addTerritoryToP2(p2);
-        grid.movementImage();
+        //grid.movementImage();
         grid.showNumberSoldiers();
-    }
-
-    public void start() {
-
-        System.out.println("Current Round: " + rounds);
-
-        //System.out.println("round: " + rounds);
-
-        //attackDone = false;
-
-            /* if (rounds % 2 == 0) {
-                System.out.println("Player 2's turn");
-                board.beginRoundP2();
-                round();
-                rounds++;
-            }
-
-            board.beginRoundP1();
-            System.out.println("Player 1's turn");*/
-            round();
-        /** plano de acção: em vez de fazer a estratégia em cima descrita, fazer algo com activePlayer. a cada vez que activePlayer faz uma jogada, muda
-         * de P1 para P2 e vice-versa. Só há um activePlayer de cada vez. as jogadas (i.e movements, etc, aplicam-se em nome do activePlayer. **/
+        p1.getPicture().draw();
+        p2.getPicture().draw();
     }
 
     public void round() { //"o round é um jogo automático"; "premir uma tecla -> acção. dependendo da roundStage, significados diferentes."
 
+        System.out.println("Current Round: " + rounds);
 
         textToDisplay.setText(roundStage.toString());
 
@@ -93,18 +76,13 @@ public class GameLogic {
 
         while (!attackDone) {
 
-            //board.moveToTerritory(moveChoice);
-            //moveActivePlayer(move);
-
             //check if territoryArray that we are attacking from has more than 1 soldier
-            //if (board.verifyTerritorySelected().getSoldiers() <= 1) {
             //System.out.println(board.verifyTerritorySelected());
             if (board.getTerritoryOrigin().getSoldiers() <= 1) {
                 //choose another territoryArray to attack from
                 //  System.out.println("verify if territory only 1");
                 return;
             }
-
             /* //gets the territoryArray (movement) that the player wants to attack (defined in Player).
             //check if the movement is allowed
             //board.moveToTerritory(movement);
@@ -115,6 +93,7 @@ public class GameLogic {
             //check if territories have different owners
             Territory territoryAttack = board.verifyTerritorySelected();
 
+            System.out.println("ter get P " + territoryAttack.getPlayer().getColor());
             if (territoryAttack.getPlayer() == activePlayer) {
                 return;
             }
@@ -148,10 +127,6 @@ public class GameLogic {
         }
     } */
 
-    /* public void movePlayer(Movement movement) {
-        moveChoice = movement;
-    } */
-
     public void moveActivePlayer(Movement movement) {
 
         Movement move = movement;
@@ -159,27 +134,19 @@ public class GameLogic {
         switch (move) {
 
             case LEFT:
-                if (!attackDone) {
-                    board.moveToTerritory(Movement.LEFT);
-                }
+                activePlayer.move(Movement.LEFT);
                 return;
 
             case UP:
-                if (!attackDone) {
-                    board.moveToTerritory(Movement.UP);
-                }
+                activePlayer.move(Movement.UP);
                 return;
 
             case RIGHT:
-                if (!attackDone) {
-                    board.moveToTerritory(Movement.RIGHT);
-                }
+                activePlayer.move(Movement.RIGHT);
                 return;
 
             case DOWN:
-                if (!attackDone) {
-                    board.moveToTerritory(Movement.DOWN);
-                }
+                activePlayer.move(Movement.DOWN);
                 return;
         }
     }
@@ -194,6 +161,10 @@ public class GameLogic {
 
     public Player getActivePlayer() {
         return activePlayer;
+    }
+
+    public int getRounds() {
+        return rounds;
     }
 
     public enum RoundStage {

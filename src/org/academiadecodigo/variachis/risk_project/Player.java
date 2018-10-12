@@ -1,16 +1,20 @@
 package org.academiadecodigo.variachis.risk_project;
 
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 public class Player {
 
     private String color;
+    private Picture picture;
     //private int soldiersOnTerritory;
     private int totalSoldiers;
     private Territory initialTerritory;
     //private CurrentlyOwnedTerritories[] currentlyOwnedTerritories; //list of the player's owned territories. not needed for now.
     //private int numberOfCurrentlyOwnedTerritories;
 
-    public Player(String color) {
+    public Player(String color, Picture picture) {
         this.color = color;
+        this.picture = picture;
     }
 
     /* public int checkSoldiersOnTerritory(Territory territory) {
@@ -19,6 +23,10 @@ public class Player {
 
     public String getColor() {
         return color;
+    }
+
+    public Picture getPicture() {
+        return picture;
     }
 
     public void setColor(String color) {
@@ -41,24 +49,59 @@ public class Player {
         this.initialTerritory = initialTerritory;
     }
 
-    public Movement move(Movement movement) { //for now, allsoldiers-1 are moved
+    public void move(Movement movement) {
 
-        return movement; //attention: keyboard input.
+        Movement move = movement;
+
+        switch (move) {
+
+            case LEFT:
+                moveLeft();
+                return;
+
+            case UP:
+                moveUp();
+                return;
+
+            case RIGHT:
+                moveRight();
+                return;
+
+            case DOWN:
+                moveDown();
+                return;
+        }
     }
 
-    /* public String getCurrentlyOwnedTerritories() {
-        //get current total territories.
-        //not needed for now, as each territory knows who it belongs to.
-        for (int i = 0; i < currentlyOwnedTerritories.length; i++) {
-            System.out.println(currentlyOwnedTerritories[i]); // <--
+    public void moveLeft() {
+
+        if (picture.getX() > 10) {
+
+            picture.translate(-200, 0);
         }
-    } */
+    }
 
-    /* public void addConqueredTerritory(Territory territory) { //add newly conquered territory to list (not yet done) and counter
-        numberOfCurrentlyOwnedTerritories += 1;
-    } */
+    public void moveUp() {
 
-    /* public int getNumberOfCurrentlyOwnedTerritories() {
-        return numberOfCurrentlyOwnedTerritories;
-    } */
+        if (picture.getY() > 10) {
+
+            picture.translate(0, -200);
+        }
+    }
+
+    public void moveRight() {
+
+        if (picture.getX() + 200 < 3 * 200 + 10) {
+
+            picture.translate(200, 0);
+        }
+    }
+
+    public void moveDown() {
+
+        if (picture.getY() + 200 < 3 * 200 + 10) {
+
+            picture.translate(0, 200);
+        }
+    }
 }

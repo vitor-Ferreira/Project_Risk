@@ -2,6 +2,7 @@ package org.academiadecodigo.variachis.risk_project;
 
 public class Board implements Interface_Board {
 
+    private GameLogic game;
     private Grid grid;
     private int numCols;
     private int numRows;
@@ -23,8 +24,8 @@ public class Board implements Interface_Board {
         this.numRows = numRows;
         territoriesArray = new Territory[numCols][numRows];
         territoryMaker();
-        territoryOrigin = territoriesArray[0][0]; /** Problema em Origin: começa nulo! **/ //territory destiny when player moves
-        territoryDestiny = territoriesArray[1][1];
+        territoryOrigin = territoriesArray[2][2]; /** Problema em Origin: começa nulo! **/ //territory destiny when player moves
+        territoryDestiny = territoriesArray[2][2];
     }
 
     @Override
@@ -95,6 +96,7 @@ public class Board implements Interface_Board {
 
     @Override
     public void battle() {
+        System.out.println(territoryDestiny.getPlayer());
         int attackTroops = numberSoldiersAttacking - 1;//territoryOrigin.getSoldiers() - 1;
         // System.out.println("attack troops: " + attackTroops);
         System.out.println("territorydestiny: " + territoryDestiny);
@@ -124,6 +126,9 @@ public class Board implements Interface_Board {
             territoryDestiny.afterBattle(newAmount);//adds the result of battle on the territory
             //   System.out.println("territory destiny soldiers " + territoryDestiny.getSoldiers());
         }
+
+        System.out.println(territoryDestiny.getPlayer());
+        grid.showNumberSoldiers();
     }
 
 
@@ -208,7 +213,7 @@ public class Board implements Interface_Board {
 
             case LEFT:
                 if (territory.getColumn() > 0) {
-                    grid.moveLeft();
+                    game.getActivePlayer().moveLeft();
                     if (territoriesArray[territory.getColumn() - 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getColumn() - 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                         System.out.println("Player: " + territory.getPlayer() + territory.getColumn());
@@ -228,7 +233,7 @@ public class Board implements Interface_Board {
 
             case UP:
                 if (territory.getRow() > 0) {
-                    grid.moveUp();
+                    game.getActivePlayer().moveUp();
                     if (territoriesArray[territory.getColumn()][territory.getRow() - 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getColumn()][territory.getRow() - 1].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
@@ -248,7 +253,7 @@ public class Board implements Interface_Board {
 
             case RIGHT:
                 if (territory.getColumn() < numCols - 1) {
-                    grid.moveRight();
+                    game.getActivePlayer().moveRight();
                     if (territoriesArray[territory.getColumn() + 1][territory.getRow()].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getColumn() + 1][territory.getRow()].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
@@ -267,7 +272,7 @@ public class Board implements Interface_Board {
 
             case DOWN:
                 if (territory.getRow() < numRows - 1) {
-                    grid.moveDown();
+                    game.getActivePlayer().moveDown();
                     if (territoriesArray[territory.getColumn()][territory.getRow() + 1].getPlayer() == null) {//see if the territory doenst has a player
                         territoriesArray[territory.getColumn()][territory.getRow() + 1].setPlayer(territoriesArray[territory.getColumn()][territory.getRow()].getPlayer());
                     }
@@ -299,7 +304,6 @@ public class Board implements Interface_Board {
     public void addTerritoryToP2(Player player) {
         territoriesArray[0][0].setPlayer(player);
         territoriesArray[0][0].setSoldiersIn(20);
-
     }
 
     public void beginRoundP1() { //review this logic
@@ -322,5 +326,9 @@ public class Board implements Interface_Board {
 
     public void setTerritoryDestiny(Territory destiny) {
         territoryDestiny = destiny;
+    }
+
+    public void setGame(GameLogic game) {
+        this.game = game;
     }
 }

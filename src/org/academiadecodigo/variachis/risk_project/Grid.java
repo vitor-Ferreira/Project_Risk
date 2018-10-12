@@ -14,6 +14,10 @@ public class Grid {
     private String numSoldiers;
     private Territory[][] territory;
 
+    private Player p1;
+
+    private Player activePlayer = p1;
+
     //private GridPosition gridPosition;
 
     private Rectangle[][] cellsArray = new Rectangle[6][6];
@@ -58,59 +62,27 @@ public class Grid {
         return y;
     }
 
-    public void movementImage() { //Por argumentos para as posicoes pois vai ser ussado para fazer o set dos 2 players
+    /* public void movementImage() { //Por argumentos para as posicoes pois vai ser ussado para fazer o set dos 2 players
 
         //  System.out.println("RED " + territory[0][0].getPlayer());
         // System.out.println("BLUE" + territory[2][2].getPlayer());
 
-        if (territory[0][0].getPlayer().getColor().equals("Red")) {
-            moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
-            moveableImage.draw();
-        }
-
         if (territory[2][2].getPlayer().getColor().equals("Blue")) {
-            moveableImage = new Picture(PADDING + (territory[2][2].getColumn()) * cellSize, PADDING + (territory[2][2].getRow()) * cellSize, "Resources/Sombreiro 02 transparente (200 X 200).png");
+            Picture movableImage = territory[2][2].getPlayer().getPicture();
             moveableImage.draw();
         }
 
-    }
+        if (territory[0][0].getPlayer().getColor().equals("Red")) {
+            //moveableImage = new Picture(PADDING, PADDING, "Resources/tank1.png");
 
-    public void moveLeft() {
-
-        if (moveableImage.getX() > PADDING) {
-
-            moveableImage.translate(-cellSize, 0);
+            moveableImage.draw();
         }
-    }
 
-    public void moveUp() {
-
-        if (moveableImage.getY() > PADDING) {
-
-            moveableImage.translate(0, -cellSize);
-        }
-    }
-
-    public void moveRight() {
-
-        if (moveableImage.getX() + 200 < cols * cellSize + PADDING) {
-
-            moveableImage.translate(cellSize, 0);
-        }
-    }
-
-    public void moveDown() {
-
-        if (moveableImage.getY() + 200 < rows * cellSize + PADDING) {
-
-            moveableImage.translate(0, cellSize);
-        }
-    }
+    } */
 
     public void showNumberSoldiers() {
 
         //System.out.println(territory.getSoldiers());
-
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
@@ -138,8 +110,6 @@ public class Grid {
                     text.grow(25, 25);
                     text.draw();
                     text.setColor(Color.RED);
-
-                    //   System.out.println("Uff");
                 }
 
                 if (territory[i][j].getPlayer().getColor().equals("Blue")) {

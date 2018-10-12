@@ -71,26 +71,27 @@ public class GameKeyboard implements KeyboardHandler {
 
             case KeyboardEvent.KEY_A: //selects a territory to attack
                 board.setTerritoryDestiny(board.verifyTerritorySelected());
+                game.round();
                 System.out.println("A PRESSED");
                 break;
 
             case KeyboardEvent.KEY_LEFT:
-                grid.moveLeft(); //moves selection rectangle in Grid
+                game.moveActivePlayer(Movement.LEFT); //moves selection rectangle in Grid
                 System.out.println("LEFT KEY PRESSED");
                 break;
 
             case KeyboardEvent.KEY_UP:
-                grid.moveUp();
+                game.moveActivePlayer(Movement.UP);
                 System.out.println("UP KEY PRESSED");
                 break;
 
             case KeyboardEvent.KEY_RIGHT:
-                grid.moveRight();
+                game.moveActivePlayer(Movement.RIGHT);
                 System.out.println("RIGHT KEY PRESSED");
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                grid.moveDown();
+                game.moveActivePlayer(Movement.DOWN);
                 System.out.println("DOWN KEY PRESSED");
                 break;
         }

@@ -17,7 +17,7 @@
 [Gustavo Mancebo](https://github.com/gusmancebo)
 
 
-### Project developed during the 4th week of Academia de Código's 8th bootcamp.
+### Project developed during the 4th week of Academia de Código's 18th bootcamp.
 
 **Concepts learned until now:**
 
@@ -43,3 +43,4 @@ Nested Classes
 
 
 ## Los Astonishing VARiachis against the Space-American Reptilians
+
